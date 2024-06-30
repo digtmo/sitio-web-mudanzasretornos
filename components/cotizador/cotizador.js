@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import ReservationScreen from './ReservationScreen';
-import ProductGrid from './ProductGrid';
-import SuccessModal from './modalExito';
-import ErrorModal from "./modalError";
+import ReservationScreen from "./reservationScreen.js";
+import ProductGrid from "./productGrid.js";
+import SuccessModal from "./modalExito.js";
+import ErrorModal from "./modalError.js";
 
 const MainComponent = () => {
   const [totalVolume, setTotalVolume] = useState(0);
