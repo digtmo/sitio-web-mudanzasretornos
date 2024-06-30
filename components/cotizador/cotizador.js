@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ReservationScreen from "./reservationScreen.js";
-import ProductGrid from "./productGrid.js";
+/* import ProductGrid from "./productGrid.js"; */
 import SuccessModal from "./modalExito.js";
 import ErrorModal from "./modalError.js";
 

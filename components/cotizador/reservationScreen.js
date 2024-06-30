@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
-import SuccessModal from './modalExito';
-import ErrorModal from "./modalError";
+import SuccessModal from './modalExito.js';
+import ErrorModal from "./modalError.js";
 /* import {ClipLoader} */
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
