@@ -9,7 +9,7 @@ const ServiceOne = () => {
         },
         {
             img: "arica.jpg",
-            title: "Los Ángeles - Arica"
+            title: "Los Ángeles - Norte de Chile"
         },
         {
             img: "concepcion.jpg",
@@ -45,9 +45,8 @@ const ServiceOne = () => {
                                     </div>
                                     <div className="content-box">
                                         <i className="icon flaticon-airplane-2" />
-                                        <span className="sub-title">01 Service</span>
+                                        <span className="sub-title">Principales rutas</span>
                                         <h4 className="title"><Link href="/page-service-details">{item.title}</Link></h4>
-                                        <div className="text">Lorem ipsum dolor sit amet, consectetur adipiscing</div>
                                     </div>
                                 </div>
                             </div>

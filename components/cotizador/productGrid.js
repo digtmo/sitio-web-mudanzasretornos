@@ -14,8 +14,8 @@ const ProductCard = ({ title, imageUrl, onClick }) => (
       <Image
         src={imageUrl}
         alt={`${title} icon`}
-        width={400}
-        height={400}
+        width={100}
+        height={100}
         className="mx-auto"
       />
     </div>
@@ -120,8 +120,8 @@ const ProductGrid = ({ onTotalVolumeChange, setQuantities, quantities }) => {
     dots: true,
     infinite: false,
     speed: 500,
-    slidesToShow: 7,
-    slidesToScroll: 7,
+    slidesToShow: 1,
+    slidesToScroll: 1,
     responsive: [
       {
         breakpoint: 1024,
@@ -146,7 +146,7 @@ const ProductGrid = ({ onTotalVolumeChange, setQuantities, quantities }) => {
     dots: true,
     infinite: false,
     speed: 500,
-    slidesToShow: 6,
+    slidesToShow: 5,
     slidesToScroll: 5,
     responsive: [
       {
@@ -171,7 +171,7 @@ const ProductGrid = ({ onTotalVolumeChange, setQuantities, quantities }) => {
   };
 
   return (
-    <div className="w-full lg:w-2/3 flex flex-col justify-center">
+    <div className="w-full lg:w-2/3 flex flex-col justify-center product-grid">
       <div className="sticky top-0 bg-white">
         <Slider {...categorySettings} className="category-slider">
           {Object.keys(data).map((category, index) => (

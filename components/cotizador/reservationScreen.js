@@ -3,7 +3,7 @@ import axios from 'axios';
 import Image from 'next/image';
 import SuccessModal from './modalExito.js';
 import ErrorModal from "./modalError.js";
-/* import {ClipLoader} */
+import ClipLoader from "react-spinners/ClipLoader";
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -36,9 +36,11 @@ function ReservationScreen({ totalVolume, onTotalVolumeChange, quantities }) {
     const [showTransferenciaModal, setShowTransferenciaModal] = useState(false);
     const [discountedAmount, setDiscountedAmount] = useState(0);
     const [transferAmount, setTransferAmount] = useState(0);
+    const [pagoWebPay, setPagoWebPay] = useState(0);
     const [showSuccessModal, setShowSuccessModal] = useState(false);
     const [showErrorModal, setShowErrorModal] = useState(false);
     const [validationError, setValidationError] = useState('');
+
 
     useEffect(() => {
         const fetchComunas = async () => {
@@ -113,6 +115,21 @@ function ReservationScreen({ totalVolume, onTotalVolumeChange, quantities }) {
         setShowTransferenciaModal(false);
     };
 
+    const handleServiceSelection = (service) => {
+        setSelectedService(service);
+
+        // Calculate discountedAmount and transferAmount based on selected service
+        if (cotizacion && cotizacion[service]) {
+            const selectedCotizacionValue = cotizacion[service];
+            const pagoWebPay = Math.round(selectedCotizacionValue * 0.10)
+            const discounted = Math.round(selectedCotizacionValue * 0.85);
+            const transfer = Math.round(discounted * 0.10);
+            setDiscountedAmount(discounted);
+            setTransferAmount(transfer);
+            setPagoWebPay(pagoWebPay)
+        }
+    };
+
     const handleTransferenciaClick = () => {
         if (selectedService && cotizacion) {
             const selectedCotizacionValue = cotizacion[selectedService];
@@ -126,29 +143,29 @@ function ReservationScreen({ totalVolume, onTotalVolumeChange, quantities }) {
 
     const handleWebpayClick = async () => {
         if (selectedService && cotizacion) {
-          const amount = cotizacion[selectedService];
-          setShowSpinner(true);
-          try {
-            const response = await axios.post('http://localhost:3001/webpay/transaction', { amount });
-            console.log('Session ID:', response.data.sessionId);
-            console.log('Token:', response.data.token);
+            const amount = pagoWebPay;
+            setShowSpinner(true);
+            try {
+                const response = await axios.post('http://localhost:3000/webpay/transaction', { amount });
+                console.log('Session ID:', response.data.sessionId);
+                console.log('Token:', response.data.token);
 
-            console.log(response.data.url)
-            
-
-            // Aquí rediriges al usuario a la URL de Webpay usando el token
-            window.location.href = `${response.data.url}?token_ws=${response.data.token}`;
+                console.log(response.data.url)
 
 
-            console.log(response.data.url, response.data.token);
-          } catch (error) {
-            console.error('Error en la transacción:', error);
-            setShowSpinner(false);
-            setShowErrorModal(true);
-          }
+                // Aquí rediriges al usuario a la URL de Webpay usando el token
+                window.location.href = `${response.data.url}?token_ws=${response.data.token}`;
+
+
+                console.log(response.data.url, response.data.token);
+            } catch (error) {
+                console.error('Error en la transacción:', error);
+                setShowSpinner(false);
+                setShowErrorModal(true);
+            }
         }
-      };
-      
+    };
+
 
     const handleConfirmTransfer = async () => {
         const formDataToSend = { ...formData };
@@ -185,6 +202,82 @@ function ReservationScreen({ totalVolume, onTotalVolumeChange, quantities }) {
             setShowErrorModal(true);
         }
     };
+
+    const settings = {
+        dots: true,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 4, // Mostrar cinco slides en pantallas grandes
+        slidesToScroll: 1, // Desplazar uno a la vez
+        responsive: [
+            {
+                breakpoint: 1024, // Ajustar según tus necesidades
+                settings: {
+                    slidesToShow: 3, // Mostrar tres slides en tablets
+                    slidesToScroll: 1,
+                }
+            },
+            {
+                breakpoint: 640, // Ajustar según tus necesidades
+                settings: {
+                    slidesToShow: 1, // Mostrar solo un slide en móvil
+                    slidesToScroll: 1,
+                }
+            }
+        ]
+    };
+
+    const SelectedServiceModal = ({
+        selectedService,
+        handleTransferenciaClick,
+        handleWebpayClick,
+        discountedAmount,
+        transferAmount,
+        onClose
+    }) => {
+        return (
+            <div className="modal-background">
+                <div className="modal-container max-w-md">
+                    <h2 className="modal-header">Servicio Seleccionado: {selectedService}</h2>
+                    <p className="selected-service-description">
+                        Para hacer tu reserva debes pagar el 10% del total de tu reserva
+                    </p>
+                    <div className="flex-container flex-column">
+                        <button
+                            className="bg-gray-100 p-4 rounded-md text-left focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                            onClick={handleTransferenciaClick}
+                        >
+                            <h3 className="font-semibold text-lg">Transferencia</h3>
+                            <p>Aplica un 15% descuento</p>
+                        </button>
+                        <button
+                            className="bg-gray-100 p-4 rounded-md text-left focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                            onClick={handleWebpayClick}
+                        >
+                            <h3 className="font-semibold text-lg">Webpay</h3>
+                            <p>Debito y Credito</p>
+                        </button>
+                    </div>
+                    {selectedService && (
+                        <>
+                            <p className="mt-4">Valor con descuento: ${discountedAmount.toLocaleString('es-CL')}</p>
+                            <p className="mt-2">Monto a transferir (10%): ${transferAmount.toLocaleString('es-CL')}</p>
+                        </>
+                    )}
+                    <div className="flex justify-center mt-4">
+                        <button
+                            className="bg-gray-500 text-white py-2 px-6 rounded-md hover:bg-gray-600"
+                            onClick={onClose}
+                        >
+                            Cerrar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
+    console.log(discountedAmount, transferAmount)
 
     return (
         <div className="container">
@@ -374,103 +467,91 @@ function ReservationScreen({ totalVolume, onTotalVolumeChange, quantities }) {
             </div>
 
             {showModal && (
-                <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50">
-                    <div className="bg-white p-8 rounded-lg shadow-lg max-w-4xl w-full">
-                        <h2 className="text-2xl font-bold mb-2 text-center">Elige tu servicio</h2>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-                            {cotizacion &&
-                                Object.entries(cotizacion).map(([key, value]) => (
-                                    <div
-                                        key={key}
-                                        className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow duration-200"
-                                        onClick={() => setSelectedService(key)}
-                                    >
-                                        <img
-                                            className="w-full h-48 object-cover"
-                                            src="/images/blog/image-1.jpg"
-                                            alt="Meaningful alt text for an image that is not purely decorative"
-                                        />
-                                        <div className="p-5">
-                                            <h5 className="text-2xl font-bold tracking-tight text-gray-900">
-                                                {key}
-                                            </h5>
-                                            <p className="font-normal text-gray-700 mt-2">
-                                                Todos sus articulos serán descagados en su origen y cargados en su destino.
-                                            </p>
-                                            <p className="font-normal text-gray-700 mt-2">
-                                                Precio: ${value.toLocaleString('es-CL')}
-                                            </p>
-                                        </div>
-                                    </div>
-                                ))}
-                        </div>
-                        {selectedService && (
-                            <div className="mt-4">
-                                <p className="text-center mb-4">Para hacer tu reserva debes pagar el 10% del total de tu reserva</p>
-                                <div className="grid grid-cols-1 gap-4">
-                                    <button
-                                        className="bg-gray-100 p-4 rounded-md text-left focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                                        onClick={handleTransferenciaClick}
-                                    >
-                                        <h3 className="font-semibold text-lg">Transferencia</h3>
-                                        <p>Aplica un 15% descuento</p>
-                                    </button>
-                                    <button
-                                        className="bg-gray-100 p-4 rounded-md text-left focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                                        onClick={handleWebpayClick}
-                                    >
-                                        <h3 className="font-semibold text-lg">Webpay</h3>
-                                        <p>Debito y Credito</p>
-                                    </button>
-                                </div>
-                            </div>
-                        )}
-                        <div className="flex justify-end mt-4">
-                            <button
-                                className="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600"
-                                onClick={closeModal}
-                            >
-                                Cerrar
-                            </button>
-                        </div>
+        <div className="modal-background">
+          <div className="modal-container">
+            <h2 className="modal-header">Elige tu servicio</h2>
+            <Slider {...settings}>
+              {cotizacion &&
+                Object.entries(cotizacion).map(([key, value]) => (
+                  <div
+                    key={key}
+                    className="card"
+                    onClick={() => handleServiceSelection(key)}
+                  >
+                    <img
+                      src="/images/blog/image-1.jpg"
+                      alt="Meaningful alt text for an image that is not purely decorative"
+                    />
+                    <div className="card-content">
+                      <h5 className="card-title">{key}</h5>
+                      <p className="card-text">
+                        Todos sus articulos serán descagados en su origen y cargados en su destino.
+                      </p>
+                      <p className="card-text">
+                        Precio: ${value.toLocaleString('es-CL')}
+                      </p>
                     </div>
-                </div>
-            )}
+                  </div>
+                ))}
+            </Slider>
+            <div className="button-container">
+              <button
+                className="button"
+                onClick={closeModal}
+              >
+                Cerrar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
-            {showTransferenciaModal && (
-                <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50">
-                    {showSuccessModal && <SuccessModal title="Reserva Agendada" onClose={() => { setShowSuccessModal(false); onClose(); }} />}
-                    {showErrorModal && <ErrorModal title="Error al reservar" onClose={() => setShowErrorModal(false)} />}
-                    <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
-                        <h2 className="text-2xl font-bold mb-4 text-center">Detalles de Transferencia</h2>
-                        <p>Banco: Banco Ejemplo</p>
-                        <p>Cuenta: 123456789</p>
-                        <p>RUT: 12.345.678-9</p>
-                        <p>Correo: ejemplo@banco.cl</p>
-                        <p className="mt-2">Confirme la transferencia una vez realizada la misma.</p>
-                        {selectedService && (
-                            <>
-                                <p className="mt-4">Valor con descuento: ${discountedAmount.toLocaleString('es-CL')}</p>
-                                <p className="mt-2">Monto a transferir (10%): ${transferAmount.toLocaleString('es-CL')}</p>
-                            </>
-                        )}
-                        <div className="flex justify-center mt-4">
-                            <button
-                                className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-md mr-2"
-                                onClick={handleConfirmTransfer}
-                            >
-                                Confirmar Transferencia
-                            </button>
-                            <button
-                                className="bg-gray-500 text-white py-2 px-6 rounded-md hover:bg-gray-600"
-                                onClick={closeTransferenciaModal}
-                            >
-                                Cerrar
-                            </button>
-                        </div>
-                    </div>
-                </div>
+{selectedService && (
+        <SelectedServiceModal
+          selectedService={selectedService}
+          handleTransferenciaClick={handleTransferenciaClick}
+          handleWebpayClick={handleWebpayClick}
+          discountedAmount={discountedAmount}
+          transferAmount={transferAmount}
+          onClose={() => setSelectedService(null)} // Ajusta el manejo de cierre según tu lógica
+          
+        />
+      )}
+
+           {showTransferenciaModal && (
+        <div className="modal-background">
+          {showSuccessModal && <SuccessModal title="Reserva Agendada" onClose={() => { setShowSuccessModal(false); onClose(); }} />}
+          {showErrorModal && <ErrorModal title="Error al reservar" onClose={() => setShowErrorModal(false)} />}
+          <div className="modal-container max-w-md">
+            <h2 className="modal-header">Detalles de Transferencia</h2>
+            <p>Banco: Banco Ejemplo</p>
+            <p>Cuenta: 123456789</p>
+            <p>RUT: 12.345.678-9</p>
+            <p>Correo: ejemplo@banco.cl</p>
+            <p className="mt-2">Confirme la transferencia una vez realizada la misma.</p>
+            {selectedService && (
+              <>
+                <p className="mt-4">Valor con descuento: ${discountedAmount.toLocaleString('es-CL')}</p>
+                <p className="mt-2">Monto a transferir (10%): ${transferAmount.toLocaleString('es-CL')}</p>
+              </>
             )}
+            <div className="flex justify-center mt-4">
+              <button
+                className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-md mr-2"
+                onClick={handleConfirmTransfer}
+              >
+                Confirmar Transferencia
+              </button>
+              <button
+                className="bg-gray-500 text-white py-2 px-6 rounded-md hover:bg-gray-600"
+                onClick={closeTransferenciaModal}
+              >
+                Cerrar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
         </div>
     );
 }

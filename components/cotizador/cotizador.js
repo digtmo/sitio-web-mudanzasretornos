@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ReservationScreen from "./reservationScreen.js";
-/* import ProductGrid from "./productGrid.js"; */
+import ProductGrid from "./productGrid.js"; 
 import SuccessModal from "./modalExito.js";
 import ErrorModal from "./modalError.js";
 
@@ -41,12 +41,12 @@ const MainComponent = () => {
         quantities={quantities}
         onTransactionSuccess={handleTransactionSuccess}
         onTransactionError={handleTransactionError}
-      />
- {/*      <ProductGrid
+      /> 
+      <ProductGrid
         onTotalVolumeChange={setTotalVolume}
         setQuantities={setQuantities}
         quantities={quantities}
-      /> */}
+      /> 
     </div>
   );
 };
