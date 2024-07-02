@@ -20,7 +20,7 @@ const ProductCard = ({ title, imageUrl, onClick }) => (
       />
     </div>
     <div className="text-container">
-      <div className="flex items-center justify-center mt-5">
+      <div className="flex items-center justify-center">
         <span className="title">{title}</span>
       </div>
     </div>
@@ -117,7 +117,7 @@ const ProductGrid = ({ onTotalVolumeChange, setQuantities, quantities }) => {
   };
 
   const settings = {
-    dots: true,
+    dots: false,
     infinite: false,
     speed: 500,
     slidesToShow: 1,
@@ -129,7 +129,7 @@ const ProductGrid = ({ onTotalVolumeChange, setQuantities, quantities }) => {
           slidesToShow: 4,
           slidesToScroll: 4,
           infinite: true,
-          dots: true
+          dots: false
         }
       },
       {
@@ -143,7 +143,7 @@ const ProductGrid = ({ onTotalVolumeChange, setQuantities, quantities }) => {
   };
 
   const categorySettings = {
-    dots: true,
+    dots: false,
     infinite: false,
     speed: 500,
     slidesToShow: 5,
@@ -155,7 +155,7 @@ const ProductGrid = ({ onTotalVolumeChange, setQuantities, quantities }) => {
           slidesToShow: 3,
           slidesToScroll: 2,
           infinite: true,
-          dots: true
+          dots: false
         }
       },
       {
@@ -185,7 +185,7 @@ const ProductGrid = ({ onTotalVolumeChange, setQuantities, quantities }) => {
           ))}
         </Slider>
       </div>
-      <div className={`mt-12 ${selectedCategory ? 'block' : 'hidden'} lg:block`}>
+      <div className={`mt-20 ${selectedCategory ? 'block' : 'hidden'} lg:block`}>
         {selectedCategory && (
           <Slider {...settings} className="article-slider">
             {data[selectedCategory].map(item => (

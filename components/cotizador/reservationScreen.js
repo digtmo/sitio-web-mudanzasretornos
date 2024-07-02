@@ -28,6 +28,8 @@ function ReservationScreen({ totalVolume, onTotalVolumeChange, quantities }) {
         fechaMudanza: '',
         observaciones: '',
         retorno: false,
+        tipoViviendaOrigen: 'Casa', // Valor por defecto para tipo de vivienda de origen
+        tipoViviendaDestino: 'Casa', // Valor por defecto para tipo de vivienda de destino
     });
     const [comunas, setComunas] = useState([]);
     const [cotizacion, setCotizacion] = useState(null);
@@ -37,9 +39,11 @@ function ReservationScreen({ totalVolume, onTotalVolumeChange, quantities }) {
     const [discountedAmount, setDiscountedAmount] = useState(0);
     const [transferAmount, setTransferAmount] = useState(0);
     const [pagoWebPay, setPagoWebPay] = useState(0);
+    const [pagoWebPayTotal, setPagoWebPayTotal] = useState(0);
     const [showSuccessModal, setShowSuccessModal] = useState(false);
     const [showErrorModal, setShowErrorModal] = useState(false);
     const [validationError, setValidationError] = useState('');
+    const [selectedImage, setSelectedImage] = useState(null); // imagen de transferencia
 
 
     useEffect(() => {
@@ -115,18 +119,21 @@ function ReservationScreen({ totalVolume, onTotalVolumeChange, quantities }) {
         setShowTransferenciaModal(false);
     };
 
+
     const handleServiceSelection = (service) => {
         setSelectedService(service);
 
         // Calculate discountedAmount and transferAmount based on selected service
         if (cotizacion && cotizacion[service]) {
             const selectedCotizacionValue = cotizacion[service];
+            const pagoWebPayTotal = Math.round(selectedCotizacionValue)
             const pagoWebPay = Math.round(selectedCotizacionValue * 0.10)
             const discounted = Math.round(selectedCotizacionValue * 0.85);
             const transfer = Math.round(discounted * 0.10);
             setDiscountedAmount(discounted);
             setTransferAmount(transfer);
             setPagoWebPay(pagoWebPay)
+            setPagoWebPayTotal(pagoWebPayTotal)
         }
     };
 
@@ -141,12 +148,33 @@ function ReservationScreen({ totalVolume, onTotalVolumeChange, quantities }) {
         setShowTransferenciaModal(true);
     };
 
+
+
     const handleWebpayClick = async () => {
         if (selectedService && cotizacion) {
+            const formDataToSend = { ...formData };
+            const articles = Object.entries(quantities).map(([id, quantity]) => ({
+                id,
+                quantity,
+            }));
+
+            let pagoWebPayPendiente = pagoWebPayTotal - pagoWebPay
+
+            const dataToSend = {
+                ...formDataToSend,
+                totalVolume: Math.round(totalVolume),
+                articles,
+                selectedService,
+                pagado: pagoWebPay,
+                pendiente_pago: pagoWebPayPendiente,
+            };
+
+
+
             const amount = pagoWebPay;
             setShowSpinner(true);
             try {
-                const response = await axios.post('http://localhost:3000/webpay/transaction', { amount });
+                const response = await axios.post('https://backend-econotrans.digtmo.com/webpay/transaction', { amount, dataToSend });
                 console.log('Session ID:', response.data.sessionId);
                 console.log('Token:', response.data.token);
 
@@ -167,6 +195,7 @@ function ReservationScreen({ totalVolume, onTotalVolumeChange, quantities }) {
     };
 
 
+
     const handleConfirmTransfer = async () => {
         const formDataToSend = { ...formData };
         const articles = Object.entries(quantities).map(([id, quantity]) => ({
@@ -183,23 +212,40 @@ function ReservationScreen({ totalVolume, onTotalVolumeChange, quantities }) {
             transferAmount: Math.round(transferAmount),
         };
 
-        console.log(dataToSend)
+        console.log(selectedImage)
+
+        const transferData = new FormData();
+        transferData.append('data', JSON.stringify(dataToSend));
+        if (selectedImage) {
+            transferData.append('imagen', selectedImage);
+        }
 
         setShowSpinner(true);
 
         try {
-            const response = await axios.post('https://backend-econotrans.digtmo.com/v1/reservasc', dataToSend);
-            console.log('Transferencia confirmada:', response.data);
+            const response = await axios.post('https://backend-econotrans.digtmo.com/v1/reservasc', transferData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            console.log('Data enviada:');
+            console.log(transferData)
             if (response.status === 201) {
                 setShowSpinner(false);
                 setShowSuccessModal(true);
             } else {
-                setShowSpinner(false)
+                setShowSpinner(false);
                 setShowErrorModal(true);
             }
         } catch (error) {
-            setShowSpinner(false)
+            setShowSpinner(false);
             setShowErrorModal(true);
+        }
+    };
+
+    const handleImageChange = (e) => {
+        if (e.target.files && e.target.files[0]) {
+            setSelectedImage(e.target.files[0]);
         }
     };
 
@@ -237,7 +283,7 @@ function ReservationScreen({ totalVolume, onTotalVolumeChange, quantities }) {
     }) => {
         return (
             <div className="modal-background">
-                <div className="modal-container max-w-md">
+                <div className="modal-container-servicio-seleccionado">
                     <h2 className="modal-header">Servicio Seleccionado: {selectedService}</h2>
                     <p className="selected-service-description">
                         Para hacer tu reserva debes pagar el 10% del total de tu reserva
@@ -249,6 +295,12 @@ function ReservationScreen({ totalVolume, onTotalVolumeChange, quantities }) {
                         >
                             <h3 className="font-semibold text-lg">Transferencia</h3>
                             <p>Aplica un 15% descuento</p>
+                            {selectedService && (
+                                <>
+                                    <p className="mt-4">Valor con descuento: ${discountedAmount.toLocaleString('es-CL')}</p>
+                                    <p className="mt-2">Monto a transferir (10%): ${transferAmount.toLocaleString('es-CL')}</p>
+                                </>
+                            )}
                         </button>
                         <button
                             className="bg-gray-100 p-4 rounded-md text-left focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
@@ -256,18 +308,28 @@ function ReservationScreen({ totalVolume, onTotalVolumeChange, quantities }) {
                         >
                             <h3 className="font-semibold text-lg">Webpay</h3>
                             <p>Debito y Credito</p>
+                            {selectedService && (
+                                <>
+                                    <p className="mt-4">Valor: ${pagoWebPayTotal.toLocaleString('es-CL')}</p>
+                                    <p className="mt-2">Monto a pagar (10%): ${pagoWebPay.toLocaleString('es-CL')}</p>
+                                </>
+                            )}
                         </button>
                     </div>
-                    {selectedService && (
-                        <>
-                            <p className="mt-4">Valor con descuento: ${discountedAmount.toLocaleString('es-CL')}</p>
-                            <p className="mt-2">Monto a transferir (10%): ${transferAmount.toLocaleString('es-CL')}</p>
-                        </>
-                    )}
+
                     <div className="flex justify-center mt-4">
                         <button
-                            className="bg-gray-500 text-white py-2 px-6 rounded-md hover:bg-gray-600"
+                            className="button"
                             onClick={onClose}
+                            style={{
+                                padding: '10px 20px',
+                                border: 'none',
+                                backgroundColor: '#0c6b9a',
+                                color: 'white',
+                                cursor: 'pointer',
+                                borderRadius: '5px',
+                                fontSize: '16px',
+                            }}
                         >
                             Cerrar
                         </button>
@@ -277,7 +339,6 @@ function ReservationScreen({ totalVolume, onTotalVolumeChange, quantities }) {
         );
     };
 
-    console.log(discountedAmount, transferAmount)
 
     return (
         <div className="container">
@@ -467,91 +528,127 @@ function ReservationScreen({ totalVolume, onTotalVolumeChange, quantities }) {
             </div>
 
             {showModal && (
-        <div className="modal-background">
-          <div className="modal-container">
-            <h2 className="modal-header">Elige tu servicio</h2>
-            <Slider {...settings}>
-              {cotizacion &&
-                Object.entries(cotizacion).map(([key, value]) => (
-                  <div
-                    key={key}
-                    className="card"
-                    onClick={() => handleServiceSelection(key)}
-                  >
-                    <img
-                      src="/images/blog/image-1.jpg"
-                      alt="Meaningful alt text for an image that is not purely decorative"
-                    />
-                    <div className="card-content">
-                      <h5 className="card-title">{key}</h5>
-                      <p className="card-text">
-                        Todos sus articulos serán descagados en su origen y cargados en su destino.
-                      </p>
-                      <p className="card-text">
-                        Precio: ${value.toLocaleString('es-CL')}
-                      </p>
+                <div className="modal-background">
+                    <div className="modal-container-servicios">
+                        <h2 className="modal-header">Elige tu servicio</h2>
+                        <Slider {...settings}>
+                            {cotizacion &&
+                                Object.entries(cotizacion).map(([key, value]) => (
+                                    <div
+                                        key={key}
+                                        className="card "
+                                        onClick={() => handleServiceSelection(key)}
+                                    >
+                                        <img
+                                            src="/images/servicio1.jpg"
+                                            alt="Meaningful alt text for an image that is not purely decorative"
+                                        />
+                                        <div className="card-content">
+                                            <h5 className="card-title">{key}</h5>
+                                            <p className="card-text">
+                                                Todos sus articulos serán descagados en su origen y cargados en su destino.
+                                            </p>
+                                            <p className="card-text">
+                                                Precio: ${value.toLocaleString('es-CL')}
+                                            </p>
+                                        </div>
+                                    </div>
+                                ))}
+                        </Slider>
+                        <div className="button-container">
+                            <button
+                                className="button"
+                                onClick={closeModal}
+                                style={{
+                                    padding: '10px 20px',
+                                    border: 'none',
+                                    backgroundColor: '#0c6b9a',
+                                    color: 'white',
+                                    cursor: 'pointer',
+                                    borderRadius: '5px',
+                                    fontSize: '16px',
+                                }}
+                            >
+                                Cerrar
+                            </button>
+                        </div>
                     </div>
-                  </div>
-                ))}
-            </Slider>
-            <div className="button-container">
-              <button
-                className="button"
-                onClick={closeModal}
-              >
-                Cerrar
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-{selectedService && (
-        <SelectedServiceModal
-          selectedService={selectedService}
-          handleTransferenciaClick={handleTransferenciaClick}
-          handleWebpayClick={handleWebpayClick}
-          discountedAmount={discountedAmount}
-          transferAmount={transferAmount}
-          onClose={() => setSelectedService(null)} // Ajusta el manejo de cierre según tu lógica
-          
-        />
-      )}
-
-           {showTransferenciaModal && (
-        <div className="modal-background">
-          {showSuccessModal && <SuccessModal title="Reserva Agendada" onClose={() => { setShowSuccessModal(false); onClose(); }} />}
-          {showErrorModal && <ErrorModal title="Error al reservar" onClose={() => setShowErrorModal(false)} />}
-          <div className="modal-container max-w-md">
-            <h2 className="modal-header">Detalles de Transferencia</h2>
-            <p>Banco: Banco Ejemplo</p>
-            <p>Cuenta: 123456789</p>
-            <p>RUT: 12.345.678-9</p>
-            <p>Correo: ejemplo@banco.cl</p>
-            <p className="mt-2">Confirme la transferencia una vez realizada la misma.</p>
-            {selectedService && (
-              <>
-                <p className="mt-4">Valor con descuento: ${discountedAmount.toLocaleString('es-CL')}</p>
-                <p className="mt-2">Monto a transferir (10%): ${transferAmount.toLocaleString('es-CL')}</p>
-              </>
+                </div>
             )}
-            <div className="flex justify-center mt-4">
-              <button
-                className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-md mr-2"
-                onClick={handleConfirmTransfer}
-              >
-                Confirmar Transferencia
-              </button>
-              <button
-                className="bg-gray-500 text-white py-2 px-6 rounded-md hover:bg-gray-600"
-                onClick={closeTransferenciaModal}
-              >
-                Cerrar
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+
+            {selectedService && (
+                <SelectedServiceModal
+                    selectedService={selectedService}
+                    handleTransferenciaClick={handleTransferenciaClick}
+                    handleWebpayClick={handleWebpayClick}
+                    discountedAmount={discountedAmount}
+                    transferAmount={transferAmount}
+                    onClose={() => setSelectedService(null)} // Ajusta el manejo de cierre según tu lógica
+
+                />
+            )}
+
+            {showTransferenciaModal && (
+                <div className="modal-background">
+                    {showSuccessModal && <SuccessModal title="Reserva Agendada" onClose={() => { setShowSuccessModal(false); onClose(); }} />}
+                    {showErrorModal && <ErrorModal title="Error al reservar" onClose={() => setShowErrorModal(false)} />}
+                    <div className="modal-container max-w-sm">
+                        <h2 className="modal-header">Detalles de Transferencia -  Monto (10%): ${transferAmount.toLocaleString('es-CL')}</h2>
+                        <p>Banco: Banco Ejemplo</p>
+                        <p>Cuenta: 123456789</p>
+                        <p>RUT: 12.345.678-9</p>
+                        <p>Correo: ejemplo@banco.cl</p>
+                        <p className="mt-8">Para confirmar tu transferencia debes cargar la captura de pantalla de la transferencia.</p>
+
+
+                        <div className="flex justify-center mt-4">
+                            <div className="form-group">
+                                <label htmlFor="imageUpload"></label>
+                                <input
+                                    type="file"
+                                    id="imageUpload"
+                                    accept="image/*"
+                                    onChange={handleImageChange}
+                                />
+                            </div>
+                            <div className="button-transferencia" style={{ display: 'flex', justifyContent: 'space-between', gap: '10px' }}>
+                                <button
+                                    className="button"
+                                    onClick={handleConfirmTransfer}
+                                    style={{
+                                        padding: '10px 20px',
+                                        border: 'none',
+                                        backgroundColor: '#0c6b9a',
+                                        color: 'white',
+                                        cursor: 'pointer',
+                                        borderRadius: '5px',
+                                        fontSize: '16px',
+                                    }}
+                                >
+                                    Confirmar Transferencia
+                                </button>
+                                <button
+                                    className="button"
+                                    onClick={closeTransferenciaModal}
+                                    style={{
+                                        padding: '10px 20px',
+                                        border: 'none',
+                                        backgroundColor: '#0c6b9a',
+                                        color: 'white',
+                                        cursor: 'pointer',
+                                        borderRadius: '5px',
+                                        fontSize: '16px',
+                                    }}
+                                >
+                                    Cerrar
+                                </button>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

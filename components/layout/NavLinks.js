@@ -27,7 +27,7 @@ const NavLinks = ({ extraClassName }) => {
         </ul> */}
       </li>
       <li>
-        <Link href="/page-about">Nosotros</Link>
+        <Link href="/nosotros">Nosotros</Link>
       </li>
     {/*   <li className="dropdown">
         <Link href="/page-about">Pages</Link>
@@ -69,7 +69,7 @@ const NavLinks = ({ extraClassName }) => {
         </ul>
       </li> */}
       <li>
-        <Link href="/page-services">Servicios</Link>
+        <Link href="/servicios">Servicios</Link>
         {/* <ul>
           <li>
             <Link href="/page-services">Services Grid</Link>
@@ -91,7 +91,7 @@ const NavLinks = ({ extraClassName }) => {
         </ul>
       </li> */}
       <li>
-        <Link href="/page-contact">Contacto</Link>
+        <Link href="/contacto">Contacto</Link>
       </li>
     </ul>
   );

@@ -21,7 +21,7 @@ const FunFactOne = () => {
   ];
   return (
     <>
-      <section className="fun-fact-section p-0">
+      <section className="fun-fact-section">
         <div className="auto-container">
           <div className="outer-box">
             <div className="bg-image" style={{ backgroundImage: "url(./images/background/3.jpg)" }} />

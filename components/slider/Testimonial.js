@@ -6,19 +6,16 @@ SwiperCore.use([Autoplay, Navigation]);
 const Testimonial = () => {
   const data = [
     {
-      img: "testi-thumb-1.jpg",
-      title: "Jame sickres",
-      desig: "Founder",
+      title: "Cristobal Rivera",
+      text: "¡Un servicio excelente! Econotrans hizo que nuestra mudanza fuera mucho más fácil y sin estrés. El equipo fue profesional y cuidadoso con nuestras pertenencias. Definitivamente los recomendaría a cualquiera que necesite mudarse."
     },
     {
-      img: "testi-thumb-2.jpg",
-      title: "Aleesha brown",
-      desig: "Co Founder",
+      title: "Francisca Aguilera",
+      text: "La mudanza fue impecable gracias a Econotrans. Su equipo de profesionales manejó todo con gran cuidado y eficiencia. Además, su sistema de monitoreo satelital nos dio mucha tranquilidad durante el proceso. ¡Cinco estrellas!"
     },
     {
-      img: "testi-thumb-3.jpg",
-      title: "Mike Hardon",
-      desig: "Market Manager",
+      title: "David Gutierrez",
+      text: "Estoy muy impresionado con el servicio de Econotrans. Desde el primer contacto hasta la entrega final, todo fue perfecto. La atención al cliente es excepcional y el equipo de mudanza es muy amable y profesional. ¡Gracias por todo!"
     },
   ];
 
@@ -68,12 +65,8 @@ const Testimonial = () => {
                   <i className="fa fa-star" />
                   <i className="fa fa-star-half-alt" />
                 </div>
-                <div className="text">“All of our lorries are fitted with Satellite Tracking and Temperature Controlled monitoring systems so that the transportation of high value and temperature sensitive loads can be monitored at all times.</div>
+                <div className="text">{item.text}</div>
               </div>
-              <div className="thumb">
-                <img src={`images/resource/${item.img}`} title="Tronis" />
-              </div>
-              <span className="designation">{item.desig}</span>
               <h4 className="name">{item.title}</h4>
             </div>
           </SwiperSlide>

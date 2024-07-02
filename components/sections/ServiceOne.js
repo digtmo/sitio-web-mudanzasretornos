@@ -44,7 +44,7 @@ const ServiceOne = () => {
                                         </figure>
                                     </div>
                                     <div className="content-box">
-                                        <i className="icon flaticon-airplane-2" />
+                                        <i className="icon flaticon-delivery-truck-4" />
                                         <span className="sub-title">Principales rutas</span>
                                         <h4 className="title"><Link href="/page-service-details">{item.title}</Link></h4>
                                     </div>

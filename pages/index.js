@@ -27,7 +27,7 @@ export default function Home() {
         <AboutOne />
         <ServiceOne />
        {/*  <TrackingOne /> */}
-        <CtaOne />
+        {/* <CtaOne /> */}
         <WorkOne />
         <MainComponent />
         <FunFactOne />

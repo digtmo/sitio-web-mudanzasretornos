@@ -11,10 +11,10 @@ const TestimonialOne = () => {
         </div>
         <div className="auto-container">
           <div className="sec-title text-center">
-            <span className="sub-title">Client’s Testimonials</span>
+            <span className="sub-title">Nuestros Clientes</span>
             <h2>
-              Here are some clients <br />
-              feedbacks
+              Conoce que opinan <br />
+              sobre nuestros servicios
             </h2>
           </div>
           <div className="outer-box">

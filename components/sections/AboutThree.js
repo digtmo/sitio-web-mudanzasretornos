@@ -25,8 +25,8 @@ const AboutThree = () => {
                     <div className="inner">
                       <i className="icon flaticon-delivery-insurance-3"></i>
                       <h4 className="title">
-                        Seguridad <br />
-                        
+                        Calidad <br />
+                        y Seguridad
                       </h4>
                     </div>
                   </div>
@@ -52,10 +52,10 @@ const AboutThree = () => {
             <div className="image-column col-lg-6 col-md-12 col-sm-12">
               <div className="inner-column">
                 <figure className="image-1 wow fadeInUp">
-                  <img src="images/resource/about-3.jpg" title="Tronis" />
+                  <img src="images/columna1.jpg" title="Tronis" />
                 </figure>
                 <figure className="image-2 wow fadeInRight">
-                  <img src="images/resource/about-4.jpg" title="Tronis" />
+                  <img src="images/man390.jpg" title="Tronis" />
                   <div className="icon-box">
                     <i className="icon flaticon-delivery-box-4"></i>
                   </div>

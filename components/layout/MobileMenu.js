@@ -67,7 +67,7 @@ const MobileMenu = () => {
 
         </li>
         <li>
-          <Link href="/page-about">Nosotros</Link>
+          <Link href="/nosotros">Nosotros</Link>
         </li>
   {/*       <li class="dropdown">
           <Link href="/page-services">Pages</Link>
@@ -118,7 +118,7 @@ const MobileMenu = () => {
           </div>
         </li> */}
         <li>
-          <Link href="/page-services">Servicios</Link>
+          <Link href="/servicios">Servicios</Link>
           {/* <ul className={isActive.key === 3 ? "d-block" : "d-none"}>
             <li>
               <Link href="/page-services">Services List</Link>
@@ -148,7 +148,7 @@ const MobileMenu = () => {
           </div>
         </li> */}
         <li>
-          <Link href="/page-contact">Contacto</Link>
+          <Link href="/contacto">Contacto</Link>
         </li>
       </ul>
     </>

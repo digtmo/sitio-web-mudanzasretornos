@@ -10,7 +10,7 @@ const Footer = () => {
           <span className="icon icon-plane-3 bounce-x" />
         </div>
         {/* Contact info */}
-       {/*  <div className="contacts-outer">
+        {/*  <div className="contacts-outer">
           <div className="auto-container">
             <div className="row">
             
@@ -55,7 +55,7 @@ const Footer = () => {
           <div className="auto-container">
             <div className="row">
               {/*Footer Column*/}
-              <div className="footer-column col-xl-6 col-lg-12 col-md-6 col-sm-12">
+              <div className="footer-column col-xl-4 col-lg-12 col-md-6 col-sm-12">
                 <div className="footer-widget about-widget">
                   <div className="logo">
                     <Link href="/">
@@ -63,71 +63,43 @@ const Footer = () => {
                     </Link>
                   </div>
                   <div className="text">Somos una empresa cercana, con una alta adaptabilidad a los requerimientos de nuestros clientes.</div>
-                  <Link href="/page-about" className="theme-btn btn-style-one hvr-light small">
+                  <Link href="/nosotros" className="theme-btn btn-style-one hvr-light small">
                     <span className="btn-title">Nosotros</span>
                   </Link>
                 </div>
               </div>
               {/*Footer Column*/}
-              <div className="footer-column col-xl-6 col-lg-3 col-md-6 col-sm-12">
+              <div className="footer-column col-xl-4 col-lg-3 col-md-6 col-sm-12">
                 <div className="footer-widget">
                   <h3 className="widget-title">Servicios</h3>
                   <ul className="user-links">
                     <li>
-                      <Link href="#">Mudanzas Normales</Link>
+                      <Link href="">Mudanzas Normales</Link>
                     </li>
                     <li>
-                      <Link href="#">Mudanzas Empresas u Oficinas</Link>
+                      <Link href="">Mudanzas Empresas u Oficinas</Link>
                     </li>
                     <li>
-                      <Link href="#">Fletes y Transportes de Carga</Link>
+                      <Link href="">Fletes y Transportes de Carga</Link>
                     </li>
                     <li>
-                      <Link href="#">Servicios de Embalaje y Encomiendas</Link>
+                      <Link href="">Servicios de Embalaje y Encomiendas</Link>
                     </li>
                   </ul>
                 </div>
               </div>
               {/*Footer Column*/}
-           {/*    <div className="footer-column col-xl-4 col-lg-4 col-md-6 col-sm-12">
-                <div className="footer-widget gallery-widget">
-                  <h3 className="widget-title">Projects</h3>
-                  <div className="widget-content">
-                    <div className="outer clearfix">
-                      <figure className="image">
-                        <Link href="#">
-                          <img src="images/resource/project-thumb-1.jpg" title="Tronis" />
-                        </Link>
-                      </figure>
-                      <figure className="image">
-                        <Link href="#">
-                          <img src="images/resource/project-thumb-2.jpg" title="Tronis" />
-                        </Link>
-                      </figure>
-                      <figure className="image">
-                        <Link href="#">
-                          <img src="images/resource/project-thumb-3.jpg" title="Tronis" />
-                        </Link>
-                      </figure>
-                      <figure className="image">
-                        <Link href="#">
-                          <img src="images/resource/project-thumb-4.jpg" title="Tronis" />
-                        </Link>
-                      </figure>
-                      <figure className="image">
-                        <Link href="#">
-                          <img src="images/resource/project-thumb-5.jpg" title="Tronis" />
-                        </Link>
-                      </figure>
-                      <figure className="image">
-                        <Link href="#">
-                          <img src="images/resource/project-thumb-6.jpg" title="Tronis" />
-                        </Link>
-                      </figure>
-                    </div>
-                  </div>
+              <div className="footer-column col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                <div className="footer-widget">
+                  <img
+                    src="images/logowebpay.svg"
+                    title="Tronis"
+                    style={{ width: "300px", height: "auto", marginTop: "30px" }} // Ajusta los valores según tus necesidades
+                  />
                 </div>
-              </div> */}
+              </div>
+
+
             </div>
           </div>
         </div>
@@ -142,11 +114,11 @@ const Footer = () => {
               </div>
               <ul className="social-icon-two">
                 <li>
-                <Link href="https://www.facebook.com/Econotransla">
-                  <i className="fab fa-facebook-f" />
-                </Link>
+                  <Link href="https://www.facebook.com/Econotransla">
+                    <i className="fab fa-facebook-f" />
+                  </Link>
                 </li>
-               {/*  <li>
+                {/*  <li>
                   <Link href="#">
                     <i className="fab fa-twitter" />
                   </Link>
@@ -157,9 +129,9 @@ const Footer = () => {
                   </Link>
                 </li> */}
                 <li>
-                <Link href="https://www.instagram.com/econotrans_mudanzas/">
-                  <i className="fab fa-instagram" />
-                </Link>
+                  <Link href="https://www.instagram.com/econotrans_mudanzas/">
+                    <i className="fab fa-instagram" />
+                  </Link>
                 </li>
               </ul>
             </div>
