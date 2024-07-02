@@ -4667,7 +4667,7 @@ Section Title
 ***/
 .work-section {
   position: relative;
-  padding: 120px 0 90px;
+  padding: 0 0 90px;
 }
 .work-section .icon-dotted-map-2 {
   right: 0;

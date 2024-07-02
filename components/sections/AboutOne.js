@@ -4,7 +4,7 @@ import React from "react";
 const AboutOne = () => {
   return (
     <>
-      <section className="about-section pt-0">
+      <section className="about-section pt-5">
         <div className="anim-icons">
           <div className="float-image wow fadeInRight">
             <img src="images/resource/float-img-1.png" title="Tronis" />

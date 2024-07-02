@@ -52,7 +52,7 @@ const ArticleCard = ({ item, quantity, onIncrement, onDecrement }) => (
 );
 
 const imageUrls = {
-  'Cocina-Logia': '/cocina-Logia-2.webp',
+  'Cocina-Logia': '/cocina-logia-2.webp',
   'Comedor': '/comedor.webp',
   'Dormitorio': '/dormitorio-2.webp',
   'Estar': '/estar.webp',
