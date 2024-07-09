@@ -149,6 +149,8 @@ function ReservationScreen({ totalVolume, onTotalVolumeChange, quantities }) {
     };
 
 
+    console.log(formData)
+
 
     const handleWebpayClick = async () => {
         if (selectedService && cotizacion) {
@@ -169,8 +171,7 @@ function ReservationScreen({ totalVolume, onTotalVolumeChange, quantities }) {
                 pendiente_pago: pagoWebPayPendiente,
             };
 
-
-
+           
             const amount = pagoWebPay;
             setShowSpinner(true);
             try {

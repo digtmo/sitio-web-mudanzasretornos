@@ -4,10 +4,10 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const data = [
-  { img: "images/resource/1.png" },
+  { img: "images/resource/4.png" },
   { img: "images/resource/2.png" },
   { img: "images/resource/3.png" },
-  { img: "images/resource/4.png" },
+  { img: "images/resource/1.png" },
 ];
 
 const settings = {
@@ -17,7 +17,7 @@ const settings = {
   slidesToShow: 1,
   slidesToScroll: 1,
   autoplay: true,
-  autoplaySpeed: 2500,
+  autoplaySpeed: 5000,
   responsive: [
     {
       breakpoint: 768,

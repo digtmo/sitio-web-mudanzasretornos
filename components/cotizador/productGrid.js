@@ -6,10 +6,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const ProductCard = ({ title, imageUrl, onClick }) => (
-  <div
-    className="product-card"
-    onClick={() => onClick(title)}
-  >
+  <div className="product-card" onClick={() => onClick(title)}>
     <div className="image-container">
       <Image
         src={imageUrl}
@@ -64,6 +61,7 @@ const ProductGrid = ({ onTotalVolumeChange, setQuantities, quantities }) => {
   const [data, setData] = useState({});
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [totalVolume, setTotalVolume] = useState(0);
+  const [rows, setRows] = useState(2); // Estado para controlar el número de filas
 
   useEffect(() => {
     const fetchData = async () => {
@@ -81,6 +79,22 @@ const ProductGrid = ({ onTotalVolumeChange, setQuantities, quantities }) => {
 
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (selectedCategory && data[selectedCategory]) {
+      const itemCount = data[selectedCategory].length;
+      let calculatedRows = 1;
+  
+      if (itemCount > 21) {
+        calculatedRows = 4;
+      } else if (itemCount > 9) {
+        calculatedRows = 2;
+      }
+  
+      setRows(calculatedRows);
+    }
+  }, [selectedCategory, data]);
+  
 
   const handleCardClick = (category) => {
     setSelectedCategory(category);
@@ -120,23 +134,24 @@ const ProductGrid = ({ onTotalVolumeChange, setQuantities, quantities }) => {
     dots: false,
     infinite: false,
     speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
+    slidesToShow: 2,
+    slidesToScroll: 2,
+    rows: rows, // Establece el número de filas dinámicamente
     responsive: [
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 4,
-          slidesToScroll: 4,
-          infinite: true,
-          dots: false
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          rows: rows
         }
       },
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          rows: rows
         }
       }
     ]
@@ -171,7 +186,7 @@ const ProductGrid = ({ onTotalVolumeChange, setQuantities, quantities }) => {
   };
 
   return (
-    <div className="w-full lg:w-2/3 flex flex-col justify-center product-grid">
+    <div className="w-full lg:w-2/3 flex flex-col justify-center product-grid p-4"> {/* Aquí agregamos el padding */}
       <div className="sticky top-0 bg-white">
         <Slider {...categorySettings} className="category-slider">
           {Object.keys(data).map((category, index) => (

@@ -16,7 +16,6 @@ import OfferOne from "./../components/sections/OfferOne";
 import NewsOne from "./../components/sections/NewsOne";
 import BannerOne from "../components/sections/BannerOne";
 import MainComponent from "../components/cotizador/cotizador";
-import ProductGrid from "../components/cotizador/productGrid";
 
 export default function Home() {
   return (
