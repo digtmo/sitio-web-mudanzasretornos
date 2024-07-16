@@ -127,8 +127,9 @@ const ProductGrid = ({ onTotalVolumeChange, setQuantities, quantities }) => {
             </div>
           ))}
         </div>
+        <div className='mt-4'>
+        <h2 className='text-center' >Selecciona los articulos</h2>
         <div className={`mt-20 ${selectedCategory ? 'block' : 'hidden'} lg:block article-grid`}>
-        <h2 >Selecciona los articulos</h2>
           {selectedCategory && (
             <div className="article-grid">
               {data[selectedCategory].map(item => (
@@ -144,6 +145,8 @@ const ProductGrid = ({ onTotalVolumeChange, setQuantities, quantities }) => {
             </div>
           )}
         </div>
+        </div>
+      
       </div>
     </div>
   );
