@@ -136,7 +136,7 @@ const ProductGrid = ({ onTotalVolumeChange, setQuantities, quantities }) => {
     speed: 500,
     slidesToShow: 2,
     slidesToScroll: 2,
-    rows: rows, // Establece el número de filas dinámicamente
+    rows: rows, 
     responsive: [
       {
         breakpoint: 1024,
@@ -161,16 +161,19 @@ const ProductGrid = ({ onTotalVolumeChange, setQuantities, quantities }) => {
     dots: false,
     infinite: false,
     speed: 500,
-    slidesToShow: 5,
-    slidesToScroll: 5,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    rows:2,
     responsive: [
       {
-        breakpoint: 1024,
+        breakpoint: 1500,
         settings: {
           slidesToShow: 3,
-          slidesToScroll: 2,
-          infinite: true,
-          dots: false
+          slidesToScroll: 1,
+          infinite: false,
+          dots: false,
+          rows:2,
+
         }
       },
       {
@@ -178,7 +181,7 @@ const ProductGrid = ({ onTotalVolumeChange, setQuantities, quantities }) => {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          infinite: true,
+          infinite: false,
           dots: true
         }
       }
@@ -204,7 +207,7 @@ const ProductGrid = ({ onTotalVolumeChange, setQuantities, quantities }) => {
         {selectedCategory && (
           <Slider {...settings} className="article-slider">
             {data[selectedCategory].map(item => (
-              <div key={item.id} className="px-2">
+              <div key={item.id} >
                 <ArticleCard
                   item={item}
                   quantity={quantities[item.id] || 0}

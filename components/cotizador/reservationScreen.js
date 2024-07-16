@@ -171,7 +171,7 @@ function ReservationScreen({ totalVolume, onTotalVolumeChange, quantities }) {
                 pendiente_pago: pagoWebPayPendiente,
             };
 
-           
+
             const amount = pagoWebPay;
             setShowSpinner(true);
             try {
@@ -224,11 +224,12 @@ function ReservationScreen({ totalVolume, onTotalVolumeChange, quantities }) {
         setShowSpinner(true);
 
         try {
-            const response = await axios.post('https://backend-econotrans.digtmo.com/v1/reservasc', transferData, {
+            
+           /*  const response = await axios.post('https://backend-econotrans.digtmo.com/v1/reservasc', transferData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
-            });
+            }); */
             console.log('Data enviada:');
             console.log(transferData)
             if (response.status === 201) {
@@ -348,185 +349,187 @@ function ReservationScreen({ totalVolume, onTotalVolumeChange, quantities }) {
                     <ClipLoader color="#4A90E2" />
                 </div>
             )}
-            <div className="form-container">
-                <div className="form">
-                    <div>
-                        <h1>Reserva tu Mudanza</h1>
-                        {validationError && (
-                            <div className="mb-4 text-red-500 text-center">{validationError}</div>
-                        )}
-                        <div className="input-group">
-                            <label htmlFor="nombre">Nombre</label>
-                            <input
-                                type="text"
-                                id="nombre"
-                                name="nombre"
-                                onChange={handleInputChange}
-                            />
-                        </div>
-                        <div className="input-group">
-                            <label htmlFor="telefono">Teléfono</label>
-                            <input
-                                type="tel"
-                                id="telefono"
-                                name="telefono"
-                                onChange={handleInputChange}
-                            />
-                        </div>
-                        <div className="input-group">
-                            <label htmlFor="correo">Correo</label>
-                            <input
-                                type="email"
-                                id="correo"
-                                name="correo"
-                                onChange={handleInputChange}
-                            />
-                        </div>
-                        <div className="input-group">
-                            <label htmlFor="fechaMudanza">Fecha de Mudanza</label>
-                            <input
-                                type="date"
-                                id="fechaMudanza"
-                                name="fechaMudanza"
-                                onChange={handleInputChange}
-                            />
-                        </div>
-                        <div className="input-group">
-                            <label htmlFor="ciudadOrigen">Ciudad de Origen</label>
-                            <select
-                                id="ciudadOrigen"
-                                name="ciudadOrigen"
-                                onChange={handleInputChange}
-                            >
-                                <option value="">Seleccione una comuna</option>
-                                {comunas.map((comuna) => (
-                                    <option key={comuna.key} value={comuna.name}>{comuna.name}</option>
-                                ))}
-                            </select>
-                        </div>
-                        <div className="input-group">
-                            <label htmlFor="direccionOrigen">Dirección de Origen</label>
-                            <input
-                                type="text"
-                                id="direccionOrigen"
-                                name="direccionOrigen"
-                                onChange={handleInputChange}
-                            />
-                        </div>
-                        <div className="input-group">
-                            <label htmlFor="tipoViviendaOrigen">Tipo de Vivienda</label>
-                            <select
-                                id="tipoViviendaOrigen"
-                                name="tipoViviendaOrigen"
-                                onChange={(e) => {
-                                    setOrigenTipoVivienda(e.target.value);
-                                    handleInputChange(e);
-                                }}
-                            >
-                                <option value="Casa">Casa</option>
-                                <option value="Departamento">Departamento</option>
-                            </select>
-                        </div>
-                        <div className="input-group">
-                            <label htmlFor="pisoOrigen">Piso Origen</label>
-                            <input
-                                type="number"
-                                id="pisoOrigen"
-                                name="pisoOrigen"
-                                onChange={handleInputChange}
-                            />
-                        </div>
-                        {origenTipoVivienda === 'Departamento' && (
-                            <div className="input-group">
-                                <div className="flex items-center mt-2">
-                                    <input
-                                        type="checkbox"
-                                        id="tieneAscensorOrigen"
-                                        name="tieneAscensorOrigen"
-                                        onChange={handleInputChange}
-                                    />
-                                    <label htmlFor="tieneAscensorOrigen">¿Tiene Ascensor?</label>
-                                </div>
-                            </div>
-                        )}
-                        <div className="input-group">
-                            <label htmlFor="ciudadDestino">Ciudad de Destino</label>
-                            <select
-                                id="ciudadDestino"
-                                name="ciudadDestino"
-                                onChange={handleInputChange}
-                            >
-                                <option value="">Seleccione una comuna</option>
-                                {comunas.map((comuna) => (
-                                    <option key={comuna.key} value={comuna.name}>{comuna.name}</option>
-                                ))}
-                            </select>
-                        </div>
-                        <div className="input-group">
-                            <label htmlFor="direccionDestino">Dirección de Destino</label>
-                            <input
-                                type="text"
-                                id="direccionDestino"
-                                name="direccionDestino"
-                                onChange={handleInputChange}
-                            />
-                        </div>
-                        <div className="input-group">
-                            <label htmlFor="tipoViviendaDestino">Tipo de Vivienda</label>
-                            <select
-                                id="tipoViviendaDestino"
-                                name="tipoViviendaDestino"
-                                onChange={(e) => {
-                                    setDestinoTipoVivienda(e.target.value);
-                                    handleInputChange(e);
-                                }}
-                            >
-                                <option value="Casa">Casa</option>
-                                <option value="Departamento">Departamento</option>
-                            </select>
-                        </div>
-                        <div className="input-group">
-                            <label htmlFor="pisoDestino">Piso Destino</label>
-                            <input
-                                type="number"
-                                id="pisoDestino"
-                                name="pisoDestino"
-                                onChange={handleInputChange}
-                            />
-                        </div>
-                        {destinoTipoVivienda === 'Departamento' && (
-                            <div className="input-group">
-                                <div className="flex items-center mt-2">
-                                    <input
-                                        type="checkbox"
-                                        id="tieneAscensorDestino"
-                                        name="tieneAscensorDestino"
-                                        onChange={handleInputChange}
-                                    />
-                                    <label htmlFor="tieneAscensorDestino">¿Tiene Ascensor?</label>
-                                </div>
-                            </div>
-                        )}
-                        <div className="input-group">
-                            <label htmlFor="observaciones">Observaciones</label>
-                            <textarea
-                                id="observaciones"
-                                name="observaciones"
-                                rows="3"
-                                placeholder="Incluye cualquier detalle que creas necesario considerar, como armar o desarmar muebles, subir un sillón por el balcón, etc."
-                                onChange={handleInputChange}
-                            ></textarea>
-                        </div>
-                        <div className="button-group">
-                            <button
-                                onClick={handleCotizar}
-                            >
-                                Cotizar
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+
+      <div className="form-container">
+  <div className="form">
+    <h1>Reserva tu Mudanza</h1>
+    {validationError && (
+      <div className="mb-4 text-red-500 text-center">{validationError}</div>
+    )}
+    <div className="grid">
+      <div className="input-group">
+        <label htmlFor="nombre">Nombre</label>
+        <input
+          type="text"
+          id="nombre"
+          name="nombre"
+          onChange={handleInputChange}
+        />
+      </div>
+      <div className="input-group">
+        <label htmlFor="telefono">Teléfono</label>
+        <input
+          type="tel"
+          id="telefono"
+          name="telefono"
+          onChange={handleInputChange}
+        />
+      </div>
+      <div className="input-group">
+        <label htmlFor="correo">Correo</label>
+        <input
+          type="email"
+          id="correo"
+          name="correo"
+          onChange={handleInputChange}
+        />
+      </div>
+      <div className="input-group">
+        <label htmlFor="fechaMudanza">Fecha de mudanza</label>
+        <input
+          type="date"
+          id="fechaMudanza"
+          name="fechaMudanza"
+          onChange={handleInputChange}
+        />
+      </div>
+      <div className="input-group">
+        <label htmlFor="ciudadOrigen">Ciudad de origen</label>
+        <select
+          id="ciudadOrigen"
+          name="ciudadOrigen"
+          onChange={handleInputChange}
+        >
+          <option value="">Seleccione una comuna</option>
+          {comunas.map((comuna) => (
+            <option key={comuna.key} value={comuna.name}>{comuna.name}</option>
+          ))}
+        </select>
+      </div>
+      <div className="input-group">
+        <label htmlFor="direccionOrigen">Dirección de origen</label>
+        <input
+          type="text"
+          id="direccionOrigen"
+          name="direccionOrigen"
+          onChange={handleInputChange}
+        />
+      </div>
+      <div className="input-group">
+        <label htmlFor="tipoViviendaOrigen">Tipo de vivienda</label>
+        <select
+          id="tipoViviendaOrigen"
+          name="tipoViviendaOrigen"
+          onChange={(e) => {
+            setOrigenTipoVivienda(e.target.value);
+            handleInputChange(e);
+          }}
+        >
+          <option value="Casa">Casa</option>
+          <option value="Departamento">Departamento</option>
+        </select>
+      </div>
+      <div className="input-group">
+        <label htmlFor="pisoOrigen">Piso Origen</label>
+        <input
+          type="number"
+          id="pisoOrigen"
+          name="pisoOrigen"
+          onChange={handleInputChange}
+        />
+      </div>
+      {origenTipoVivienda === 'Departamento' && (
+        <div className="input-group grid-full">
+          <div className="flex items-center mt-2">
+            <input
+              type="checkbox"
+              id="tieneAscensorOrigen"
+              name="tieneAscensorOrigen"
+              onChange={handleInputChange}
+            />
+            <label htmlFor="tieneAscensorOrigen">¿Tiene Ascensor?</label>
+          </div>
+        </div>
+      )}
+      <div className="input-group">
+        <label htmlFor="ciudadDestino">Ciudad de destino</label>
+        <select
+          id="ciudadDestino"
+          name="ciudadDestino"
+          onChange={handleInputChange}
+        >
+          <option value="">Seleccione una comuna</option>
+          {comunas.map((comuna) => (
+            <option key={comuna.key} value={comuna.name}>{comuna.name}</option>
+          ))}
+        </select>
+      </div>
+      <div className="input-group">
+        <label htmlFor="direccionDestino">Dirección de destino</label>
+        <input
+          type="text"
+          id="direccionDestino"
+          name="direccionDestino"
+          onChange={handleInputChange}
+        />
+      </div>
+      <div className="input-group">
+        <label htmlFor="tipoViviendaDestino">Tipo de vivienda</label>
+        <select
+          id="tipoViviendaDestino"
+          name="tipoViviendaDestino"
+          onChange={(e) => {
+            setDestinoTipoVivienda(e.target.value);
+            handleInputChange(e);
+          }}
+        >
+          <option value="Casa">Casa</option>
+          <option value="Departamento">Departamento</option>
+        </select>
+      </div>
+      <div className="input-group">
+        <label htmlFor="pisoDestino">Piso destino</label>
+        <input
+          type="number"
+          id="pisoDestino"
+          name="pisoDestino"
+          onChange={handleInputChange}
+        />
+      </div>
+      {destinoTipoVivienda === 'Departamento' && (
+        <div className="input-group grid-full">
+          <div className="flex items-center mt-2">
+            <input
+              type="checkbox"
+              id="tieneAscensorDestino"
+              name="tieneAscensorDestino"
+              onChange={handleInputChange}
+            />
+            <label htmlFor="tieneAscensorDestino">¿Tiene Ascensor?</label>
+          </div>
+        </div>
+      )}
+      <div className="input-group grid-full">
+        <label htmlFor="observaciones">Observaciones</label>
+        <textarea
+          id="observaciones"
+          name="observaciones"
+          rows="3"
+          placeholder="Incluye cualquier detalle que creas necesario considerar, como armar o desarmar muebles, subir un sillón por el balcón, etc."
+          onChange={handleInputChange}
+        ></textarea>
+      </div>
+    </div>
+    <div className="button-group">
+      <button onClick={handleCotizar}>
+        Cotizar
+      </button>
+    </div>
+  </div>
+</div>
+
+
 
             {showModal && (
                 <div className="modal-background">
@@ -595,10 +598,11 @@ function ReservationScreen({ totalVolume, onTotalVolumeChange, quantities }) {
                     {showErrorModal && <ErrorModal title="Error al reservar" onClose={() => setShowErrorModal(false)} />}
                     <div className="modal-container max-w-sm">
                         <h2 className="modal-header">Detalles de Transferencia -  Monto (10%): ${transferAmount.toLocaleString('es-CL')}</h2>
-                        <p>Banco: Banco Ejemplo</p>
-                        <p>Cuenta: 123456789</p>
-                        <p>RUT: 12.345.678-9</p>
-                        <p>Correo: ejemplo@banco.cl</p>
+                        <p>Nombre: Transportes Albornoz y Castillo LTDA</p>
+                        <p>Banco: Banco Itaú</p>
+                        <p>Cuenta: 0228036076</p>
+                        <p>RUT: 77.878.886-1</p>
+                        <p>Correo: contacto@mudanzasretorno.cl</p>
                         <p className="mt-8">Para confirmar tu transferencia debes cargar la captura de pantalla de la transferencia.</p>
 
 

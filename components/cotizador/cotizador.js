@@ -34,7 +34,7 @@ const MainComponent = () => {
   }
 
   return (
-    <div className="main-layout">
+    <div id="main-component" className="main-layout">
       <ReservationScreen
         totalVolume={totalVolume}
         onTotalVolumeChange={setTotalVolume}

@@ -5,6 +5,7 @@ import NavLinks from "./NavLinks";
 import Image from "next/image";
 import LogoDark from "./../../public/images/logo.png";
 import LogoWhite from "./../../public/images/logo-2.png";
+import LogoMobile from "./../../public/images/logoblanco.png"
 
 const Header1 = ({ handleOpen, handleRemove, searchToggle, handleToggle, scroll }) => {
   return (
@@ -66,7 +67,7 @@ const Header1 = ({ handleOpen, handleRemove, searchToggle, handleToggle, scroll 
               <div className="outer-box">
        
         
-                <Link href="/page-contact" className="theme-btn btn-style-two">
+                <Link href="/#main-component" className="theme-btn btn-style-two">
                   <span className="btn-title">Reservar</span>
                 </Link>
                 <div className="mobile-nav-toggler" onClick={handleOpen}>
@@ -81,9 +82,9 @@ const Header1 = ({ handleOpen, handleRemove, searchToggle, handleToggle, scroll 
           <div className="menu-backdrop" onClick={handleRemove} />
           <nav className="menu-box">
             <div className="upper-box">
-              <div className="nav-logo">
+              <div className="logo">
                 <Link href="/">
-                  <Image src={LogoDark} title="Tronis" />
+                  <Image src={LogoMobile} title="Tronis" />
                 </Link>
               </div>
               <div className="close-btn" onClick={handleRemove}>

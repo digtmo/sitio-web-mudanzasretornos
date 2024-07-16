@@ -155,7 +155,9 @@ margin-top: 30px;
 }
 
 
-/* Form */
+
+/* Formulario */
+
 .form-container {
   display: flex;
   align-items: center;
@@ -208,6 +210,16 @@ margin-top: 30px;
   border-color: #4299E1;
 }
 
+.form .grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.form .grid-full {
+  grid-column: span 2;
+}
+
 .form .button-group {
   display: flex;
   justify-content: center;
@@ -226,6 +238,19 @@ margin-top: 30px;
 
 .form .button-group button:hover {
   background-color: #2B6CB0;
+}
+
+/* Media Query para pantallas menores a 1200px */
+@media (max-width: 1200px) {
+  .form .grid {
+    display: inline;
+  }
+}
+
+@media (max-width: 1025px) {
+  .form .grid {
+    display: grid;
+  }
 }
 
 
