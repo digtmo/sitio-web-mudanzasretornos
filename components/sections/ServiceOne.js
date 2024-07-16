@@ -9,7 +9,23 @@ const ServiceOne = () => {
         },
         {
             img: "arica.jpg",
-            title: "Los Ángeles - Norte de Chile"
+            title: "Santiago - Concepción"
+        },
+        {
+            img: "arica.jpg",
+            title: "Santiago - Puerto Montt"
+        },
+        {
+            img: "arica.jpg",
+            title: "Santiago - Valdivia"
+        },
+        {
+            img: "arica.jpg",
+            title: "Santiago - Pucon"
+        },
+        {
+            img: "arica.jpg",
+            title: "Santiago - Temuco"
         },
         {
             img: "concepcion.jpg",
@@ -17,7 +33,7 @@ const ServiceOne = () => {
         },
         {
             img: "losangeles.jpg",
-            title: "Los Ángeles - Ruta Especial"
+            title: "Los Ángeles - Sur de Chile"
         },
     ];
     return (
@@ -29,8 +45,8 @@ const ServiceOne = () => {
                 </div>
                 <div className="auto-container">
                     <div className="sec-title text-center">
-                        <span className="sub-title">rutas</span>
-                        <h2>Nuestras principales rutas</h2>
+                       <strong><span className="sub-title">Retornos y mudanzas compartidas</span></strong> 
+                        <h2>Principales rutas</h2>
                     </div>
                     <div className="row">
                         {data.map((item, i) => (

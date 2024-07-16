@@ -10,8 +10,8 @@ const WorkOne = () => {
         </div>
         <div className="auto-container">
           <div className="sec-title text-center">
-            <span className="sub-title">Reserva tu mudanza</span>
-            <h2>Conoce las 3 etapas</h2>
+            <span className="sub-title">Cotiza tu mudanza</span>
+            <h2>Recibe tu presupuesto ahora</h2>
           </div>
           <div className="row">
             {/* Work Block */}
@@ -25,7 +25,7 @@ const WorkOne = () => {
                 </div>
                 <h4 className="title">
                   Completa  <br />
-                  el formulario de reserva
+                  la información de tu mudanza
                 </h4>
               </div>
             </div>
@@ -49,8 +49,8 @@ const WorkOne = () => {
                   <i className="icon flaticon-delivery-box-3" />
                 </div>
                 <h4 className="title">
-                  Cotiza <br />
-                  y selecciona tu servicio
+                  Recibe tu presupuesto <br />
+                  de inmediato
                 </h4>
               </div>
             </div>

@@ -12,14 +12,14 @@ const OfferOne = () => {
                         <div className="content-column col-lg-5 col-md-12">
                             <div className="inner-column">
                                 <div className="sec-title light">
-                                    <span className="sub-title">Special Logistics</span>
-                                    <h2>Best services for businesses</h2>
-                                    <div className="text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.</div>
+                                    <span className="sub-title">Nosotros</span>
+                                    <h2></h2>
+                                    <div className="text">Todos nuestros camiones son completamente cerrados con carroceria acondicionadas 100% para que tus articulos lleguen en buen estado. Contamos con seguro de carga para proteger tu mudanza.</div>
                                 </div>
                                 <ul className="list-style-two">
-                                    <li><i className="fa fa-plane" /> Urgent transport solutions</li>
-                                    <li><i className="fa fa-plane" /> Top quality services with reasonable price</li>
-                                    <li><i className="fa fa-plane" /> Reliable &amp; experienced staffs</li>
+                                    <li><i className="fa fa-plane" /> Camiones completamente cerrados</li>
+                                    <li><i className="fa fa-plane" /> Carga asegurada</li>
+                                    <li><i className="fa fa-plane" /> Personal con experiencia</li>
                                 </ul>
                                 <Link href="/page-services" className="theme-btn btn-style-two hvr-light"><span className="btn-title">Explore More</span></Link>
                             </div>

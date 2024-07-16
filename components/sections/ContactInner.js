@@ -7,12 +7,11 @@ const ContactInner = () => {
       <section className="contact-details">
         <div className="container">
           <div className="row">
-            <div className="col-xl-5 col-lg-6">
+            <div className="col-xl-12 col-lg-6">
               <div className="contact-details__right">
                 <div className="sec-title">
-                  <span className="sub-title">Need any help?</span>
-                  <h2>Get in touch with us</h2>
-                  <div className="text">Lorem ipsum is simply free text available dolor sit amet, consectetur notted adipisicing elit sed do eiusmod tempor incididunt simply free ut labore et dolore magna aliqua.</div>
+                  <span className="sub-title">Contacto</span>
+                  <h2>Comunicate con nosotros</h2>
                 </div>
                 <ul className="list-unstyled contact-details__info">
                   <li>
@@ -44,13 +43,33 @@ const ContactInner = () => {
                       <span>66 broklyn golden street. New York</span>
                     </div>
                   </li>
+                  <li>
+                    <div className="icon">
+                      <span className="lnr-icon-location"></span>
+                    </div>
+                    <div className="text">
+                      <h6>Visit anytime</h6>
+                      <span>66 broklyn golden street. New York</span>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="icon">
+                      <span className="lnr-icon-location"></span>
+                    </div>
+                    <div className="text">
+                      <h6>Visit anytime</h6>
+                      <span>66 broklyn golden street. New York</span>
+                    </div>
+                  </li>
                 </ul>
               </div>
             </div>
-            <div className="col-xl-7 col-lg-6">
+
+
+
+            <div className="col-xl-12 col-lg-6">
               <div className="sec-title">
-                <span className="sub-title">Send us email</span>
-                <h2>Feel free to write</h2>
+                <span className="sub-title">Escribenos</span>
               </div>
               <form id="contact_form2" name="contact_form" className="" action="#" method="post">
                 <div className="row">

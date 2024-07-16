@@ -173,6 +173,7 @@ margin-top: 30px;
   border-radius: 0.5rem;
   overflow: hidden;
   padding: 2rem;
+  display: grid;
 }
 
 .form h1 {
@@ -240,18 +241,7 @@ margin-top: 30px;
   background-color: #2B6CB0;
 }
 
-/* Media Query para pantallas menores a 1200px */
-@media (max-width: 1200px) {
-  .form .grid {
-    display: inline;
-  }
-}
 
-@media (max-width: 1025px) {
-  .form .grid {
-    display: grid;
-  }
-}
 
 
 /* Modal */
@@ -305,8 +295,17 @@ margin-top: 30px;
   background-color: #2D3748;
 }
 
+
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 /* Product Card */
-.product-card {
+.product-card, .article-card {
   display: block;
   background-color: #f8fef5;
   border: 1px solid #E2E8F0;
@@ -315,74 +314,140 @@ margin-top: 30px;
   margin: 0.5rem;
   cursor: pointer;
   z-index: 10;
+  width: 150px;
+  transition: transform 0.2s;
 }
 
+.product-card:hover, .article-card:hover {
+  transform: scale(1.05);
+}
 
-
-.product-card .image-container {
-  padding: 2rem;
+.product-card .image-container, .article-card .image-container {
+  display: flex;
+  justify-content: center; /* Centra horizontalmente la imagen */
+  align-items: center; /* Centra verticalmente la imagen */
+  padding: 1rem;
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
 }
 
-.product-card .text-container {
-  padding: 1.25rem;
-  padding-bottom: 1.25rem;
+.product-card .text-container, .article-card .text-container {
+  padding: 1rem;
   text-align: center;
 }
 
-.product-card .title {
-  font-size: 1.25rem;
+.product-card .title, .article-card .title {
+  font-size: 1rem;
   font-weight: bold;
   color: black;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
 }
 
-/* Article Card */
+
+/* Article Specific Styles */
 .article-card {
-  display: block;
-  background-color: white;
-  border: 1px solid #E2E8F0;
-  border-radius: 0.5rem;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-  margin: 0.5rem;
-  padding: 1rem;
+  width: 120px; /* Ancho fijo de la tarjeta */
+  height: 220px; /* Altura fija deseada para todas las tarjetas */
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  z-index: 10;
+  justify-content: space-between; /* Distribuye el espacio entre los elementos */
+  align-items: center; /* Centra horizontalmente los elementos */
+  padding: 1rem;
+  margin: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
 }
 
-.article-card .image-placeholder {
-  width: 5rem;
-  height: 5rem;
-  background-color: #E2E8F0;
-  margin: 0 auto 0.5rem;
-}
-
-.article-card .title {
-  font-weight: bold;
-}
 
 .article-card .quantity-controls {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 1rem;
+  align-items: center; /* Centra verticalmente los botones */
+  justify-content: center; /* Centra horizontalmente los botones */
+  margin-top: auto; /* Empuja los controles de cantidad hacia la parte inferior */
 }
 
 .article-card .quantity-controls button {
   background-color: #48BB78;
   color: white;
-  padding: 0.5rem;
+  padding: 0.25rem 0.5rem;
   border-radius: 0.25rem;
   border: none;
   cursor: pointer;
+  margin: 0 0.25rem; /* Espacio entre botones */
 }
 
 .article-card .quantity-controls span {
-  margin: 0 1rem;
+  margin: 0 0.5rem;
 }
+
+
+/* Estilos para dispositivos móviles */
+@media only screen and (max-width: 640px) {
+  .article-card {
+    width: calc(100% - 10px); /* Ancho completo menos el espacio entre tarjetas */
+    height: auto; /* Altura automática según el contenido */
+    margin: 5px; /* Espacio entre tarjetas */
+    border: 0.1px solid #0c1410; /* Borde delgado */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px; /* Espaciado interno */
+    border-radius: 0.5rem;
+  }
+
+  .article-card .image-container {
+    margin-bottom: 5px; /* Espacio bajo la imagen */
+  }
+
+  .article-card .title {
+    font-size: 12px; /* Tamaño de fuente reducido */
+    text-align: center; /* Alinear texto al centro */
+  }
+
+  .article-card .quantity-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 8px; /* Espacio superior */
+  }
+
+  .article-card .quantity-controls button {
+    font-size: 14px; /* Tamaño de fuente de los botones */
+    padding: 4px 8px; /* Padding de los botones */
+    margin: 0 4px; /* Espacio entre botones */
+    background-color: #48BB78;
+    color: white;
+    border-radius: 0.25rem;
+    border: none;
+    cursor: pointer;
+  }
+}
+
+
+
+
+
+/* Layout */
+.product-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.category-slider {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.article-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
 
 /* Main Layout */
 .main-layout {
@@ -392,16 +457,14 @@ margin-top: 30px;
   min-height: 100vh;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1980px) {
   .main-layout {
     flex-direction: row;
     justify-content: space-between;
   }
 }
 
-.product-grid .slick-slide {
-  width: auto !important;
-}
+
 
 .reservation-screen, .product-grid {
   width: 100%;
@@ -409,7 +472,7 @@ margin-top: 30px;
 
 @media (min-width: 1024px) {
   .reservation-screen, .product-grid {
-    width: 60%; /* Ajusta el porcentaje según sea necesario */
+    width: 100%; /* Ajusta el porcentaje según sea necesario */
   }
 }
 
@@ -1682,6 +1745,8 @@ textarea.form-control {
   position: relative;
 }
 
+
+
 /*Btn Style One*/
 .btn-style-one {
   position: relative;
@@ -1736,6 +1801,21 @@ textarea.form-control {
   background: var(--bg-theme-color2);
 }
 
+/*Btn Style three*/
+.btn-style-three {
+  position: relative;
+  font-size: 14px;
+  line-height: 30px;
+  color: #ffffff;
+  padding: 15px 50px;
+  font-weight: 600;
+  background: var(--bg-theme-color1);
+  letter-spacing: 0.1em;
+  overflow: hidden;
+  border-radius: 5px;
+  text-transform: uppercase;
+}
+
 /*Btn Style two*/
 .btn-style-two {
   position: relative;
@@ -1788,18 +1868,48 @@ textarea.form-control {
 }
 
 /*Btn Style Three*/
-.btn-style-three {
+.btn-style-four {
   position: relative;
   font-size: 12px;
   line-height: 25px;
   color: #ffffff;
   padding: 15px 40px;
   font-weight: 600;
-  background: var(--bg-theme-color2);
+  background: #f97626;
   letter-spacing: 0.1em;
   overflow: hidden;
   text-transform: uppercase;
+  border: none; /* Quitamos el borde para un diseño más limpio */
+  cursor: pointer; /* Cambiamos el cursor para indicar que es clickable */
+  border-radius: 25px; /* Añadimos bordes redondeados */
+
+  /* Añadimos animación de pulsación */
+  animation: pulse 2s infinite;
 }
+
+/* Definimos la animación 'pulse' */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1); /* Escalamos un poco el botón a la mitad de la animación */
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+
+
+
+/* ======================================= */
+
+
+
+
+
+
 .btn-style-three:before {
   position: absolute;
   left: 0;
@@ -3065,11 +3175,11 @@ Section Title
   position: relative;
   top: -5px;
   display: inline-block;
-  font-size: 16px;
+  font-size: 22px;
   color: var(--theme-color2);
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  font-weight: 700;
+  font-weight: 900;
 }
 .sec-title .sub-title:before {
   position: absolute;

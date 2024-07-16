@@ -5,23 +5,28 @@ const AboutOne = () => {
   const data = [
     {
       img: "santiago.jpg",
-      title: "Mudanzas Normales",
+      title: "Mudanzas",
       descripcion: "Ofrecemos un servicio de mudanzas estándar ideal para hogares y residencias. Nuestro equipo profesional garantiza una mudanza segura y sin estrés."
     },
     {
       img: "arica.jpg",
-      title: "Mudanzas Empresas u Oficinas",
+      title: "Traslados de empresas u oficinas",
       descripcion: "Especializados en mudanzas corporativas, ofrecemos soluciones eficientes para la reubicación de empresas y oficinas, minimizando el tiempo de inactividad y asegurando una transición fluida."
     },
     {
       img: "concepcion.jpg",
-      title: "Fletes y Transportes de Carga",
+      title: "Fletes y transporte de carga general",
       descripcion: "Proporcionamos servicios de transporte de carga seguros y eficientes para todo tipo de mercancías, asegurando entregas puntuales y manejo cuidadoso."
     },
     {
       img: "losangeles.jpg",
-      title: "Servicios de Embalaje y Encomiendas",
-      descripcion: "Ofrecemos servicios completos de embalaje y envío de paquetería, garantizando la máxima protección para tus pertenencias durante el transporte."
+      title: "Mudanzas y fletes de retorno",
+      descripcion: "Ofrecemos servicios economicos para clientes que cuentes flexibilidad en las fechas de su mudanza o traslado"
+    },
+    {
+      img: "losangeles.jpg",
+      title: "Mudanzas compartidas y carga consolidada",
+      descripcion: "Solución rentable para trasladar pequeñas mudanzas y artículos individuales al compartir espacio de carga con otros usuarios, reduciendo costos y optimizando recursos"
     }
   ];
 

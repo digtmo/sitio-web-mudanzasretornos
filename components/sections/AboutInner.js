@@ -16,19 +16,19 @@ const AboutOne = () => {
             <div className="content-column col-lg-6 col-md-12 col-sm-12 order-2">
               <div className="inner-column">
                 <div className="sec-title">
-                  <span className="sub-title">Transportation Company</span>
-                  <h2>We provide full rang of transportation services</h2>
-                  <div className="text">Long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using is that it has a more-or-less normal distribution.</div>
-                </div>
+                  <span className="sub-title">Nuestra empresa</span>
+                  <h2>Comprometidos .....</h2>
+{/*                   <div className="text">Long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using is that it has a more-or-less normal distribution.</div>
+ */}                </div>
                 <div className="content-box">
                   <div className="about-block">
                     <i className="icon flaticon-worldwide-shipping" />
-                    <h4 className="title">Worldwide services </h4>
+                    <h4 className="title">Visión </h4>
                     <p className="text">We’re always provide people a complete solution focused of any business.</p>
                   </div>
                   <div className="about-block">
                     <i className="icon flaticon-3d-cube" />
-                    <h4 className="title">Local services</h4>
+                    <h4 className="title">Misión</h4>
                     <p className="text">We’re always provide people a complete solution focused of any business.</p>
                   </div>
                 </div>

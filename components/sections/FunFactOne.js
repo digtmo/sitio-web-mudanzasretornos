@@ -32,7 +32,7 @@ const FunFactOne = () => {
                   <div className="sec-title light">
                     <span className="sub-title"> Entregamos a tiempo!</span>
                     <h2>Cobertura total &amp; Flexibilidad en mudanzas</h2>
-                    <div className="text">Con años de experiencia en el sector de mudanzas y fletes, sabemos cómo garantizar la máxima eficiencia y satisfacción.</div>
+                    <div className="text">Con años de experiencia en el rubro de mudanzas y fletes, sabemos cómo garantizar la máxima eficiencia y satisfacción.</div>
                   </div>
                   <div className="fact-counter">
                     <div className="row">
@@ -40,11 +40,11 @@ const FunFactOne = () => {
                       <div className="counter-column col-lg-4 col-md-6 col-sm-12">
                         <div className="inner">
                           <div className="count-box">
-                            <CounterUp className="count-text" count={531} time={3} />
+                            + <CounterUp className="count-text" count={100} time={3} />
                           </div>
                           <h4 className="counter-title">
-                            Mudanzas <br />
-                            Realizadas
+                           Mudanzas realizadas<br />
+                            al mes
                           </h4>
                           <i className="icon flaticon-delivery-8" />
                         </div>
@@ -53,7 +53,7 @@ const FunFactOne = () => {
                       <div className="counter-column col-lg-4 col-md-6 col-sm-12">
                         <div className="inner">
                           <div className="count-box">
-                            <CounterUp className="count-text" count={368} time={3} />
+                            <CounterUp className="count-text" count={95} time={3} />%
                           </div>
                           <h4 className="counter-title">
                             Clientes <br />
@@ -66,11 +66,11 @@ const FunFactOne = () => {
                       <div className="counter-column col-lg-4 col-md-6 col-sm-12">
                         <div className="inner">
                           <div className="count-box">
-                            <CounterUp className="count-text" count={360} time={3} />
+                            <CounterUp className="count-text" count={100} time={3} />%
                           </div>
                           <h4 className="counter-title">
-                            Rutas
-                            <br /> Disponibles
+                            Servicios
+                            <br /> realizados por nosotros
                           </h4>
                           <i className="icon flaticon-delivery-box-3" />
                         </div>

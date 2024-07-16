@@ -13,8 +13,9 @@ export default function Home() {
             <Layout HeaderStyle="one">
                 <PageTitle pageName="About Us" />
                 <AboutInner />
-                <ServiceOne />
                 <OfferOne />
+                <ServiceOne />
+                
             </Layout>
         </>
     )

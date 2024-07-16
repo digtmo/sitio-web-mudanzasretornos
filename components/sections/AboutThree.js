@@ -11,8 +11,8 @@ const AboutThree = () => {
                 <div className="sec-title">
                   <span className="sub-title">profesionalismo</span>
                   <h2>Profesional, Efectiva y Seria</h2>
-                  <div className="text">Nuestros servicios son convenientes. Los clientes destacan la competencia de nuestros trabajadores y la calidad de la mudanza que prestamos. En Econotrans destacamos por nuestra atención personalizada a cada cliente. Somos una empresa cercana, con una alta adaptabilidad a los requerimientos de nuestros clientes.
-                  </div>
+      {/*             <div className="text">Nuestros servicios son convenientes. Los clientes destacan la competencia de nuestros trabajadores y la calidad de la mudanza que prestamos. En Econotrans destacamos por nuestra atención personalizada a cada cliente. Somos una empresa cercana, con una alta adaptabilidad a los requerimientos de nuestros clientes.
+                  </div> */}
                 </div>
                 <div className="row">
                   <div className="feature-block-three col-lg-4 col-md-4 col-sm-12">

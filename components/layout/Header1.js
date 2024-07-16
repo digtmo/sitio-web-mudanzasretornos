@@ -67,8 +67,8 @@ const Header1 = ({ handleOpen, handleRemove, searchToggle, handleToggle, scroll 
               <div className="outer-box">
        
         
-                <Link href="/#main-component" className="theme-btn btn-style-two">
-                  <span className="btn-title">Reservar</span>
+                <Link href="/#main-component" className="btn-style-four">
+                  <span className="btn-title">Cotiza gratis tu mudanza</span>
                 </Link>
                 <div className="mobile-nav-toggler" onClick={handleOpen}>
                   <span className="icon lnr-icon-bars" />

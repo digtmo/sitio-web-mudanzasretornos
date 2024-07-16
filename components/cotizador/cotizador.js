@@ -35,18 +35,19 @@ const MainComponent = () => {
 
   return (
     <div id="main-component" className="main-layout">
+      {/* Coloca ReservationScreen encima de ProductGrid */}
       <ReservationScreen
         totalVolume={totalVolume}
         onTotalVolumeChange={setTotalVolume}
         quantities={quantities}
         onTransactionSuccess={handleTransactionSuccess}
         onTransactionError={handleTransactionError}
-      /> 
+      />
       <ProductGrid
         onTotalVolumeChange={setTotalVolume}
         setQuantities={setQuantities}
         quantities={quantities}
-      /> 
+      />
     </div>
   );
 };

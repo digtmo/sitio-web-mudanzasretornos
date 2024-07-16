@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
-import Slider from 'react-slick';
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
 const ProductCard = ({ title, imageUrl, onClick }) => (
   <div className="product-card" onClick={() => onClick(title)}>
@@ -11,8 +8,8 @@ const ProductCard = ({ title, imageUrl, onClick }) => (
       <Image
         src={imageUrl}
         alt={`${title} icon`}
-        width={100}
-        height={100}
+        width={80}
+        height={80}
         className="mx-auto"
       />
     </div>
@@ -27,17 +24,19 @@ const ProductCard = ({ title, imageUrl, onClick }) => (
 const ArticleCard = ({ item, quantity, onIncrement, onDecrement }) => (
   <div className="article-card">
     <div className="text-center">
-      {item.imagen ? (
-        <Image
-          src={item.imagen}
-          alt={`${item.item} image`}
-          width={80}
-          height={80}
-          className="mx-auto mb-2"
-        />
-      ) : (
-        <div className="image-placeholder"></div>
-      )}
+      <div className="image-container">
+        {item.imagen ? (
+          <Image
+            src={item.imagen}
+            alt={`${item.item} image`}
+            width={50}
+            height={20}
+            className="mx-auto mb-2"
+          />
+        ) : (
+          <div className="image-placeholder"></div>
+        )}
+      </div>
       <span className="title">{item.item}</span>
     </div>
     <div className="quantity-controls">
@@ -61,7 +60,6 @@ const ProductGrid = ({ onTotalVolumeChange, setQuantities, quantities }) => {
   const [data, setData] = useState({});
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [totalVolume, setTotalVolume] = useState(0);
-  const [rows, setRows] = useState(2); // Estado para controlar el número de filas
 
   useEffect(() => {
     const fetchData = async () => {
@@ -79,22 +77,6 @@ const ProductGrid = ({ onTotalVolumeChange, setQuantities, quantities }) => {
 
     fetchData();
   }, []);
-
-  useEffect(() => {
-    if (selectedCategory && data[selectedCategory]) {
-      const itemCount = data[selectedCategory].length;
-      let calculatedRows = 1;
-  
-      if (itemCount > 21) {
-        calculatedRows = 4;
-      } else if (itemCount > 9) {
-        calculatedRows = 2;
-      }
-  
-      setRows(calculatedRows);
-    }
-  }, [selectedCategory, data]);
-  
 
   const handleCardClick = (category) => {
     setSelectedCategory(category);
@@ -130,68 +112,11 @@ const ProductGrid = ({ onTotalVolumeChange, setQuantities, quantities }) => {
     return total;
   };
 
-  const settings = {
-    dots: false,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 2,
-    slidesToScroll: 2,
-    rows: rows, 
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          rows: rows
-        }
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          rows: rows
-        }
-      }
-    ]
-  };
-
-  const categorySettings = {
-    dots: false,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    rows:2,
-    responsive: [
-      {
-        breakpoint: 1500,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 1,
-          infinite: false,
-          dots: false,
-          rows:2,
-
-        }
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          infinite: false,
-          dots: true
-        }
-      }
-    ]
-  };
-
   return (
-    <div className="w-full lg:w-2/3 flex flex-col justify-center product-grid p-4"> {/* Aquí agregamos el padding */}
-      <div className="sticky top-0 bg-white">
-        <Slider {...categorySettings} className="category-slider">
+    <div className="flex items-center justify-center h-screen">
+      <div className="w-full max-w-4xl flex flex-col justify-center product-grid p-4 mt-4"> 
+      <h2 >Selecciona la habitación</h2>
+        <div className="sticky top-0 bg-white flex flex-wrap justify-center category-slider">
           {Object.keys(data).map((category, index) => (
             <div key={index} className="px-2">
               <ProductCard
@@ -201,23 +126,24 @@ const ProductGrid = ({ onTotalVolumeChange, setQuantities, quantities }) => {
               />
             </div>
           ))}
-        </Slider>
-      </div>
-      <div className={`mt-20 ${selectedCategory ? 'block' : 'hidden'} lg:block`}>
-        {selectedCategory && (
-          <Slider {...settings} className="article-slider">
-            {data[selectedCategory].map(item => (
-              <div key={item.id} >
-                <ArticleCard
-                  item={item}
-                  quantity={quantities[item.id] || 0}
-                  onIncrement={() => handleIncrement(item.id)}
-                  onDecrement={() => handleDecrement(item.id)}
-                />
-              </div>
-            ))}
-          </Slider>
-        )}
+        </div>
+        <div className={`mt-20 ${selectedCategory ? 'block' : 'hidden'} lg:block article-grid`}>
+        <h2 >Selecciona los articulos</h2>
+          {selectedCategory && (
+            <div className="article-grid">
+              {data[selectedCategory].map(item => (
+                <div key={item.id} className="m-2">
+                  <ArticleCard
+                    item={item}
+                    quantity={quantities[item.id] || 0}
+                    onIncrement={() => handleIncrement(item.id)}
+                    onDecrement={() => handleDecrement(item.id)}
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
