@@ -21,29 +21,30 @@ const Header1 = ({ handleOpen, handleRemove, searchToggle, handleToggle, scroll 
                 <i className="fa fa-clock" /> Mon - Sat: 8am - 5pm
               </li> */}
               <li>
-                <i className="fa fa-phone-volume" /> <Link href="tel:+92(8800)87890">+569 94788521</Link>
+                <i className="fa fa-phone-volume" /> <a href="tel:+56994788521">+569 94788521</a>
               </li>
+
             </ul>
           </div>
           <div className="top-right">
             <ul className="social-icon-one">
               <li>
-              <Link href="https://www.facebook.com/Econotransla">
+                <Link href="https://www.facebook.com/Econotransla">
                   <i className="fab fa-facebook-f" />
                 </Link>
               </li>
-             {/*  <li>
+              {/*  <li>
                 <Link href="#">
                   <span className="fab fa-twitter" />
                 </Link>
               </li> */}
-            {/*   <li>
+              {/*   <li>
                 <Link href="#">
                   <span className="fab fa-pinterest-p" />
                 </Link>
               </li> */}
               <li>
-              <Link href="https://www.instagram.com/econotrans_mudanzas/">
+                <Link href="https://www.instagram.com/econotrans_mudanzas/">
                   <i className="fab fa-instagram" />
                 </Link>
               </li>
@@ -65,8 +66,8 @@ const Header1 = ({ handleOpen, handleRemove, searchToggle, handleToggle, scroll 
                 <NavLinks extraClassName="header1" />
               </nav>
               <div className="outer-box">
-       
-        
+
+
                 <Link href="/#main-component" className="btn-style-four">
                   <span className="btn-title">Cotiza gratis tu mudanza</span>
                 </Link>
@@ -107,7 +108,7 @@ const Header1 = ({ handleOpen, handleRemove, searchToggle, handleToggle, scroll 
                   <Link href="/mailto:contacto@econotrans.cl"> contacto@econotrans.cl</Link>
                 </div>
               </li>
-           {/*    <li>
+              {/*    <li>
                 <div className="contact-info-box">
                   <span className="icon lnr-icon-clock" />
                   <span className="title">Send Email</span>
@@ -116,7 +117,7 @@ const Header1 = ({ handleOpen, handleRemove, searchToggle, handleToggle, scroll 
               </li> */}
             </ul>
             <ul className="social-links">
-            {/*   <li>
+              {/*   <li>
                 <Link href="/#">
                   <i className="fab fa-twitter" />
                 </Link>
@@ -126,7 +127,7 @@ const Header1 = ({ handleOpen, handleRemove, searchToggle, handleToggle, scroll 
                   <i className="fab fa-facebook-f" />
                 </Link>
               </li>
-             {/*  <li>
+              {/*  <li>
                 <Link href="/#">
                   <i className="fab fa-pinterest" />
                 </Link>

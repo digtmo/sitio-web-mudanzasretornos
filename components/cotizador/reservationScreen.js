@@ -101,11 +101,14 @@ const ReservationScreen = forwardRef((props, ref) => {
             const cotizacionData = {
                 origen: `${formData.direccionOrigen},${formData.ciudadOrigen}`,
                 destino: `${formData.direccionDestino},${formData.ciudadDestino}`,
-                totalVolume
+                totalVolume,
+                formData
             };
             setShowSpinner(true);
+
+
             try {
-                const response = await axios.post('https://backend-econotrans.digtmo.com/v1/cotizador', cotizacionData);
+                const response = await axios.post('http://localhost:3000/v1/cotizador', cotizacionData);
                 setCotizacion(response.data);
                 setShowSpinner(false);
                 setShowModal(true);

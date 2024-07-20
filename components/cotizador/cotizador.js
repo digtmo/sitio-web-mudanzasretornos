@@ -56,15 +56,7 @@ const MainComponent = () => {
         quantities={quantities}
       />
       <div className="button-group">
-        <button style={{
-          padding: '10px 50px',
-          border: 'none',
-          backgroundColor: '#0c6b9a',
-          color: 'white',
-          cursor: 'pointer',
-          borderRadius: '5px',
-          fontSize: '16px',
-        }} onClick={handleCotizar}>Cotizar</button>  {/* Llama a handleCotizar desde MainComponent */}
+        <button className='btn-style-four' onClick={handleCotizar}>Cotizar</button>  {/* Llama a handleCotizar desde MainComponent */}
       </div>
     </div>
   );
