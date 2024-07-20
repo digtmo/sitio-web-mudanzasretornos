@@ -15,21 +15,21 @@ const WorkOne = () => {
           </div>
           <div className="row">
             {/* Work Block */}
-           
+
             {/* Work Block */}
-            <div className="work-block col-lg-4 col-md-6 col-sm-12 wow fadeInRight" data-wow-delay="300ms">
+            <a href="/#formulario" className="work-block col-lg-4 col-md-6 col-sm-12 wow fadeInRight" data-wow-delay="300ms">
               <div className="inner-box">
                 <div className="icon-box">
                   <span className="count">01</span>
                   <i className="icon flaticon-stock-1" />
                 </div>
                 <h4 className="title">
-                  Completa  <br />
+                  Completa <br />
                   la información de tu mudanza
                 </h4>
               </div>
-            </div>
-            <div className="work-block col-lg-4 col-md-6 col-sm-12 wow fadeInRight">
+            </a>
+            <a href="/#cotizador" className="work-block col-lg-4 col-md-6 col-sm-12 wow fadeInRight" data-wow-delay="300ms">
               <div className="inner-box">
                 <div className="icon-box">
                   <span className="count">02</span>
@@ -37,10 +37,11 @@ const WorkOne = () => {
                 </div>
                 <h4 className="title">
                   Selecciona <br />
-                 los articulos de tu mudanza
+                  los articulos de tu mudanza
                 </h4>
               </div>
-            </div>
+
+            </a>
             {/* Work Block */}
             <div className="work-block col-lg-4 col-md-6 col-sm-12 wow fadeInRight" data-wow-delay="600ms">
               <div className="inner-box">

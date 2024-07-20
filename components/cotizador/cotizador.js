@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import ReservationScreen from "./reservationScreen.js";
-import ProductGrid from "./productGrid.js"; 
+import ProductGrid from "./productGrid.js";
 import SuccessModal from "./modalExito.js";
 import ErrorModal from "./modalError.js";
 
@@ -9,6 +9,7 @@ const MainComponent = () => {
   const [quantities, setQuantities] = useState({});
   const [transactionResult, setTransactionResult] = useState(null);
   const [transactionMessage, setTransactionMessage] = useState('');
+  const reservationScreenRef = useRef(null);
 
   const handleTransactionSuccess = (transactionId) => {
     setTransactionResult('success');
@@ -25,6 +26,12 @@ const MainComponent = () => {
     setTransactionMessage('');
   };
 
+  const handleCotizar = () => {
+    if (reservationScreenRef.current) {
+      reservationScreenRef.current.handleCotizar();
+    }
+  };
+
   if (transactionResult === 'success') {
     return <SuccessModal title="Transacción Exitosa" message={transactionMessage} onClose={handleBackToHome} />;
   }
@@ -35,8 +42,8 @@ const MainComponent = () => {
 
   return (
     <div id="main-component" className="main-layout">
-      {/* Coloca ReservationScreen encima de ProductGrid */}
       <ReservationScreen
+        ref={reservationScreenRef}  // Pasar la referencia aquí
         totalVolume={totalVolume}
         onTotalVolumeChange={setTotalVolume}
         quantities={quantities}
@@ -48,6 +55,17 @@ const MainComponent = () => {
         setQuantities={setQuantities}
         quantities={quantities}
       />
+      <div className="button-group">
+        <button style={{
+          padding: '10px 50px',
+          border: 'none',
+          backgroundColor: '#0c6b9a',
+          color: 'white',
+          cursor: 'pointer',
+          borderRadius: '5px',
+          fontSize: '16px',
+        }} onClick={handleCotizar}>Cotizar</button>  {/* Llama a handleCotizar desde MainComponent */}
+      </div>
     </div>
   );
 };

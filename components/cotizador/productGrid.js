@@ -113,7 +113,7 @@ const ProductGrid = ({ onTotalVolumeChange, setQuantities, quantities }) => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen">
+    <div id="cotizador" className="flex items-center justify-center h-screen">
       <div className="w-full max-w-4xl flex flex-col justify-center product-grid p-4 mt-4"> 
       <h2 >Selecciona la habitación</h2>
         <div className="sticky top-0 bg-white flex flex-wrap justify-center category-slider">
