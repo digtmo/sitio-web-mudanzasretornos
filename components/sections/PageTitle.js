@@ -9,11 +9,9 @@ const PageTitle = (props) => {
           <h1 className="title">{props.pageName}</h1>
           <ul className="page-breadcrumb">
             <li>
-              <Link href="/">Home</Link>
+              <Link href="/">Inicio</Link>
             </li>
-            <li>
-              <Link href="/">Pages</Link>
-            </li>
+
             <li>{props.pageName}</li>
           </ul>
         </div>

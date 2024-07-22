@@ -14,24 +14,6 @@ const ReservationScreen = forwardRef((props, ref) => {
     const [origenTipoVivienda, setOrigenTipoVivienda] = useState('');
     const [destinoTipoVivienda, setDestinoTipoVivienda] = useState('');
     const [showSpinner, setShowSpinner] = useState(false);
-    const [formData, setFormData] = useState({
-        nombre: '',
-        telefono: '',
-        correo: '',
-        ciudadOrigen: '',
-        direccionOrigen: '',
-        pisoOrigen: '',
-        tieneAscensorOrigen: false,
-        ciudadDestino: '',
-        direccionDestino: '',
-        pisoDestino: '',
-        tieneAscensorDestino: false,
-        fechaMudanza: '',
-        observaciones: '',
-        retorno: false,
-        tipoViviendaOrigen: 'Casa', // Valor por defecto para tipo de vivienda de origen
-        tipoViviendaDestino: 'Casa', // Valor por defecto para tipo de vivienda de destino
-    });
     const [comunas, setComunas] = useState([]);
     const [cotizacion, setCotizacion] = useState(null);
     const [showModal, setShowModal] = useState(false);
@@ -46,6 +28,40 @@ const ReservationScreen = forwardRef((props, ref) => {
     const [validationError, setValidationError] = useState('');
     const [selectedImage, setSelectedImage] = useState(null); // imagen de transferencia
 
+   
+
+    const getTodayDate = () => {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+      };
+    
+      // Inicializar el estado con la fecha de hoy
+      const [fechaMudanza, setFechaMudanza] = useState(getTodayDate());
+      const [formData, setFormData] = useState({
+        nombre: '',
+        telefono: '',
+        correo: '',
+        ciudadOrigen: '',
+        direccionOrigen: '',
+        pisoOrigen: '',
+        tieneAscensorOrigen: false,
+        ciudadDestino: '',
+        direccionDestino: '',
+        pisoDestino: '',
+        tieneAscensorDestino: false,
+        fechaMudanza: fechaMudanza,
+        observaciones: '',
+        retorno: false,
+        tipoViviendaOrigen: 'Casa', // Valor por defecto para tipo de vivienda de origen
+        tipoViviendaDestino: 'Casa', // Valor por defecto para tipo de vivienda de destino
+    });
+      const handleDateChange = (e) => {
+        setFechaMudanza(e.target.value);
+      };
+    
 
         useImperativeHandle(ref, () => ({
             handleCotizar
@@ -404,8 +420,10 @@ const ReservationScreen = forwardRef((props, ref) => {
                                 type="date"
                                 id="fechaMudanza"
                                 name="fechaMudanza"
-                                onChange={handleInputChange}
-                                required
+                                value={fechaMudanza}
+                                onChange={handleDateChange}
+                                placeholder="Ingresa una fecha"
+                              
                             />
                         </div>
                         <div className="input-group">
@@ -433,6 +451,7 @@ const ReservationScreen = forwardRef((props, ref) => {
                                 id="direccionOrigen"
                                 name="direccionOrigen"
                                 onChange={handleInputChange}
+                                placeholder='Ej: Sor Vicenta 999'
                                 required
                             />
                         </div>
@@ -455,13 +474,14 @@ const ReservationScreen = forwardRef((props, ref) => {
                         </div>
                         <div className="input-group">
                             <label htmlFor="pisoOrigen">
-                                Piso Origen <span className="text-red-500">*</span>
+                                Piso origen <span className="text-red-500">*</span>
                             </label>
                             <input
-                                type="number"
+                               type="tel"
                                 id="pisoOrigen"
                                 name="pisoOrigen"
                                 onChange={handleInputChange}
+                                placeholder='Numero de pisos'
                                 required
                             />
                         </div>
@@ -487,6 +507,7 @@ const ReservationScreen = forwardRef((props, ref) => {
                                 name="ciudadDestino"
                                 onChange={handleInputChange}
                                 required
+                               
                             >
                                 <option value="">Seleccione una comuna</option>
                                 {comunas.map((comuna) => (
@@ -503,6 +524,7 @@ const ReservationScreen = forwardRef((props, ref) => {
                                 id="direccionDestino"
                                 name="direccionDestino"
                                 onChange={handleInputChange}
+                                 placeholder="Ej: Avenida Providencia 999"
                                 required
                             />
                         </div>
@@ -528,9 +550,10 @@ const ReservationScreen = forwardRef((props, ref) => {
                                 Piso destino <span className="text-red-500">*</span>
                             </label>
                             <input
-                                type="number"
+                               type="tel"
                                 id="pisoDestino"
                                 name="pisoDestino"
+                                  placeholder='Numero de pisos'
                                 onChange={handleInputChange}
                                 required
                             />

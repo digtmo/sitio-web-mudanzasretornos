@@ -1877,6 +1877,7 @@ textarea.form-control {
 }
 
 /*Btn Style Three*/
+/* Btn Style Four */
 .btn-style-four {
   position: relative;
   font-size: 12px;
@@ -1909,15 +1910,46 @@ textarea.form-control {
   }
 }
 
+/* Media query para dispositivos móviles */
+@media (max-width: 767px) {
+  .btn-style-four {
+    font-size: 8px;
+    line-height: 20px;
+    padding: 10px 30px;
+  }
+}
+
+
+
+
+
+
+/* ======================================= 
+            INPUT FECHA IOS
+==========================================*/
+
+input[type="date"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font-size: 16px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #333;
+}
+
+@media screen and (max-width: 767px) {
+  input[type="date"] {
+    font-size: 14px;
+    padding: 8px;
+  }
+}
 
 
 
 /* ======================================= */
-
-
-
-
-
 
 .btn-style-three:before {
   position: absolute;

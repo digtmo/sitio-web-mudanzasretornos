@@ -4,29 +4,29 @@ import Link from "next/link";
 const AboutOne = () => {
   const data = [
     {
-      img: "santiago.jpg",
+      img: "realizamostodotipo.jpg",
       title: "Mudanzas",
       descripcion: "Ofrecemos un servicio de mudanzas estándar ideal para hogares y residencias. Nuestro equipo profesional garantiza una mudanza segura y sin estrés."
     },
     {
-      img: "arica.jpg",
+      img: "mudanzasexclusivas.jpg",
       title: "Traslados de empresas u oficinas",
-      descripcion: "Especializados en mudanzas corporativas, ofrecemos soluciones eficientes para la reubicación de empresas y oficinas, minimizando el tiempo de inactividad y asegurando una transición fluida."
+      descripcion: "Especializados en mudanzas corporativas, ofrecemos soluciones eficientes para reubicaciones rápidas y sin interrupciones."
     },
     {
-      img: "concepcion.jpg",
+      img: "trasladamostodotipo.jpg",
       title: "Fletes y transporte de carga general",
       descripcion: "Proporcionamos servicios de transporte de carga seguros y eficientes para todo tipo de mercancías, asegurando entregas puntuales y manejo cuidadoso."
     },
     {
-      img: "losangeles.jpg",
+      img: "mudanzasexclusivas.jpg",
       title: "Mudanzas y fletes de retorno",
       descripcion: "Ofrecemos servicios economicos para clientes que cuentes flexibilidad en las fechas de su mudanza o traslado"
     },
     {
-      img: "losangeles.jpg",
+      img: "mudanzasexclusivas.jpg",
       title: "Mudanzas compartidas y carga consolidada",
-      descripcion: "Solución rentable para trasladar pequeñas mudanzas y artículos individuales al compartir espacio de carga con otros usuarios, reduciendo costos y optimizando recursos"
+      descripcion: "Economiza al trasladar pequeñas mudanzas compartiendo carga con otros, reduciendo costos y optimizando recursos."
     }
   ];
 
@@ -59,16 +59,13 @@ const AboutOne = () => {
                     <span className="sub-title">Servicios</span>
                     <h2>Nuestros servicios destacados</h2>
                   </div>
-                  <div className="row d-flex align-items-stretch">
+                  <div className="services-grid">
                     {data.map((item, i) => (
-                      <div
-                        key={i}
-                        className="service-block col-xl-3 col-lg-4 col-md-6 col-sm-12 wow fadeInUp"
-                      >
+                      <div key={i} className="service-block">
                         <div className="inner-box d-flex flex-column">
-                          <div className="image-box">
+                          <div >
                             <figure className="image">
-                              <Link href="/page-service-details">
+                              <Link href="/servicios">
                                 <img
                                   src={`images/servicios/${item.img}`}
                                   alt="Service Image"
@@ -76,16 +73,20 @@ const AboutOne = () => {
                               </Link>
                             </figure>
                           </div>
+
+
                           <div className="content-box flex-grow-1">
-                            <i className="icon flaticon-delivery-truck-4" />
-                            <span className="sub-title">Servicios</span>
-                            <h4 className="title">
-                              <Link href="/page-service-details">
+                            {/*          <i className="icon flaticon-delivery-truck-4" />
+                            <span className="sub-title">Servicios</span> */}
+                            <h4 >
+                              <Link href="/servicios">
                                 {item.title}
                               </Link>
                             </h4>
                             <p className="text">{item.descripcion}</p>
                           </div>
+
+                          
                         </div>
                       </div>
                     ))}
@@ -96,6 +97,68 @@ const AboutOne = () => {
           </div>
         </div>
       </section>
+      <style jsx>{`
+        .services-grid {
+          display: grid;
+          grid-template-columns: repeat(1, 1fr);
+          gap: 20px;
+        }
+
+        @media (min-width: 576px) {
+          .services-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+
+        @media (min-width: 768px) {
+          .services-grid {
+            grid-template-columns: repeat(3, 1fr);
+          }
+        }
+
+        @media (min-width: 1200px) {
+          .services-grid {
+            grid-template-columns: repeat(5, 1fr);
+          }
+        }
+
+        .service-block {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          border: 1px solid #ddd;
+          border-radius: 10px;
+        }
+
+        .inner-box {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+        }
+
+        .image-box {
+          flex-grow: 1;
+        }
+
+
+
+        .icon {
+          font-size: 24px;
+          margin-bottom: 10px;
+        }
+
+        @media (min-width: 768px) {
+          .icon {
+            font-size: 20px;
+          }
+        }
+
+        @media (min-width: 1200px) {
+          .icon {
+            font-size: 16px;
+          }
+        }
+      `}</style>
     </>
   );
 };

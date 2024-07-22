@@ -41,7 +41,7 @@ const MobileMenu = () => {
     <>
       <ul className="navigation clearfix">
         <li>
-          <Link href="">Inicio</Link>
+          <Link href="/">Inicio</Link>
      {/*      <ul className={isActive.key === 1 ? "d-block" : "d-none"}>
             <li>
               <Link href="/">Home Layout 1</Link>

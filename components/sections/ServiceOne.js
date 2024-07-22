@@ -4,35 +4,35 @@ import  Link  from 'next/link';
 const ServiceOne = () => {
     const data = [
         {
-            img: "santiago.jpg",
+            img: "losangeles-santiago.jpg",
             title: "Los Ángeles - Santiago"
         },
         {
-            img: "arica.jpg",
+            img: "santiago-concepcion.jpg",
             title: "Santiago - Concepción"
         },
         {
-            img: "arica.jpg",
+            img: "santiago-puerto.jpg",
             title: "Santiago - Puerto Montt"
         },
         {
-            img: "arica.jpg",
+            img: "santiago-valdivia.jpg",
             title: "Santiago - Valdivia"
         },
         {
-            img: "arica.jpg",
+            img: "santiago-pucon.jpg",
             title: "Santiago - Pucon"
         },
         {
-            img: "arica.jpg",
+            img: "santiago-temuco.jpg",
             title: "Santiago - Temuco"
         },
         {
-            img: "concepcion.jpg",
+            img: "losangeles-concepcion.jpg",
             title: "Los Ángeles - Concepción"
         },
         {
-            img: "losangeles.jpg",
+            img: "losangeles-sur.jpg",
             title: "Los Ángeles - Sur de Chile"
         },
     ];
@@ -54,7 +54,7 @@ const ServiceOne = () => {
                                 <div className="inner-box ">
                                     <div className="image-box">
                                         <figure className="image">
-                                            <Link href="/page-service-details">
+                                            <Link href="/servicios">
                                                 <img src={`images/servicios/${item.img}`} title="Tronis" />
                                             </Link>
                                         </figure>
@@ -62,7 +62,7 @@ const ServiceOne = () => {
                                     <div className="content-box">
                                         <i className="icon flaticon-delivery-truck-4" />
                                         <span className="sub-title">Principales rutas</span>
-                                        <h4 className="title"><Link href="/page-service-details">{item.title}</Link></h4>
+                                        <h4 className="title"><Link href="/servicios">{item.title}</Link></h4>
                                     </div>
                                 </div>
                             </div>

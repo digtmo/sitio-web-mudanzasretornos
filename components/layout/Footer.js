@@ -74,16 +74,16 @@ const Footer = () => {
                   <h3 className="widget-title">Servicios</h3>
                   <ul className="user-links">
                     <li>
-                      <Link href="">Mudanzas Normales</Link>
+                      <Link href="/servicios">Mudanzas Normales</Link>
                     </li>
                     <li>
-                      <Link href="">Mudanzas Empresas u Oficinas</Link>
+                      <Link href="/servicios">Mudanzas Empresas u Oficinas</Link>
                     </li>
                     <li>
-                      <Link href="">Fletes y Transportes de Carga</Link>
+                      <Link href="/servicios">Fletes y Transportes de Carga</Link>
                     </li>
                     <li>
-                      <Link href="">Servicios de Embalaje y Encomiendas</Link>
+                      <Link href="/servicios">Servicios de Embalaje y Encomiendas</Link>
                     </li>
                   </ul>
                 </div>

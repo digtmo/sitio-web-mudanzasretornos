@@ -21,7 +21,7 @@ const Header1 = ({ handleOpen, handleRemove, searchToggle, handleToggle, scroll 
                 <i className="fa fa-clock" /> Mon - Sat: 8am - 5pm
               </li> */}
               <li>
-                <i className="fa fa-phone-volume" /> <a href="tel:+56994788521">+569 94788521</a>
+                <i className="fa fa-phone-volume" /> <a href="tel:56994788521">+569 94788521</a>
               </li>
 
             </ul>
@@ -98,7 +98,7 @@ const Header1 = ({ handleOpen, handleRemove, searchToggle, handleToggle, scroll 
                 <div className="contact-info-box">
                   <i className="icon lnr-icon-phone-handset" />
                   <span className="title">Teléfono</span>
-                  <Link href="/tel:+56994788521">+569 94788521</Link>
+                  <Link href="tel:56994788521">+569 94788521</Link>
                 </div>
               </li>
               <li>
