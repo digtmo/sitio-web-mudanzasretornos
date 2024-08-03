@@ -66,11 +66,11 @@ const Header1 = ({ handleOpen, handleRemove, searchToggle, handleToggle, scroll 
                 <NavLinks extraClassName="header1" />
               </nav>
               <div className="outer-box">
-
-
-                <Link href="/#main-component" className="btn-style-four">
+                <Link href="/#work-section" className="btn-style-four">
                   <span className="btn-title">Cotiza gratis tu mudanza</span>
                 </Link>
+
+
                 <div className="mobile-nav-toggler" onClick={handleOpen}>
                   <span className="icon lnr-icon-bars" />
                 </div>

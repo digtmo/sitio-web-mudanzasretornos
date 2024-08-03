@@ -495,6 +495,8 @@ Modales Home
 ***/
 
 
+
+
 /* styles.css */
 
 .modal-background {
@@ -1754,7 +1756,25 @@ textarea.form-control {
   position: relative;
 }
 
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
 
+.select-container {
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  .input-group {
+      flex-direction: column;
+  }
+
+  .input-group label {
+      margin-bottom: 0.5rem;
+  }
+}
 
 /*Btn Style One*/
 .btn-style-one {
@@ -1876,6 +1896,33 @@ textarea.form-control {
   background-color: #ffffff;
 }
 
+.navigationButtons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.navButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.navButton span:first-child {
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+}
+
+@media (min-width: 1024px) {
+  .navigationButtons {
+    display: none;
+  }
+}
+
 /*Btn Style Three*/
 /* Btn Style Four */
 .btn-style-four {
@@ -1897,6 +1944,42 @@ textarea.form-control {
   animation: pulse 2s infinite;
 }
 
+.btn-style-four-reserva {
+  position: relative;
+  font-size: 12px;
+  line-height: 25px;
+  color: #ffffff;
+  padding: 15px 40px;
+  font-weight: 600;
+  background: #f97626;
+  letter-spacing: 0.1em;
+  overflow: hidden;
+  text-transform: uppercase;
+  border: none; /* Quitamos el borde para un diseño más limpio */
+  cursor: pointer; /* Cambiamos el cursor para indicar que es clickable */
+  border-radius: 25px; /* Añadimos bordes redondeados */
+
+  /* Añadimos animación de pulsación */
+  animation: pulse 2s infinite;
+}
+
+
+.btn-style-four-servicios{
+  position: relative;
+  font-size: 12px;
+  line-height: 25px;
+  color: #ffffff;
+  padding: 15px 40px;
+  font-weight: 600;
+  background: #f97626;
+  letter-spacing: 0.1em;
+  overflow: hidden;
+  text-transform: uppercase;
+  border: none; /* Quitamos el borde para un diseño más limpio */
+  cursor: pointer; /* Cambiamos el cursor para indicar que es clickable */
+  border-radius: 25px; /* Añadimos bordes redondeados */
+}
+
 /* Definimos la animación 'pulse' */
 @keyframes pulse {
   0% {
@@ -1913,9 +1996,7 @@ textarea.form-control {
 /* Media query para dispositivos móviles */
 @media (max-width: 767px) {
   .btn-style-four {
-    font-size: 8px;
-    line-height: 20px;
-    padding: 10px 30px;
+    display: none;
   }
 }
 

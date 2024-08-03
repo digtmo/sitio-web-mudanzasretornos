@@ -7,6 +7,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Select from 'react-select';
 
 // Primer Componente: ReservationScreen
 const ReservationScreen = forwardRef((props, ref) => {
@@ -28,7 +29,34 @@ const ReservationScreen = forwardRef((props, ref) => {
     const [validationError, setValidationError] = useState('');
     const [selectedImage, setSelectedImage] = useState(null); // imagen de transferencia
 
-   
+    const customStyles = {
+        control: (provided) => ({
+            ...provided,
+            width: '100%',
+            minHeight: '38px',
+            height: 'auto',
+        }),
+        container: (provided) => ({
+            ...provided,
+            width: '100%',
+        }),
+        valueContainer: (provided) => ({
+            ...provided,
+            minHeight: '38px',
+            height: 'auto',
+            paddingTop: '0',
+            paddingBottom: '0',
+        }),
+        input: (provided) => ({
+            ...provided,
+            margin: '0px',
+        }),
+        singleValue: (provided) => ({
+            ...provided,
+            marginTop: '0',
+            marginBottom: '0',
+        }),
+    };
 
     const getTodayDate = () => {
         const today = new Date();
@@ -36,19 +64,20 @@ const ReservationScreen = forwardRef((props, ref) => {
         const month = String(today.getMonth() + 1).padStart(2, '0');
         const day = String(today.getDate()).padStart(2, '0');
         return `${year}-${month}-${day}`;
-      };
-    
-      // Inicializar el estado con la fecha de hoy
-      const [fechaMudanza, setFechaMudanza] = useState(getTodayDate());
-      const [formData, setFormData] = useState({
+    };
+
+
+    // Inicializar el estado con la fecha de hoy
+    const [fechaMudanza, setFechaMudanza] = useState(getTodayDate());
+    const [formData, setFormData] = useState({
         nombre: '',
         telefono: '',
         correo: '',
-        ciudadOrigen: '',
+        ciudadOrigen: null,
         direccionOrigen: '',
         pisoOrigen: '',
         tieneAscensorOrigen: false,
-        ciudadDestino: '',
+        ciudadDestino: null,
         direccionDestino: '',
         pisoDestino: '',
         tieneAscensorDestino: false,
@@ -58,306 +87,344 @@ const ReservationScreen = forwardRef((props, ref) => {
         tipoViviendaOrigen: 'Casa', // Valor por defecto para tipo de vivienda de origen
         tipoViviendaDestino: 'Casa', // Valor por defecto para tipo de vivienda de destino
     });
-      const handleDateChange = (e) => {
+    const handleDateChange = (e) => {
         setFechaMudanza(e.target.value);
-      };
-    
+    };
 
-        useImperativeHandle(ref, () => ({
-            handleCotizar
-        }));
 
-        useEffect(() => {
-            const fetchComunas = async () => {
-                try {
-                    const response = await fetch('/comunas.json');
-                    const data = await response.json();
-                    setComunas(data.comunas);
-                } catch (error) {
-                    console.error('Error al cargar las comunas:', error);
-                }
-            };
+    useImperativeHandle(ref, () => ({
+        handleCotizar
+    }));
 
-            fetchComunas();
-        }, []);
+    useEffect(() => {
+        const fetchComunas = async () => {
+            try {
+                const response = await fetch('/comunas.json');
+                const data = await response.json();
+                setComunas(data.comunas);
+            } catch (error) {
+                console.error('Error al cargar las comunas:', error);
+            }
+        };
 
-        const handleInputChange = (e) => {
+        fetchComunas();
+    }, []);
+
+    const handleInputChange = (e, action) => {
+        if (action && action.name) {
+            setFormData({
+                ...formData,
+                [action.name]: e
+            });
+        } else if (e.target) {
             const { name, value, type, checked } = e.target;
             setFormData({
                 ...formData,
                 [name]: type === 'checkbox' ? checked : value,
             });
+        }
+    };
+
+    const handleCotizar = async () => {
+        console.log("handle Cotizar")
+        const articles = Object.entries(quantities).map(([id, quantity]) => ({
+            id,
+            quantity,
+        }));
+
+        if (articles.length === 0 || articles.every(article => article.quantity === 0)) {
+            setValidationError('Debes seleccionar al menos un artículo.');
+            return;
+        }
+
+        const requiredFields = [
+            'nombre', 'telefono', 'correo', 'ciudadOrigen', 'direccionOrigen', 'pisoOrigen',
+            'ciudadDestino', 'direccionDestino', 'pisoDestino', 'fechaMudanza'
+        ];
+        const isFormValid = requiredFields.every(field => formData[field] !== '');
+
+        if (!isFormValid) {
+            setValidationError('Por favor, completa todos los campos obligatorios.');
+            return;
+        }
+
+        setValidationError('');
+
+        const cotizacionData = {
+            origen: `${formData.direccionOrigen},${formData.ciudadOrigen.value}`,
+            destino: `${formData.direccionDestino},${formData.ciudadDestino.value}`,
+            totalVolume,
+            formData
         };
-
-        const handleCotizar = async () => {
-            console.log("handle Cotizar")
-            const articles = Object.entries(quantities).map(([id, quantity]) => ({
-                id,
-                quantity,
-            }));
-
-            if (articles.length === 0 || articles.every(article => article.quantity === 0)) {
-                setValidationError('Debes seleccionar al menos un artículo.');
-                return;
-            }
-
-            const requiredFields = [
-                'nombre', 'telefono', 'correo', 'ciudadOrigen', 'direccionOrigen', 'pisoOrigen',
-                'ciudadDestino', 'direccionDestino', 'pisoDestino', 'fechaMudanza'
-            ];
-            const isFormValid = requiredFields.every(field => formData[field] !== '');
-
-            if (!isFormValid) {
-                setValidationError('Por favor, completa todos los campos obligatorios.');
-                return;
-            }
-
-            setValidationError('');
-
-            const cotizacionData = {
-                origen: `${formData.direccionOrigen},${formData.ciudadOrigen}`,
-                destino: `${formData.direccionDestino},${formData.ciudadDestino}`,
-                totalVolume,
-                formData
-            };
-            setShowSpinner(true);
+        setShowSpinner(true);
 
 
-            try {
-                const response = await axios.post('https://backend-econotrans.digtmo.com/v1/cotizador', cotizacionData);
-                setCotizacion(response.data);
-                setShowSpinner(false);
-                setShowModal(true);
-            } catch (error) {
-                console.error('Error al enviar la cotización:', error);
-                setShowSpinner(false);
-            }
-        };
+        try {
+            const response = await axios.post('https://backend-econotrans.digtmo.com/v1/cotizador', cotizacionData);
+            setCotizacion(response.data);
+            setShowSpinner(false);
+            setShowModal(true);
+        } catch (error) {
+            console.error('Error al enviar la cotización:', error);
+            setShowSpinner(false);
+        }
+    };
 
-        const closeModal = () => {
-            setShowModal(false);
-            setCotizacion(null);
-            setSelectedService(null);
-        };
+    const closeModal = () => {
+        setShowModal(false);
+        setCotizacion(null);
+        setSelectedService(null);
+    };
 
-        const closeTransferenciaModal = () => {
-            setShowTransferenciaModal(false);
-        };
+    const closeTransferenciaModal = () => {
+        setShowTransferenciaModal(false);
+    };
 
-        const handleServiceSelection = (service) => {
-            setSelectedService(service);
+    const handleServiceSelection = (service) => {
+        setSelectedService(service);
 
-            // Calculate discountedAmount and transferAmount based on selected service
-            if (cotizacion && cotizacion[service]) {
-                const selectedCotizacionValue = cotizacion[service];
-                const pagoWebPayTotal = Math.round(selectedCotizacionValue)
-                const pagoWebPay = Math.round(selectedCotizacionValue * 0.10)
-                const discounted = Math.round(selectedCotizacionValue * 0.85);
-                const transfer = Math.round(discounted * 0.10);
-                setDiscountedAmount(discounted);
-                setTransferAmount(transfer);
-                setPagoWebPay(pagoWebPay)
-                setPagoWebPayTotal(pagoWebPayTotal)
-            }
-        };
+        // Calculate discountedAmount and transferAmount based on selected service
+        if (cotizacion && cotizacion[service]) {
+            const selectedCotizacionValue = cotizacion[service];
+            const pagoWebPayTotal = Math.round(selectedCotizacionValue)
+            const pagoWebPay = Math.round(selectedCotizacionValue * 0.10)
+            const discounted = Math.round(selectedCotizacionValue * 0.85);
+            const transfer = Math.round(discounted * 0.10);
+            setDiscountedAmount(discounted);
+            setTransferAmount(transfer);
+            setPagoWebPay(pagoWebPay)
+            setPagoWebPayTotal(pagoWebPayTotal)
+        }
+    };
 
-        const handleTransferenciaClick = () => {
-            if (selectedService && cotizacion) {
-                const selectedCotizacionValue = cotizacion[selectedService];
-                const discounted = Math.round(selectedCotizacionValue * 0.85);
-                const transfer = Math.round(discounted * 0.10);
-                setDiscountedAmount(discounted);
-                setTransferAmount(transfer);
-            }
-            setShowTransferenciaModal(true);
-        };
+    const handleTransferenciaClick = () => {
+        if (selectedService && cotizacion) {
+            const selectedCotizacionValue = cotizacion[selectedService];
+            const discounted = Math.round(selectedCotizacionValue * 0.85);
+            const transfer = Math.round(discounted * 0.10);
+            setDiscountedAmount(discounted);
+            setTransferAmount(transfer);
+        }
+        setShowTransferenciaModal(true);
+    };
 
-        const handleWebpayClick = async () => {
-            if (selectedService && cotizacion) {
-                const formDataToSend = { ...formData };
-                const articles = Object.entries(quantities).map(([id, quantity]) => ({
-                    id,
-                    quantity,
-                }));
-
-                let pagoWebPayPendiente = pagoWebPayTotal - pagoWebPay
-
-                const dataToSend = {
-                    ...formDataToSend,
-                    totalVolume: Math.round(totalVolume),
-                    articles,
-                    selectedService,
-                    pagado: pagoWebPay,
-                    pendiente_pago: pagoWebPayPendiente,
-                };
-
-
-                const amount = pagoWebPay;
-                setShowSpinner(true);
-                try {
-                    const response = await axios.post('https://backend-econotrans.digtmo.com/webpay/transaction', { amount, dataToSend });
-                    console.log('Session ID:', response.data.sessionId);
-                    console.log('Token:', response.data.token);
-
-                    console.log(response.data.url)
-
-
-                    // Aquí rediriges al usuario a la URL de Webpay usando el token
-                    window.location.href = `${response.data.url}?token_ws=${response.data.token}`;
-
-
-                    console.log(response.data.url, response.data.token);
-                } catch (error) {
-                    console.error('Error en la transacción:', error);
-                    setShowSpinner(false);
-                    setShowErrorModal(true);
-                }
-            }
-        };
-
-        const handleConfirmTransfer = async () => {
+    const handleWebpayClick = async () => {
+        if (selectedService && cotizacion) {
             const formDataToSend = { ...formData };
             const articles = Object.entries(quantities).map(([id, quantity]) => ({
                 id,
                 quantity,
             }));
 
+            let pagoWebPayPendiente = pagoWebPayTotal - pagoWebPay
+
             const dataToSend = {
                 ...formDataToSend,
                 totalVolume: Math.round(totalVolume),
                 articles,
                 selectedService,
-                discountedAmount: Math.round(discountedAmount),
-                transferAmount: Math.round(transferAmount),
+                pagado: pagoWebPay,
+                pendiente_pago: pagoWebPayPendiente,
             };
 
-            console.log(selectedImage)
 
-            const transferData = new FormData();
-            transferData.append('data', JSON.stringify(dataToSend));
-            if (selectedImage) {
-                transferData.append('imagen', selectedImage);
-            }
-
+            const amount = pagoWebPay;
             setShowSpinner(true);
-
             try {
+                const response = await axios.post('https://backend-econotrans.digtmo.com/webpay/transaction', { amount, dataToSend });
+                console.log('Session ID:', response.data.sessionId);
+                console.log('Token:', response.data.token);
 
-                /*  const response = await axios.post('https://backend-econotrans.digtmo.com/v1/reservasc', transferData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                }); */
-                console.log('Data enviada:');
-                console.log(transferData)
-                if (response.status === 201) {
-                    setShowSpinner(false);
-                    setShowSuccessModal(true);
-                } else {
-                    setShowSpinner(false);
-                    setShowErrorModal(true);
-                }
+                console.log(response.data.url)
+
+
+                // Aquí rediriges al usuario a la URL de Webpay usando el token
+                window.location.href = `${response.data.url}?token_ws=${response.data.token}`;
+
+
+                console.log(response.data.url, response.data.token);
             } catch (error) {
+                console.error('Error en la transacción:', error);
                 setShowSpinner(false);
                 setShowErrorModal(true);
             }
-        };
+        }
+    };
 
-        const handleImageChange = (e) => {
-            if (e.target.files && e.target.files[0]) {
-                setSelectedImage(e.target.files[0]);
-            }
-        };
+    const handleConfirmTransfer = async () => {
+        const formDataToSend = { ...formData };
+        const articles = Object.entries(quantities).map(([id, quantity]) => ({
+            id,
+            quantity,
+        }));
 
-        const settings = {
-            dots: true,
-            infinite: false,
-            speed: 500,
-            slidesToShow: 4, // Mostrar cinco slides en pantallas grandes
-            slidesToScroll: 1, // Desplazar uno a la vez
-            responsive: [
-                {
-                    breakpoint: 1024, // Ajustar según tus necesidades
-                    settings: {
-                        slidesToShow: 3, // Mostrar tres slides en tablets
-                        slidesToScroll: 1,
-                    }
-                },
-                {
-                    breakpoint: 640, // Ajustar según tus necesidades
-                    settings: {
-                        slidesToShow: 1, // Mostrar solo un slide en móvil
-                        slidesToScroll: 1,
-                    }
-                }
-            ]
-        };
-
-        const SelectedServiceModal = ({
+        const dataToSend = {
+            ...formDataToSend,
+            totalVolume: Math.round(totalVolume),
+            articles,
             selectedService,
-            handleTransferenciaClick,
-            handleWebpayClick,
-            discountedAmount,
-            transferAmount,
-            onClose
-        }) => {
-            return (
-                <div className="modal-background">
-                    <div className="modal-container-servicio-seleccionado">
-                        <h2 className="modal-header">Servicio Seleccionado: {selectedService}</h2>
-                        <p className="selected-service-description">
-                            Para hacer tu reserva debes pagar el 10% del total de tu reserva
-                        </p>
-                        <div className="flex-container flex-column">
-                            <button
-                                className="bg-gray-100 p-4 rounded-md text-left focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                                onClick={handleTransferenciaClick}
-                            >
-                                <h3 className="font-semibold text-lg">Transferencia</h3>
-                                <p>Aplica un 15% descuento</p>
-                                {selectedService && (
-                                    <>
-                                        <p className="mt-4">Valor con descuento: ${discountedAmount.toLocaleString('es-CL')}</p>
-                                        <p className="mt-2">Monto a transferir (10%): ${transferAmount.toLocaleString('es-CL')}</p>
-                                    </>
-                                )}
-                            </button>
-                            <button
-                                className="bg-gray-100 p-4 rounded-md text-left focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                                onClick={handleWebpayClick}
-                            >
-                                <h3 className="font-semibold text-lg">Webpay</h3>
-                                <p>Debito y Credito</p>
-                                {selectedService && (
-                                    <>
-                                        <p className="mt-4">Valor: ${pagoWebPayTotal.toLocaleString('es-CL')}</p>
-                                        <p className="mt-2">Monto a pagar (10%): ${pagoWebPay.toLocaleString('es-CL')}</p>
-                                    </>
-                                )}
-                            </button>
-                        </div>
+            discountedAmount: Math.round(discountedAmount),
+            transferAmount: Math.round(transferAmount),
+        };
 
-                        <div className="flex justify-center mt-4">
-                            <button
-                                className="button"
-                                onClick={onClose}
-                                style={{
-                                    padding: '10px 20px',
-                                    border: 'none',
-                                    backgroundColor: '#0c6b9a',
-                                    color: 'white',
-                                    cursor: 'pointer',
-                                    borderRadius: '5px',
-                                    fontSize: '16px',
-                                }}
-                            >
-                                Cerrar
-                            </button>
-                        </div>
+        console.log(selectedImage)
+
+        const transferData = new FormData();
+        transferData.append('data', JSON.stringify(dataToSend));
+        if (selectedImage) {
+            transferData.append('imagen', selectedImage);
+        }
+
+        setShowSpinner(true);
+
+        try {
+
+            /*  const response = await axios.post('https://backend-econotrans.digtmo.com/v1/reservasc', transferData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }); */
+            console.log('Data enviada:');
+            console.log(transferData)
+            if (response.status === 201) {
+                setShowSpinner(false);
+                setShowSuccessModal(true);
+            } else {
+                setShowSpinner(false);
+                setShowErrorModal(true);
+            }
+        } catch (error) {
+            setShowSpinner(false);
+            setShowErrorModal(true);
+        }
+    };
+
+    const handleImageChange = (e) => {
+        if (e.target.files && e.target.files[0]) {
+            setSelectedImage(e.target.files[0]);
+        }
+    };
+
+    const settings = {
+        dots: true,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 4, // Mostrar cinco slides en pantallas grandes
+        slidesToScroll: 1, // Desplazar uno a la vez
+        responsive: [
+            {
+                breakpoint: 1024, // Ajustar según tus necesidades
+                settings: {
+                    slidesToShow: 3, // Mostrar tres slides en tablets
+                    slidesToScroll: 1,
+                }
+            },
+            {
+                breakpoint: 640, // Ajustar según tus necesidades
+                settings: {
+                    slidesToShow: 1, // Mostrar solo un slide en móvil
+                    slidesToScroll: 1,
+                }
+            }
+        ]
+    };
+
+
+    const servicios = [
+        {
+            img: "images/resource/traslado.png",
+            title: "Traslado",
+            text: "Movemos tus pertenencias de manera segura y eficiente."
+        },
+        {
+            img: "images/resource/carga-descarga.png",
+            title: "Carga y descarga",
+            text: "Nos encargamos de cargar y descargar tus objetos con cuidado."
+        },
+        {
+            img: "images/resource/semi-embalaje.png",
+            title: "Semi Embalaje",
+            text: "Ofrecemos embalaje parcial para proteger tus bienes más delicados."
+        },
+        {
+            img: "images/resource/embalaje.png",
+            title: "Embalaje",
+            text: "Proveemos un servicio completo de embalaje para todas tus pertenencias."
+        },
+        {
+            img: "images/resource/retornos.png",
+            title: "Retorno o compartido",
+            text: "Economiza al trasladar pequeñas mudanzas compartiendo carga con otros, reduciendo costos y optimizando recursos."
+        }
+    ];
+
+
+
+    const SelectedServiceModal = ({
+        selectedService,
+        handleTransferenciaClick,
+        handleWebpayClick,
+        discountedAmount,
+        transferAmount,
+        onClose
+    }) => {
+        return (
+            <div className="modal-background">
+                <div className="modal-container-servicio-seleccionado">
+                    <h2 className="modal-header">Servicio Seleccionado: {selectedService}</h2>
+                    <p className="selected-service-description">
+                        Para hacer tu reserva debes pagar el 10% del total de tu reserva
+                    </p>
+                    <div className="flex-container flex-column">
+                        <button
+                            className="bg-gray-100 p-4 rounded-md text-left focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                            onClick={handleTransferenciaClick}
+                        >
+                            <h3 className="font-semibold text-lg">Transferencia</h3>
+                            <p>Aplica un 15% descuento</p>
+                            {selectedService && (
+                                <>
+                                    <p className="mt-4">Valor con descuento: ${discountedAmount.toLocaleString('es-CL')}</p>
+                                    <p className="mt-2">Monto a transferir (10%): ${transferAmount.toLocaleString('es-CL')}</p>
+                                </>
+                            )}
+                        </button>
+                        <button
+                            className="bg-gray-100 p-4 rounded-md text-left focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                            onClick={handleWebpayClick}
+                        >
+                            <h3 className="font-semibold text-lg">Webpay</h3>
+                            <p>Debito y Credito</p>
+                            {selectedService && (
+                                <>
+                                    <p className="mt-4">Valor: ${pagoWebPayTotal.toLocaleString('es-CL')}</p>
+                                    <p className="mt-2">Monto a pagar (10%): ${pagoWebPay.toLocaleString('es-CL')}</p>
+                                </>
+                            )}
+                        </button>
+                    </div>
+
+                    <div className="flex justify-center mt-4">
+                        <button
+                            className="button"
+                            onClick={onClose}
+                            style={{
+                                padding: '10px 20px',
+                                border: 'none',
+                                backgroundColor: '#0c6b9a',
+                                color: 'white',
+                                cursor: 'pointer',
+                                borderRadius: '5px',
+                                fontSize: '16px',
+                            }}
+                        >
+                            Cerrar
+                        </button>
                     </div>
                 </div>
-            );
-        };
+            </div>
+        );
+    };
 
 
     return (
@@ -423,24 +490,25 @@ const ReservationScreen = forwardRef((props, ref) => {
                                 value={fechaMudanza}
                                 onChange={handleDateChange}
                                 placeholder="Ingresa una fecha"
-                              
+
                             />
                         </div>
                         <div className="input-group">
                             <label htmlFor="ciudadOrigen">
                                 Ciudad de origen <span className="text-red-500">*</span>
                             </label>
-                            <select
-                                id="ciudadOrigen"
-                                name="ciudadOrigen"
-                                onChange={handleInputChange}
-                                required
-                            >
-                                <option value="">Seleccione una comuna</option>
-                                {comunas.map((comuna) => (
-                                    <option key={comuna.key} value={comuna.name}>{comuna.name}</option>
-                                ))}
-                            </select>
+                            <div className="select-container">
+                                <Select
+                                    id="ciudadOrigen"
+                                    name="ciudadOrigen"
+                                    options={comunas.map(comuna => ({ value: comuna.name, label: comuna.name }))}
+                                    onChange={(e) => handleInputChange(e, { name: 'ciudadOrigen' })}
+                                    value={formData.ciudadOrigen}
+                                    placeholder="Ciudad de origen"
+                                    styles={customStyles}
+                                    required
+                                />
+                            </div>
                         </div>
                         <div className="input-group">
                             <label htmlFor="direccionOrigen">
@@ -477,7 +545,7 @@ const ReservationScreen = forwardRef((props, ref) => {
                                 Piso origen <span className="text-red-500">*</span>
                             </label>
                             <input
-                               type="tel"
+                                type="tel"
                                 id="pisoOrigen"
                                 name="pisoOrigen"
                                 onChange={handleInputChange}
@@ -502,18 +570,18 @@ const ReservationScreen = forwardRef((props, ref) => {
                             <label htmlFor="ciudadDestino">
                                 Ciudad de destino <span className="text-red-500">*</span>
                             </label>
-                            <select
-                                id="ciudadDestino"
-                                name="ciudadDestino"
-                                onChange={handleInputChange}
-                                required
-                               
-                            >
-                                <option value="">Seleccione una comuna</option>
-                                {comunas.map((comuna) => (
-                                    <option key={comuna.key} value={comuna.name}>{comuna.name}</option>
-                                ))}
-                            </select>
+                            <div className="select-container">
+                                <Select
+                                    id="ciudadDestino"
+                                    name="ciudadDestino"
+                                    options={comunas.map(comuna => ({ value: comuna.name, label: comuna.name }))}
+                                    onChange={(e) => handleInputChange(e, { name: 'ciudadDestino' })}
+                                    value={formData.ciudadDestino}
+                                    placeholder="Ciudad de destino"
+                                    styles={customStyles}
+                                    required
+                                />
+                            </div>
                         </div>
                         <div className="input-group">
                             <label htmlFor="direccionDestino">
@@ -524,7 +592,7 @@ const ReservationScreen = forwardRef((props, ref) => {
                                 id="direccionDestino"
                                 name="direccionDestino"
                                 onChange={handleInputChange}
-                                 placeholder="Ej: Avenida Providencia 999"
+                                placeholder="Ej: Avenida Providencia 999"
                                 required
                             />
                         </div>
@@ -550,10 +618,10 @@ const ReservationScreen = forwardRef((props, ref) => {
                                 Piso destino <span className="text-red-500">*</span>
                             </label>
                             <input
-                               type="tel"
+                                type="tel"
                                 id="pisoDestino"
                                 name="pisoDestino"
-                                  placeholder='Numero de pisos'
+                                placeholder='Numero de pisos'
                                 onChange={handleInputChange}
                                 required
                             />
@@ -582,7 +650,7 @@ const ReservationScreen = forwardRef((props, ref) => {
                             ></textarea>
                         </div>
                     </div>
-                   {/*  <div className="button-group">
+                    {/*  <div className="button-group">
                         <button onClick={handleCotizar}>
                             Cotizar
                         </button>
@@ -595,32 +663,53 @@ const ReservationScreen = forwardRef((props, ref) => {
             {showModal && (
                 <div className="modal-background">
                     <div className="modal-container-servicios">
+                        <button
+                            className="button-servicios"
+                            onClick={closeModal}
+                            style={{
+                                padding: '10px 20px',
+                                border: 'none',
+                                backgroundColor: '#0c6b9a',
+                                color: 'white',
+                                cursor: 'pointer',
+                                borderRadius: '5px',
+                                fontSize: '16px',
+                                position: 'absolute',
+                                top: '10px',
+                                right: '10px',
+                            }}
+                        >
+                            Cerrar
+                        </button>
                         <h2 className="modal-header">Elige tu servicio</h2>
                         <Slider {...settings}>
                             {cotizacion &&
-                                Object.entries(cotizacion).map(([key, value]) => (
-                                    <div
-                                        key={key}
-                                        className="card "
-                                        onClick={() => handleServiceSelection(key)}
-                                    >
-                                        <img
-                                            src="/images/servicio1.jpg"
-                                            alt="Meaningful alt text for an image that is not purely decorative"
-                                        />
-                                        <div className="card-content">
-                                            <h5 className="card-title">{key}</h5>
-                                            <p className="card-text">
-                                                Todos sus articulos serán descagados en su origen y cargados en su destino.
-                                            </p>
-                                            <p className="card-text">
-                                                Precio: ${value.toLocaleString('es-CL')}
-                                            </p>
+                                Object.entries(cotizacion).map(([key, value]) => {
+                                    const servicio = servicios.find(s => s.title.toLowerCase() === key.toLowerCase());
+                                    return (
+                                        <div
+                                            key={key}
+                                            className="card "
+                                            onClick={() => handleServiceSelection(key)}
+                                        >
+                                            <img
+                                                src={servicio ? servicio.img : "/images/servicio1.jpg"}
+                                                alt={`Imagen de ${key}`}
+                                            />
+                                            <div className="card-content">
+                                                <h5 className="card-title">{key}</h5>
+                                                <p className="card-text">
+                                                    {servicio ? servicio.text : "Todos sus artículos serán descargados en su origen y cargados en su destino."}
+                                                </p>
+                                                <p className="card-text">
+                                                    Precio: ${value.toLocaleString('es-CL')}
+                                                </p>
+                                            </div>
                                         </div>
-                                    </div>
-                                ))}
+                                    );
+                                })}
                         </Slider>
-                        <div className="button-container">
+                        <div className="button-containers">
                             <button
                                 className="button"
                                 onClick={closeModal}
@@ -716,8 +805,8 @@ const ReservationScreen = forwardRef((props, ref) => {
                 </div>
             )}
         </div>
-        
-  );
+
+    );
 });
 
 export default ReservationScreen

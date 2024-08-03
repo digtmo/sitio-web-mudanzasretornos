@@ -7,12 +7,12 @@ import Header2 from "./Header2";
 // import Header4 from './Header4';
 // import Header5 from './Header5';
 import PageHead from "./PageHead";
+import Link from "next/link";
 
 // Puedes incluir el CSS aquí si no estás utilizando un archivo de estilos globales.
 const buttonStyles = `
-  .whatsapp-button, .messenger-button {
+  .whatsapp-button, .messenger-button, .quote-button {
     position: fixed;
-    background-color: #25d366;
     color: white;
     border-radius: 50%;
     width: 60px;
@@ -23,22 +23,51 @@ const buttonStyles = `
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
     cursor: pointer;
     z-index: 1000;
+    right: 20px;
   }
 
   .whatsapp-button {
     bottom: 160px;
-    right: 20px;
+    background-color: #25d366;
   }
 
   .messenger-button {
     bottom: 80px;
-    right: 20px;
-    background-color: #0084ff; /* Color azul de Messenger */
+    background-color: #0084ff;
+  }
+
+  .quote-button {
+    display: none;
+    bottom: 20px;
+    background-color: #f97626;
+    border-radius: 30px;
+    width: auto;
+    padding: 0 20px;
+    /* Añadimos animación de pulsación */
+  animation: pulse 2s infinite;
   }
 
   .whatsapp-button svg, .messenger-button svg {
     width: 35px;
     height: 35px;
+  }
+
+  .quote-button span {
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 767px) {
+    .quote-button {
+      display: flex;
+      bottom: 60px;
+    }
+    .whatsapp-button {
+      bottom: 220px;
+    }
+    .messenger-button {
+      bottom: 140px;
+    }
   }
 `;
 
@@ -110,6 +139,10 @@ const Layout = ({ children, HeaderStyle }) => {
           <path fill="#448aff" d="M24,4C13.5,4,5,12.1,5,22c0,5.2,2.3,9.8,6,13.1V44l7.8-4.7c1.6,0.4,3.4,0.7,5.2,0.7	c10.5,0,19-8.1,19-18S34.5,4,24,4z"></path><path fill="#fff" d="M12,28l10-11l5,5l9-5L26,28l-5-5L12,28z"></path>
         </svg>
       </div>
+
+      <Link href="/#work-section" className="quote-button">
+        <span className="btn-title">Cotiza Acá</span>
+      </Link>
 
       <style>{buttonStyles}</style>
     </>

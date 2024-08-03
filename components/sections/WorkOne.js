@@ -3,7 +3,7 @@ import React from "react";
 const WorkOne = () => {
   return (
     <>
-      <section className="work-section">
+      <section  id="work-section" className="work-section">
         <div className="anim-icons">
           <span className="icon icon-dotted-map-2 zoom-one" />
           <span className="icon icon-plane-1 bounce-y" />

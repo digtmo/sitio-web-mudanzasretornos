@@ -4,22 +4,22 @@ import React from "react";
 const ServiceOne = () => {
   const data = [
     {
-      img: "service-1.jpg",
+      img: "traslado.png",
       title: "Traslado",
       text: "Movemos tus pertenencias de manera segura y eficiente."
     },
     {
-      img: "service-2.jpg",
+      img: "carga-descarga.png",
       title: "Carga y descarga",
       text: "Nos encargamos de cargar y descargar tus objetos con cuidado."
     },
     {
-      img: "service-3.jpg",
+      img: "semi-embalaje.png",
       title: "Semi embalaje",
       text: "Ofrecemos embalaje parcial para proteger tus bienes más delicados."
     },
     {
-      img: "service-1.jpg",
+      img: "embalaje.png",
       title: "Embalaje",
       text: "Proveemos un servicio completo de embalaje para todas tus pertenencias."
     }
@@ -27,22 +27,25 @@ const ServiceOne = () => {
 
   const dataServices = [
     {
-      img: "mudanzasexclusivas.jpg",
+      img: "mudanzas.png",
       title: "Mudanzas y fletes de retorno",
       text: "Ofrecemos servicios económicos para clientes que cuentan con flexibilidad en las fechas de su mudanza o traslado."
     },
     {
-      img: "mudanzasexclusivas.jpg",
+      img: "retornos.png",
       title: "Mudanzas compartidas y carga consolidada",
       text: "Economiza al trasladar pequeñas mudanzas compartiendo carga con otros, reduciendo costos y optimizando recursos."
     },
+  ];
+
+  const dataServices2 = [
     {
-      img: "trasladamostodotipo.jpg",
+      img: "carga-general.png",
       title: "Fletes y transporte de carga general",
       text: "Proporcionamos servicios de transporte de carga seguros y eficientes para todo tipo de mercancías, asegurando entregas puntuales y manejo cuidadoso."
     },
     {
-      img: "realizamostodotipo.jpg",
+      img: "empresas.png",
       title: "Traslados de empresas u oficinas",
       text: "Especializados en mudanzas corporativas, ofrecemos soluciones eficientes para reubicaciones rápidas y sin interrupciones."
     }
@@ -76,33 +79,53 @@ const ServiceOne = () => {
             ))}
           </div>
           <div className="btn-container">
-            <Link href="/#main-component" className="btn-style-four">
-              <span className="btn-title">Cotiza gratis tu mudanza</span>
+            <Link href="/#main-component" className="btn-style-four-servicios">
+              <span className="btn-title">Cotiza Ahora</span>
             </Link>
           </div>
         </div>
       </section>
 
       <section className="additional-services-section">
-        <div className="additional-services-container">
-          <h2>Servicios Adicionales</h2>
-          {dataServices.map((item, i) => (
-            <div key={i} className="service-item">
-              <div className="service-image">
-                <img src={`images/servicios/${item.img}`} alt={item.title} />
-              </div>
-              <div className="service-content">
-                <h4>{item.title}</h4>
-                <div className="text">{item.text}</div>
-              </div>
+        <div className="additional-services-container">          {dataServices.map((item, i) => (
+          <div key={i} className="service-item">
+            <div className="service-image">
+              <img src={`images/resource/${item.img}`} alt={item.title} />
             </div>
-          ))}
+            <div className="service-content">
+              <h4>{item.title}</h4>
+              <div className="text">{item.text}</div>
+            </div>
+          </div>
+        ))}
           <div className="btn-container">
-            <Link href="https://api.whatsapp.com/send/?phone=%2B56994788521&text&type=phone_number&app_absent=0" className="btn-style-four">
-              <span className="btn-title">Cotiza gratis tu mudanza</span>
+            <Link href="/#main-component" className="btn-style-four-servicios">
+              <span className="btn-title">Cotiza Ahora</span>
             </Link>
           </div>
         </div>
+
+      </section>
+
+      <section className="additional-services-section">
+        <div className="additional-services-container">          {dataServices2.map((item, i) => (
+          <div key={i} className="service-item">
+            <div className="service-image">
+              <img src={`images/resource/${item.img}`} alt={item.title} />
+            </div>
+            <div className="service-content">
+              <h4>{item.title}</h4>
+              <div className="text">{item.text}</div>
+            </div>
+          </div>
+        ))}
+          <div className="btn-container">
+            <Link href="https://api.whatsapp.com/send/?phone=%2B56994788521&text&type=phone_number&app_absent=0" className="btn-style-four-servicios">
+              <span className="btn-title">Conversemos</span>
+            </Link>
+          </div>
+        </div>
+
       </section>
 
       <style jsx>{`
@@ -132,7 +155,7 @@ const ServiceOne = () => {
 
         .service-image img {
           width: 100%;
-          height: 200px;
+          height: 1000%;
           object-fit: cover;
           border-radius: 8px;
         }

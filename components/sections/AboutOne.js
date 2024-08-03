@@ -4,27 +4,27 @@ import Link from "next/link";
 const AboutOne = () => {
   const data = [
     {
-      img: "realizamostodotipo.jpg",
+      img: "mudanzas.png",
       title: "Mudanzas",
       descripcion: "Ofrecemos un servicio de mudanzas estándar ideal para hogares y residencias. Nuestro equipo profesional garantiza una mudanza segura y sin estrés."
     },
     {
-      img: "mudanzasexclusivas.jpg",
+      img: "empresas.png",
       title: "Traslados de empresas u oficinas",
       descripcion: "Especializados en mudanzas corporativas, ofrecemos soluciones eficientes para reubicaciones rápidas y sin interrupciones."
     },
     {
-      img: "trasladamostodotipo.jpg",
+      img: "carga-general.png",
       title: "Fletes y transporte de carga general",
       descripcion: "Proporcionamos servicios de transporte de carga seguros y eficientes para todo tipo de mercancías, asegurando entregas puntuales y manejo cuidadoso."
     },
     {
-      img: "mudanzasexclusivas.jpg",
+      img: "retornos.png",
       title: "Mudanzas y fletes de retorno",
       descripcion: "Ofrecemos servicios economicos para clientes que cuentes flexibilidad en las fechas de su mudanza o traslado"
     },
     {
-      img: "mudanzasexclusivas.jpg",
+      img: "compartidas.png",
       title: "Mudanzas compartidas y carga consolidada",
       descripcion: "Economiza al trasladar pequeñas mudanzas compartiendo carga con otros, reduciendo costos y optimizando recursos."
     }
@@ -67,7 +67,7 @@ const AboutOne = () => {
                             <figure className="image">
                               <Link href="/servicios">
                                 <img
-                                  src={`images/servicios/${item.img}`}
+                                  src={`images/resource/${item.img}`}
                                   alt="Service Image"
                                 />
                               </Link>

@@ -56,7 +56,7 @@ const MainComponent = () => {
         quantities={quantities}
       />
       <div className="button-group">
-        <button className='btn-style-four' onClick={handleCotizar}>Cotizar</button>  {/* Llama a handleCotizar desde MainComponent */}
+        <button className='btn-style-four-reserva' onClick={handleCotizar}>Cotizar</button>  {/* Llama a handleCotizar desde MainComponent */}
       </div>
     </div>
   );
