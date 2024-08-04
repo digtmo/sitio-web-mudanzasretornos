@@ -29,6 +29,9 @@ const ReservationScreen = forwardRef((props, ref) => {
     const [validationError, setValidationError] = useState('');
     const [selectedImage, setSelectedImage] = useState(null); // imagen de transferencia
 
+
+
+
     const customStyles = {
         control: (provided) => ({
             ...provided,
@@ -112,10 +115,17 @@ const ReservationScreen = forwardRef((props, ref) => {
 
     const handleInputChange = (e, action) => {
         if (action && action.name) {
-            setFormData({
-                ...formData,
-                [action.name]: e
-            });
+            if (action.name === 'ciudadOrigen' || action.name === 'ciudadDestino') {
+                setFormData({
+                    ...formData,
+                    [action.name]: e.value // Guardamos solo el valor, no el objeto completo
+                });
+            } else {
+                setFormData({
+                    ...formData,
+                    [action.name]: e
+                });
+            }
         } else if (e.target) {
             const { name, value, type, checked } = e.target;
             setFormData({
@@ -151,8 +161,8 @@ const ReservationScreen = forwardRef((props, ref) => {
         setValidationError('');
 
         const cotizacionData = {
-            origen: `${formData.direccionOrigen},${formData.ciudadOrigen.value}`,
-            destino: `${formData.direccionDestino},${formData.ciudadDestino.value}`,
+            origen: `${formData.direccionOrigen},${formData.ciudadOrigen}`,
+            destino: `${formData.direccionDestino},${formData.ciudadDestino}`,
             totalVolume,
             formData
         };
@@ -160,7 +170,7 @@ const ReservationScreen = forwardRef((props, ref) => {
 
 
         try {
-            const response = await axios.post('https://backend-econotrans.digtmo.com/v1/cotizador', cotizacionData);
+            const response = await axios.post('http://localhost:3000/v1/cotizador', cotizacionData);
             setCotizacion(response.data);
             setShowSpinner(false);
             setShowModal(true);
@@ -279,11 +289,11 @@ const ReservationScreen = forwardRef((props, ref) => {
 
         try {
 
-            /*  const response = await axios.post('https://backend-econotrans.digtmo.com/v1/reservasc', transferData, {
+              const response = await axios.post('http://localhost:3000/v1/reservasc', transferData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
-            }); */
+            }); 
             console.log('Data enviada:');
             console.log(transferData)
             if (response.status === 201) {
@@ -503,7 +513,7 @@ const ReservationScreen = forwardRef((props, ref) => {
                                     name="ciudadOrigen"
                                     options={comunas.map(comuna => ({ value: comuna.name, label: comuna.name }))}
                                     onChange={(e) => handleInputChange(e, { name: 'ciudadOrigen' })}
-                                    value={formData.ciudadOrigen}
+                                    value={formData.ciudadOrigen ? { value: formData.ciudadOrigen, label: formData.ciudadOrigen } : null}
                                     placeholder="Ciudad de origen"
                                     styles={customStyles}
                                     required
@@ -576,7 +586,7 @@ const ReservationScreen = forwardRef((props, ref) => {
                                     name="ciudadDestino"
                                     options={comunas.map(comuna => ({ value: comuna.name, label: comuna.name }))}
                                     onChange={(e) => handleInputChange(e, { name: 'ciudadDestino' })}
-                                    value={formData.ciudadDestino}
+                                    value={formData.ciudadDestino ? { value: formData.ciudadDestino, label: formData.ciudadDestino } : null}
                                     placeholder="Ciudad de destino"
                                     styles={customStyles}
                                     required
