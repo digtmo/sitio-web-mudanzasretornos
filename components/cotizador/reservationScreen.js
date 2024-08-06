@@ -1,8 +1,6 @@
 import React, { useState, useEffect, forwardRef, useImperativeHandle, useRef } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
-import SuccessModal from './modalExito.js';
-import ErrorModal from "./modalError.js";
 import ClipLoader from "react-spinners/ClipLoader";
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
@@ -28,6 +26,7 @@ const ReservationScreen = forwardRef((props, ref) => {
     const [showErrorModal, setShowErrorModal] = useState(false);
     const [validationError, setValidationError] = useState('');
     const [selectedImage, setSelectedImage] = useState(null); // imagen de transferencia
+    const [isLoading, setIsLoading] = useState(false);
 
 
 
@@ -136,7 +135,6 @@ const ReservationScreen = forwardRef((props, ref) => {
     };
 
     const handleCotizar = async () => {
-        console.log("handle Cotizar")
         const articles = Object.entries(quantities).map(([id, quantity]) => ({
             id,
             quantity,
@@ -242,17 +240,9 @@ const ReservationScreen = forwardRef((props, ref) => {
             setShowSpinner(true);
             try {
                 const response = await axios.post('https://backend-econotrans.digtmo.com/webpay/transaction', { amount, dataToSend });
-                console.log('Session ID:', response.data.sessionId);
-                console.log('Token:', response.data.token);
-
-                console.log(response.data.url)
-
-
                 // Aquí rediriges al usuario a la URL de Webpay usando el token
                 window.location.href = `${response.data.url}?token_ws=${response.data.token}`;
 
-
-                console.log(response.data.url, response.data.token);
             } catch (error) {
                 console.error('Error en la transacción:', error);
                 setShowSpinner(false);
@@ -277,7 +267,6 @@ const ReservationScreen = forwardRef((props, ref) => {
             transferAmount: Math.round(transferAmount),
         };
 
-        console.log(selectedImage)
 
         const transferData = new FormData();
         transferData.append('data', JSON.stringify(dataToSend));
@@ -285,26 +274,24 @@ const ReservationScreen = forwardRef((props, ref) => {
             transferData.append('imagen', selectedImage);
         }
 
-        setShowSpinner(true);
+        setIsLoading(true);
 
         try {
-
-              const response = await axios.post('https://backend-econotrans.digtmo.com/v1/reservasc', transferData, {
+            const response = await axios.post('https://backend-econotrans.digtmo.com/v1/reservasc', transferData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             }); 
-            console.log('Data enviada:');
-            console.log(transferData)
+
             if (response.status === 201) {
-                setShowSpinner(false);
+                setIsLoading(false);
                 setShowSuccessModal(true);
             } else {
-                setShowSpinner(false);
+                setIsLoading(false);
                 setShowErrorModal(true);
-            }
+            } 
         } catch (error) {
-            setShowSpinner(false);
+            setIsLoading(false);
             setShowErrorModal(true);
         }
     };
@@ -780,17 +767,19 @@ const ReservationScreen = forwardRef((props, ref) => {
                                 <button
                                     className="button"
                                     onClick={handleConfirmTransfer}
+                                    disabled={isLoading}
                                     style={{
                                         padding: '10px 20px',
                                         border: 'none',
                                         backgroundColor: '#0c6b9a',
                                         color: 'white',
-                                        cursor: 'pointer',
+                                        cursor: isLoading ? 'not-allowed' : 'pointer',
                                         borderRadius: '5px',
                                         fontSize: '16px',
+                                        opacity: isLoading ? 0.7 : 1,
                                     }}
                                 >
-                                    Confirmar Transferencia
+                                    {isLoading ? 'Procesando...' : 'Confirmar Transferencia'}
                                 </button>
                                 <button
                                     className="button"
@@ -818,5 +807,160 @@ const ReservationScreen = forwardRef((props, ref) => {
 
     );
 });
+
+export function SuccessModal({ title}) {
+  const handleClose = () => {
+    window.location.reload();
+  };
+
+  return (
+    <div className="success-modal-overlay">
+      <div className="success-modal-content">
+        <div className="success-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+        <h3>{title}</h3>
+        <p>Pronto nos comunicaremos contigo para confirmar la reserva.</p>
+        <button onClick={handleClose}>Cerrar</button>
+      </div>
+      <style jsx>{`
+        .success-modal-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: rgba(0, 0, 0, 0.5);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 1000;
+        }
+        .success-modal-content {
+          background-color: white;
+          padding: 1.5rem;
+          border-radius: 0.5rem;
+          text-align: center;
+          max-width: 400px;
+          width: 90%;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .success-icon {
+          margin: 0 auto 1rem;
+          width: 3rem;
+          height: 3rem;
+          background-color: #d1fae5;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .success-icon svg {
+          width: 1.5rem;
+          height: 1.5rem;
+          color: #059669;
+        }
+        h3 {
+          margin-bottom: 1rem;
+          font-size: 1.25rem;
+          color: #111827;
+        }
+        button {
+          background-color: #059669;
+          color: white;
+          border: none;
+          padding: 0.5rem 1rem;
+          border-radius: 0.25rem;
+          cursor: pointer;
+          font-size: 1rem;
+          transition: background-color 0.2s;
+        }
+        button:hover {
+          background-color: #047857;
+        }
+      `}</style>
+    </div>
+  );
+}
+
+export function ErrorModal({ title}) {
+  const handleClose = () => {
+    window.location.reload();
+  };
+
+  return (
+    <div className="error-modal-overlay">
+      <div className="error-modal-content">
+        <div className="error-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </div>
+        <h3>{title}</h3>
+        <p>Por favor, intenta nuevamente o comunicate con el administrador del sitio.</p>
+        <button onClick={handleClose}>Cerrar</button>
+      </div>
+      <style jsx>{`
+        .error-modal-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: rgba(0, 0, 0, 0.5);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 1000;
+        }
+        .error-modal-content {
+          background-color: white;
+          padding: 1.5rem;
+          border-radius: 0.5rem;
+          text-align: center;
+          max-width: 400px;
+          width: 90%;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .error-icon {
+          margin: 0 auto 1rem;
+          width: 3rem;
+          height: 3rem;
+          background-color: #fee2e2;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .error-icon svg {
+          width: 1.5rem;
+          height: 1.5rem;
+          color: #dc2626;
+        }
+        h3 {
+          margin-bottom: 1rem;
+          font-size: 1.25rem;
+          color: #111827;
+        }
+        button {
+          background-color: #dc2626;
+          color: white;
+          border: none;
+          padding: 0.5rem 1rem;
+          border-radius: 0.25rem;
+          cursor: pointer;
+          font-size: 1rem;
+          transition: background-color 0.2s;
+        }
+        button:hover {
+          background-color: #b91c1c;
+        }
+      `}</style>
+    </div>
+  );
+}
+
 
 export default ReservationScreen

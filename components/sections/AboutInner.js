@@ -57,17 +57,17 @@ const AboutOne = () => {
             <div className="image-column col-lg-6 col-md-12 col-sm-12">
               <div className="inner-column">
                 <figure className="image-1">
-                  <img src="images/resource/about-1.jpg" title="Tronis" />
+                  <img src="images/resource/ima1.png" title="Tronis" />
                 </figure>
                 <figure className="image-2">
-                  <img src="images/resource/about-2.jpg" title="Tronis" />
+                  <img src="images/resource/ima2.png" title="Tronis" />
                 </figure>
                 <div className="experience">
                   <strong>
-                    <i className="icon flaticon-global" /> 40
-                    <br /> Years
+                    <i className="icon flaticon-global" /> +6
+                    <br /> Años
                   </strong>{" "}
-                  Working Exprience
+                  de experiencia
                 </div>
               </div>
             </div>
