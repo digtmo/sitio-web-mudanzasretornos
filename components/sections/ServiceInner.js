@@ -121,7 +121,7 @@ const ServiceOne = () => {
         ))}
           <div className="btn-container">
             <Link href="https://api.whatsapp.com/send/?phone=%2B56994788521&text&type=phone_number&app_absent=0" className="btn-style-four-servicios">
-              <span className="btn-title">Conversemos</span>
+              <span className="btn-title">Cotiza Acá</span>
             </Link>
           </div>
         </div>

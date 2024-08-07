@@ -63,7 +63,7 @@ const Testimonial = () => {
                   <i className="fa fa-star" />
                   <i className="fa fa-star" />
                   <i className="fa fa-star" />
-                  <i className="fa fa-star-half-alt" />
+                  <i className="fa fa-star" />
                 </div>
                 <div className="text">{item.text}</div>
               </div>

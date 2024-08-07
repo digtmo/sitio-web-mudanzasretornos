@@ -147,9 +147,9 @@ const ProductGrid = ({ onTotalVolumeChange, setQuantities, quantities }) => {
             </div>
           ))}
         </div>
-        <div  id="articulos" className='mt-4'>
+        <div id="articulos" className='mt-4'>
           <h2 className='text-center'>Selecciona los articulos</h2>
-          <div  className={`mt-20 ${selectedCategory ? 'block' : 'hidden'} article-grid`}>
+          <div className={`mt-20 ${selectedCategory ? 'block' : 'hidden'} article-grid`}>
             {selectedCategory && (
               <>
                 <div className="article-grid">
@@ -164,28 +164,32 @@ const ProductGrid = ({ onTotalVolumeChange, setQuantities, quantities }) => {
                     </div>
                   ))}
                 </div>
-                <div className="navigation-buttons">
-                  <button onClick={handlePreviousCategory} className="nav-button">
-                    <span>←</span>
-                    <span>Habitación</span>
-                    <span>anterior</span>
-                  </button>
-                  <button onClick={handleNextCategory} className="nav-button">
-                    <span>→</span>
-                    <span>Siguiente</span>
-                    <span>habitación</span>
-                  </button>
-                </div>
               </>
             )}
           </div>
         </div>
+        {selectedCategory && (
+          <div className="navigation-buttons mt-4">
+            <button onClick={handlePreviousCategory} className="nav-button">
+              <span>←</span>
+              <span>Habitación</span>
+              <span>anterior</span>
+            </button>
+            <button onClick={handleNextCategory} className="nav-button">
+              <span>→</span>
+              <span>Siguiente</span>
+              <span>habitación</span>
+            </button>
+          </div>
+        )}
       </div>
       <style jsx>{`
         .navigation-buttons {
           display: flex;
-          justify-content: space-between;
+          justify-content: center;
+          gap: 1rem;
           margin-top: 1rem;
+          width: 100%;
         }
         .nav-button {
           display: flex;
@@ -199,11 +203,6 @@ const ProductGrid = ({ onTotalVolumeChange, setQuantities, quantities }) => {
         .nav-button span:first-child {
           font-size: 1.5rem;
           margin-bottom: 0.25rem;
-        }
-        @media (min-width: 1024px) {
-          .navigation-buttons {
-            display: none;
-          }
         }
       `}</style>
     </div>

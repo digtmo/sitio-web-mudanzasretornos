@@ -27,8 +27,8 @@ const OfferOne = () => {
                         <div className="image-column col-lg-7 col-md-12 col-sm-12">
                             <div className="inner-column">
                                 <div className="image-box">
-                                    <figure className="image"><img src="images/resource/offer-img-1.jpg" title="Tronis" /></figure>
-                                    <figure className="image"><img src="images/resource/offer-img-2.jpg" title="Tronis" /></figure>
+                                    <figure className="image"><img src="images/resource/camion.png" title="Tronis" /></figure>
+                                    <figure className="image"><img src="images/resource/camion2.png" title="Tronis" /></figure>
                                     <div className="fact-counter-one bounce-y">
                                         <h4 className="counter-title">Clientes</h4>
                                         <div className="count-box"><CounterUp className="count-text" count={400} time={3} /></div>
