@@ -145,23 +145,22 @@ const ServiceOne = () => {
           display: flex;
           align-items: center;
           margin-bottom: 20px;
-          flex-wrap: wrap; /* Ensures responsiveness */
         }
 
         .service-image {
-          flex: 0 0 300px; /* Fixes the image width */
+          flex: 0 0 300px;
           margin-right: 20px;
         }
 
         .service-image img {
           width: 100%;
-          height: 1000%;
+          height: auto;
           object-fit: cover;
           border-radius: 8px;
         }
 
         .service-content {
-          flex: 1; /* Takes the remaining space */
+          flex: 1;
         }
 
         .service-content h4 {
@@ -182,16 +181,17 @@ const ServiceOne = () => {
         @media (max-width: 768px) {
           .service-item {
             flex-direction: column;
-            align-items: center;
+            align-items: stretch;
           }
 
           .service-image {
+            flex: 0 0 auto;
             margin-right: 0;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
           }
 
           .service-content {
-            text-align: center;
+            text-align: left;
           }
 
           .btn-container {
