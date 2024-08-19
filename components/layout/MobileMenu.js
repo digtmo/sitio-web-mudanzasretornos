@@ -150,6 +150,9 @@ const MobileMenu = () => {
         <li>
           <Link href="/contacto">Contacto</Link>
         </li>
+        <li>
+          <Link href="/pagos">Pagos</Link>
+        </li>
       </ul>
     </>
   );
