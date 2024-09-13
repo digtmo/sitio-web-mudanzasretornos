@@ -90,16 +90,20 @@ const ProductGrid = ({ onTotalVolumeChange, setQuantities, quantities }) => {
 
   const handlePreviousCategory = () => {
     const categories = Object.keys(data);
-    const newIndex = (categoryIndex - 1 + categories.length) % categories.length;
-    setCategoryIndex(newIndex);
-    handleCategoryChange(categories[newIndex]);
+    if (categoryIndex > 0) { // Limitar a la primera categoría
+        const newIndex = categoryIndex - 1;
+        setCategoryIndex(newIndex);
+        handleCategoryChange(categories[newIndex]);
+    }
   };
 
   const handleNextCategory = () => {
     const categories = Object.keys(data);
-    const newIndex = (categoryIndex + 1) % categories.length;
-    setCategoryIndex(newIndex);
-    handleCategoryChange(categories[newIndex]);
+    if (categoryIndex < categories.length - 1) { // Limitar a la última categoría
+        const newIndex = categoryIndex + 1;
+        setCategoryIndex(newIndex);
+        handleCategoryChange(categories[newIndex]);
+    }
   };
 
   const handleIncrement = (id) => {
