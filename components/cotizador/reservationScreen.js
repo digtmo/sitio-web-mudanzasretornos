@@ -351,7 +351,7 @@ const ReservationScreen = forwardRef((props, ref) => {
         {
             img: "images/resource/retornos.png",
             title: "Retorno o compartido",
-            text: "Economiza al trasladar pequeñas mudanzas compartiendo carga con otros, reduciendo costos y optimizando recursos."
+            text: "Traslado de pequeñas mudanzas compartiendo carga con otros."
         }
     ];
 
@@ -686,20 +686,20 @@ const ReservationScreen = forwardRef((props, ref) => {
                                     return (
                                         <div
                                             key={key}
-                                            className="card "
+                                            className="card slider-card"
                                             onClick={() => handleServiceSelection(key)}
                                         >
                                             <img
                                                 src={servicio ? servicio.img : "/images/servicio1.jpg"}
                                                 alt={`Imagen de ${key}`}
                                             />
-                                            <div className="card-content">
+                                            <div className="card-content" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                                                 <h5 className="card-title">{key}</h5>
                                                 <p className="card-text">
                                                     {servicio ? servicio.text : "Todos sus artículos serán descargados en su origen y cargados en su destino."}
                                                 </p>
                                                 <p className="card-text">
-                                                    Precio: ${value.toLocaleString('es-CL')}
+                                                    Precio: ${value ? value.toLocaleString('es-CL') : 'No Aplica'}
                                                 </p>
                                             </div>
                                         </div>

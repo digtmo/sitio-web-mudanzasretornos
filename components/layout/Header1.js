@@ -57,7 +57,7 @@ const Header1 = ({ handleOpen, handleRemove, searchToggle, handleToggle, scroll 
             <div className="logo-box">
               <div className="logo">
                 <Link href="/">
-                  <Image src={LogoDark} title="Tronis" />
+                  <Image src={LogoDark} alt="Tronis" />
                 </Link>
               </div>
             </div>

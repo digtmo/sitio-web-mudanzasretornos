@@ -555,6 +555,8 @@ Modales Home
 
 .card-content {
   padding: 1rem;
+  min-height: 250px;
+  max-height: 350px;
 }
 
 .modal-container-servicios{
