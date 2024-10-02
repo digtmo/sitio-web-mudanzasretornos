@@ -367,35 +367,40 @@ const ReservationScreen = forwardRef((props, ref) => {
     }) => {
         return (
             <div className="modal-background">
-                <div className="modal-container-servicio-seleccionado">
+                <div className="modal-container-servicio-seleccionado" style={{ 
+                    maxWidth: 'auto', // Cambiado a 90% para ser más responsivo
+                    maxHeight: '85%', // Cambiado a 90% para ser más responsivo
+                    overflowY: 'auto', 
+                    margin: '0 auto' 
+                }}> 
                     <h2 className="modal-header">Servicio Seleccionado: {selectedService}</h2>
-                    <p className="selected-service-description">
+                    <p className="selected-service-description">                        
                         Para hacer tu reserva debes pagar el 10% del total de tu reserva
                     </p>
                     <div className="flex-container flex-column">
                         <button
-                            className="bg-gray-100 p-4 rounded-md text-left focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                            className="bg-gray-100 p-1 rounded-md text-left focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" 
                             onClick={handleTransferenciaClick}
                         >
-                            <h3 className="font-semibold text-lg">Transferencia</h3>
+                            <h3 >Transferencia</h3>
                             <p>Aplica un 15% descuento</p>
                             {selectedService && (
                                 <>
-                                    <p className="mt-4">Valor con descuento: ${discountedAmount.toLocaleString('es-CL')}</p>
-                                    <p className="mt-2">Monto a transferir (10%): ${transferAmount.toLocaleString('es-CL')}</p>
+                                    <p>Valor con descuento: ${discountedAmount.toLocaleString('es-CL')}</p> 
+                                    <p>Monto a transferir (10%): ${transferAmount.toLocaleString('es-CL')}</p> 
                                 </>
                             )}
                         </button>
                         <button
-                            className="bg-gray-100 p-4 rounded-md text-left focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                            className="bg-gray-100 p-1 rounded-md text-left focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" 
                             onClick={handleWebpayClick}
                         >
-                            <h3 className="font-semibold text-lg">Webpay</h3>
+                            <h3>Webpay</h3>
                             <p>Debito y Credito</p>
                             {selectedService && (
                                 <>
-                                    <p className="mt-4">Valor: ${pagoWebPayTotal.toLocaleString('es-CL')}</p>
-                                    <p className="mt-2">Monto a pagar (10%): ${pagoWebPay.toLocaleString('es-CL')}</p>
+                                    <p>Valor: ${pagoWebPayTotal.toLocaleString('es-CL')}</p> 
+                                    <p >Monto a pagar (10%): ${pagoWebPay.toLocaleString('es-CL')}</p> 
                                 </>
                             )}
                         </button>
@@ -406,7 +411,7 @@ const ReservationScreen = forwardRef((props, ref) => {
                             className="button"
                             onClick={onClose}
                             style={{
-                                padding: '10px 20px',
+                                padding: '6px 16px', 
                                 border: 'none',
                                 backgroundColor: '#0c6b9a',
                                 color: 'white',
