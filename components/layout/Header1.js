@@ -21,7 +21,7 @@ const Header1 = ({ handleOpen, handleRemove, searchToggle, handleToggle, scroll 
                 <i className="fa fa-clock" /> Mon - Sat: 8am - 5pm
               </li> */}
               <li>
-                <i className="fa fa-phone-volume" /> <a href="tel:56994788521">+569 94788521</a>
+                <i className="fa fa-phone-volume" /> <a href="tel:56994788521">+56996346064-432369090</a>
               </li>
 
             </ul>
@@ -29,7 +29,7 @@ const Header1 = ({ handleOpen, handleRemove, searchToggle, handleToggle, scroll 
           <div className="top-right">
             <ul className="social-icon-one">
               <li>
-                <Link href="https://www.facebook.com/Econotransla">
+                <Link href="https://www.facebook.com/p/Mudanzas-Retorno-100088829007417/">
                   <i className="fab fa-facebook-f" />
                 </Link>
               </li>
@@ -44,7 +44,7 @@ const Header1 = ({ handleOpen, handleRemove, searchToggle, handleToggle, scroll 
                 </Link>
               </li> */}
               <li>
-                <Link href="https://www.instagram.com/econotrans_mudanzas/">
+                <Link href="https://www.instagram.com/mudanzasretorno.cl/">
                   <i className="fab fa-instagram" />
                 </Link>
               </li>
@@ -98,14 +98,14 @@ const Header1 = ({ handleOpen, handleRemove, searchToggle, handleToggle, scroll 
                 <div className="contact-info-box">
                   <i className="icon lnr-icon-phone-handset" />
                   <span className="title">Teléfono</span>
-                  <Link href="tel:56994788521">+569 94788521</Link>
+                  <Link href="tel:56994788521">+56996346064-432369090</Link>
                 </div>
               </li>
               <li>
                 <div className="contact-info-box">
                   <span className="icon lnr-icon-envelope1" />
                   <span className="title">Escríbenos</span>
-                  <Link href="/mailto:contacto@econotrans.cl"> contacto@econotrans.cl</Link>
+                  <Link href="/mailto:contacto@econotrans.cl"> Contacto@mudanzasretorno.cl</Link>
                 </div>
               </li>
               {/*    <li>
@@ -123,7 +123,7 @@ const Header1 = ({ handleOpen, handleRemove, searchToggle, handleToggle, scroll 
                 </Link>
               </li> */}
               <li>
-                <Link href="https://www.facebook.com/Econotransla">
+                <Link href="https://www.facebook.com/p/Mudanzas-Retorno-100088829007417/">
                   <i className="fab fa-facebook-f" />
                 </Link>
               </li>
@@ -133,7 +133,7 @@ const Header1 = ({ handleOpen, handleRemove, searchToggle, handleToggle, scroll 
                 </Link>
               </li> */}
               <li>
-                <Link href="https://www.instagram.com/econotrans_mudanzas/">
+                <Link href="https://www.instagram.com/mudanzasretorno.cl/">
                   <i className="fab fa-instagram" />
                 </Link>
               </li>

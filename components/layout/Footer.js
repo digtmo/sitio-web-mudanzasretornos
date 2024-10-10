@@ -114,7 +114,7 @@ const Footer = () => {
               </div>
               <ul className="social-icon-two">
                 <li>
-                  <Link href="https://www.facebook.com/Econotransla">
+                  <Link href="https://www.facebook.com/p/Mudanzas-Retorno-100088829007417/">
                     <i className="fab fa-facebook-f" />
                   </Link>
                 </li>
@@ -129,7 +129,7 @@ const Footer = () => {
                   </Link>
                 </li> */}
                 <li>
-                  <Link href="https://www.instagram.com/econotrans_mudanzas/">
+                  <Link href="https://www.instagram.com/mudanzasretorno.cl/">
                     <i className="fab fa-instagram" />
                   </Link>
                 </li>

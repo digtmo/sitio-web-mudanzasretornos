@@ -21,7 +21,7 @@ const ContactInner = () => {
                     <div className="text">
                       <h6>¿Tienes dudas?</h6>
                       <Link href="tel:56994788521">
-                        <span>Llámanos</span> +569 94788521
+                        <span>Llámanos</span> +56996346064 - 432369090
                       </Link>
                     </div>
                   </li>
@@ -31,7 +31,7 @@ const ContactInner = () => {
                     </div>
                     <div className="text">
                       <h6>Escríbenos</h6>
-                      <Link href="mailto:contacto@econotrans.cl">contacto@econotrans.cl</Link>
+                      <Link href="mailto:contacto@econotrans.cl">contacto@mudanzasretorno.cl</Link>
                     </div>
                   </li>
                   <li>

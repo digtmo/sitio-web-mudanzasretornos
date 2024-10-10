@@ -4,7 +4,6 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const data = [
-  { img: "images/resource/4.png" },
   { img: "images/resource/2.png" },
   { img: "images/resource/3.png" },
   { img: "images/resource/1.png" },
