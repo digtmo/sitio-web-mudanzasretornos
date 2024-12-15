@@ -161,7 +161,7 @@ const Header1 = ({ handleOpen, handleRemove, searchToggle, handleToggle, scroll 
             <div className="inner-container">
               <div className="logo">
                 <Link href="/" title>
-                  <Image src={LogoDark} style={{ width: "100px" }} title="Tronis" />
+                  <Image src={LogoDark} style={{ width: "100px", height: "100px", objectFit: "contain" }} title="Tronis" />
                 </Link>
               </div>
               <div className="nav-outer">
