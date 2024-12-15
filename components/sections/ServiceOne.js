@@ -8,15 +8,15 @@ const ServiceOne = () => {
             title: "Los Ángeles - Santiago"
         },
         {
-            img: "santiago-concepcion.jpg",
+            img: "santiago-concepcion.png",
             title: "Santiago - Concepción"
         },
         {
-            img: "santiago-puerto.jpg",
+            img: "santiago-puerto.png",
             title: "Santiago - Puerto Montt"
         },
         {
-            img: "santiago-valdivia.jpg",
+            img: "santiago-valdivia.png",
             title: "Santiago - Valdivia"
         },
         {
@@ -24,11 +24,11 @@ const ServiceOne = () => {
             title: "Santiago - Pucon"
         },
         {
-            img: "santiago-temuco.jpg",
+            img: "santiago-temuco.png",
             title: "Santiago - Temuco"
         },
         {
-            img: "losangeles-concepcion.jpg",
+            img: "losangeles-concepcion.png",
             title: "Los Ángeles - Concepción"
         },
         {

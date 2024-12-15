@@ -82,7 +82,7 @@ const FunFactOne = () => {
               <div className="image-column col-lg-5 col-md-12 col-sm-12">
                 <div className="inner-column">
                   <figure className="image">
-                    <img src="images/servicios/camionarica.jpg" title="Tronis" />
+                    <img src="images/resource/compartidas.png" style={{ width: "600px" }} title="Tronis" />
                   </figure>
                 </div>
               </div>

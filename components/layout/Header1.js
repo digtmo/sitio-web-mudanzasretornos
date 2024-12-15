@@ -57,7 +57,7 @@ const Header1 = ({ handleOpen, handleRemove, searchToggle, handleToggle, scroll 
             <div className="logo-box">
               <div className="logo">
                 <Link href="/">
-                  <Image src={LogoDark} alt="Tronis" />
+                  <Image src={LogoDark} style={{ width: "100px" }} alt="Tronis" />
                 </Link>
               </div>
             </div>
@@ -85,7 +85,7 @@ const Header1 = ({ handleOpen, handleRemove, searchToggle, handleToggle, scroll 
             <div className="upper-box">
               <div className="logo">
                 <Link href="/">
-                  <Image src={LogoMobile} title="Tronis" />
+                  <Image src={LogoDark} title="Tronis" />
                 </Link>
               </div>
               <div className="close-btn" onClick={handleRemove}>
@@ -161,7 +161,7 @@ const Header1 = ({ handleOpen, handleRemove, searchToggle, handleToggle, scroll 
             <div className="inner-container">
               <div className="logo">
                 <Link href="/" title>
-                  <Image src={LogoDark} title="Tronis" />
+                  <Image src={LogoDark} style={{ width: "100px" }} title="Tronis" />
                 </Link>
               </div>
               <div className="nav-outer">

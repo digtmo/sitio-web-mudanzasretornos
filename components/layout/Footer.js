@@ -59,7 +59,7 @@ const Footer = () => {
                 <div className="footer-widget about-widget">
                   <div className="logo">
                     <Link href="/">
-                      <img src="images/logoblanco.png" title="Tronis" />
+                      <img src="images/logo.png" style={{ width: "150px" }} title="Tronis" />
                     </Link>
                   </div>
                   <div className="text">Somos una empresa cercana, con una alta adaptabilidad a los requerimientos de nuestros clientes.</div>
@@ -109,7 +109,7 @@ const Footer = () => {
             <div className="inner-container">
               <div className="copyright-text">
                 <p>
-                  © Econotrans por <Link href="https://www.digtmo.com">digtmo.com</Link>
+                  © Mudanzas Retorno por <Link href="https://www.digtmo.com">digtmo.com</Link>
                 </p>
               </div>
               <ul className="social-icon-two">
