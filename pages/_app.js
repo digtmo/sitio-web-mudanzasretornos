@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 
 function MyApp({ Component, pageProps }) {
   const [loading, setLoading] = useState(false);
-  useEffect(() => {
+ /*  useEffect(() => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
@@ -19,7 +19,7 @@ function MyApp({ Component, pageProps }) {
       live: false,
     });
     window.wow.init();
-  }, []);
+  }, []); */
   return <>{!loading ? <Component {...pageProps} /> : <div class="preloader"></div>}</>;
 }
 
