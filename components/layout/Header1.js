@@ -57,7 +57,7 @@ const Header1 = ({ handleOpen, handleRemove, searchToggle, handleToggle, scroll 
             <div className="logo-box">
               <div className="logo">
                 <Link href="/">
-                  <Image src={LogoDark} style={{ width: "100px" }} alt="Tronis" />
+                <Image src={LogoDark} style={{ width: "100px", height: "100px", objectFit: "contain" }}  title="Tronis" />
                 </Link>
               </div>
             </div>
@@ -85,7 +85,7 @@ const Header1 = ({ handleOpen, handleRemove, searchToggle, handleToggle, scroll 
             <div className="upper-box">
               <div className="logo">
                 <Link href="/">
-                  <Image src={LogoDark} title="Tronis" />
+                  <Image src={LogoDark} style={{ width: "100px", height: "100px", objectFit: "contain" }}  title="Tronis" />
                 </Link>
               </div>
               <div className="close-btn" onClick={handleRemove}>
@@ -98,14 +98,14 @@ const Header1 = ({ handleOpen, handleRemove, searchToggle, handleToggle, scroll 
                 <div className="contact-info-box">
                   <i className="icon lnr-icon-phone-handset" />
                   <span className="title">Teléfono</span>
-                  <Link href="tel:56994788521">+56996346064-432369090</Link>
+                  <Link href="tel:56996346064">+56996346064-432369090</Link>
                 </div>
               </li>
               <li>
                 <div className="contact-info-box">
                   <span className="icon lnr-icon-envelope1" />
                   <span className="title">Escríbenos</span>
-                  <Link href="/mailto:contacto@econotrans.cl"> Contacto@mudanzasretorno.cl</Link>
+                  <Link href="/mailto:contacto@mudanzasretorno.cl"> Contacto@mudanzasretorno.cl</Link>
                 </div>
               </li>
               {/*    <li>
