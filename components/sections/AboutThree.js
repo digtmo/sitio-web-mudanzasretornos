@@ -40,13 +40,13 @@ const AboutThree = () => {
                     </div>
                   </div>
                 </div>
-                <div className="founder-info">
+                {/* <div className="founder-info">
                   <div className="thumb">
                     <img src="images/resource/ceo.jpg" title="Tronis" />
                   </div>
                   <h5 className="name">Jaime Castillo Nuñez</h5>
                   <span className="designation">CEO Econotrans</span>
-                </div>
+                </div> */}
               </div>
             </div>
             <div className="image-column col-lg-6 col-md-12 col-sm-12">

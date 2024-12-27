@@ -4,7 +4,7 @@ import  Link  from 'next/link';
 const ServiceOne = () => {
     const data = [
         {
-            img: "losangeles-santiago.jpg",
+            img: "losangeles-santiago.png",
             title: "Los Ángeles - Santiago"
         },
         {
@@ -20,7 +20,7 @@ const ServiceOne = () => {
             title: "Santiago - Valdivia"
         },
         {
-            img: "santiago-pucon.jpg",
+            img: "santiago-pucon.png",
             title: "Santiago - Pucon"
         },
         {
@@ -32,7 +32,7 @@ const ServiceOne = () => {
             title: "Los Ángeles - Concepción"
         },
         {
-            img: "losangeles-sur.jpg",
+            img: "losangeles-sur.png",
             title: "Los Ángeles - Sur de Chile"
         },
     ];

@@ -65,7 +65,7 @@ const ProductGrid = ({ onTotalVolumeChange, setQuantities, quantities }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://backend-econotrans.digtmo.com/articulos');
+        const response = await axios.get('https://backend-econotrans-v2.digtmo.com/articulos');
         setData(response.data);
         const categories = Object.keys(response.data);
         if (categories.length > 0) {
