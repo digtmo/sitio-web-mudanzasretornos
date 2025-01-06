@@ -309,7 +309,7 @@ export default function Pagos() {
   const buscarReserva = async (numeroReserva, email) => {
     setCargando(true);
     try {
-      const response = await axios.get(`https://backend-econotrans.digtmo.com/pagospendientes/${numeroReserva}/${email}`);
+      const response = await axios.get(`https://backend-econotrans-v2.digtmo.com/pagospendientes/${numeroReserva}/${email}`);
       console.log(response.data)
       const { id, nombre, pagado, pendiente_pago, total, correo } = response.data;
       setReservaInfo({ id, nombre, pendiente_pago, pagado, total, correo });
@@ -325,7 +325,7 @@ export default function Pagos() {
   const handlePagar = async () => {
     setCargando(true);
     try {
-      const response = await axios.post('https://backend-econotrans.digtmo.com/webpay/pendiente', {
+      const response = await axios.post('https://backend-econotrans-v2.digtmo.com/webpay/pendiente', {
         pendiente_pago: reservaInfo.pendiente_pago,
         pagado: reservaInfo.pagado,
         id_reserva: reservaInfo.id,

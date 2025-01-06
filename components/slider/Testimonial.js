@@ -6,16 +6,16 @@ SwiperCore.use([Autoplay, Navigation]);
 const Testimonial = () => {
   const data = [
     {
-      title: "Cristobal Rivera",
-      text: "¡Un servicio excelente! Econotrans hizo que nuestra mudanza fuera mucho más fácil y sin estrés. El equipo fue profesional y cuidadoso con nuestras pertenencias. Definitivamente los recomendaría a cualquiera que necesite mudarse."
+      title: "Juan Pablo Garcia Vargas",
+      text: "Buenos día agradecemos a Mudanzas retorno por tan excelente servicio, nos trasportaron una mudanza de Santiago a puerto mont en perfectas condiciones y cumplimiento, con un excelente personal, un excelente servicio muchas gracias"
     },
     {
-      title: "Francisca Aguilera",
-      text: "La mudanza fue impecable gracias a Econotrans. Su equipo de profesionales manejó todo con gran cuidado y eficiencia. Además, su sistema de monitoreo satelital nos dio mucha tranquilidad durante el proceso. ¡Cinco estrellas!"
+      title: "Katherine Ayala",
+      text: "Excelente servicio y flexibilidad. Las personas que hicieron la carga y descarga de muebles fueron super amables y además llegó todo en buenas condiciones. Lo mejor es que cuidaron que mis plantitas llegaran bien."
     },
     {
-      title: "David Gutierrez",
-      text: "Estoy muy impresionado con el servicio de Econotrans. Desde el primer contacto hasta la entrega final, todo fue perfecto. La atención al cliente es excepcional y el equipo de mudanza es muy amable y profesional. ¡Gracias por todo!"
+      title: "Olga Kuncar",
+      text: "Mi nombre es Olga Kuncar, muy agradecida al equipo de trabajo que participó en mi mudanza .Ellos, Ricardo y los tres jóvenes que participaron en mi cambio. Demostraron,empatía,caballerosidad y una honradez increíble"
     },
   ];
 
@@ -55,9 +55,9 @@ const Testimonial = () => {
         className="testimonial-carousel"
       >
         {data.map((item, i) => (
-          <SwiperSlide className="testimonial-block">
+          <SwiperSlide className="testimonial-block" key={i}>
             <div className="inner-box">
-              <div className="content-box">
+              <div className="content-box equal-height">
                 <div className="rating">
                   <i className="fa fa-star" />
                   <i className="fa fa-star" />
