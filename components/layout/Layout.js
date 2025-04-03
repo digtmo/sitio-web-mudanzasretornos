@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import BackToTop from "../elements/BackToTop";
 import Footer from "./Footer";
 import Header1 from "./Header1";
@@ -9,7 +10,7 @@ import Header2 from "./Header2";
 import PageHead from "./PageHead";
 import Link from "next/link";
 
-// Puedes incluir el CSS aquí si no estás utilizando un archivo de estilos globales.
+// Estilos CSS para los botones
 const buttonStyles = `
   .whatsapp-button, .messenger-button, .quote-button {
     position: fixed;
@@ -26,6 +27,7 @@ const buttonStyles = `
     right: 20px;
   }
 
+  /* Valores por defecto */
   .whatsapp-button {
     bottom: 160px;
     background-color: #25d366;
@@ -36,15 +38,18 @@ const buttonStyles = `
     background-color: #0084ff;
   }
 
+  /* Estilo para el botón de Cotiza Acá */
   .quote-button {
-    display: none;
+    display: flex;
     bottom: 20px;
     background-color: #f97626;
     border-radius: 30px;
     width: auto;
     padding: 0 20px;
-    /* Añadimos animación de pulsación */
-  animation: pulse 2s infinite;
+    align-items: center;
+    justify-content: center;
+    animation: pulse 2s infinite;
+    text-decoration: none;
   }
 
   .whatsapp-button svg, .messenger-button svg {
@@ -57,33 +62,52 @@ const buttonStyles = `
     white-space: nowrap;
   }
 
+  /* Nuevos estilos cuando se detecta "cotizaciones" en la URL */
+  .whatsapp-button.cotizaciones {
+    bottom: 220px; /* Valor aumentado para bajar el botón */
+  }
+
+  .messenger-button.cotizaciones {
+    bottom: 160px; /* Valor aumentado para bajar el botón */
+  }
+
   @media (max-width: 767px) {
     .quote-button {
-      display: flex;
       bottom: 60px;
     }
     .whatsapp-button {
-      bottom: 220px;
+      bottom: 200px;
     }
     .messenger-button {
-      bottom: 140px;
+      bottom: 130px;
+    }
+    /* Ajuste para dispositivos móviles si se detecta "cotizaciones" */
+    .whatsapp-button.cotizaciones {
+      bottom: 115px;
+    }
+    .messenger-button.cotizaciones {
+      bottom: 50px;
     }
   }
 `;
 
 const Layout = ({ children, HeaderStyle }) => {
+  const router = useRouter(); // Obtenemos la ruta actual
   const [searchToggle, setSearchToggled] = useState(false);
   const [scroll, setScroll] = useState(0);
+
   const handleToggle = () => setSearchToggled(!searchToggle);
 
   useEffect(() => {
-    document.addEventListener("scroll", () => {
+    const onScroll = () => {
       const scrollCheck = window.scrollY > 100;
       if (scrollCheck !== scroll) {
         setScroll(scrollCheck);
       }
-    });
-  });
+    };
+    document.addEventListener("scroll", onScroll);
+    return () => document.removeEventListener("scroll", onScroll);
+  }, [scroll]);
 
   const handleOpen = () => {
     document.body.classList.add("mobile-menu-visible");
@@ -95,33 +119,53 @@ const Layout = ({ children, HeaderStyle }) => {
 
   useEffect(() => {
     const WOW = require("wowjs");
-    window.wow = new WOW.WOW({
-      live: false,
-    });
+    window.wow = new WOW.WOW({ live: false });
     window.wow.init();
   }, []);
+
+  // Verificamos si la URL contiene "cotizaciones"
+  const isCotizaciones = router.asPath.includes("cotizaciones");
 
   return (
     <>
       <PageHead />
       <div className="page-wrapper" id="top">
-        {!HeaderStyle && <Header1 handleOpen={handleOpen} handleRemove={handleRemove} searchToggle={searchToggle} handleToggle={handleToggle} scroll={scroll} />}
-        {HeaderStyle === "one" && <Header1 handleOpen={handleOpen} handleRemove={handleRemove} searchToggle={searchToggle} handleToggle={handleToggle} scroll={scroll} />}
-        {HeaderStyle === "two" && <Header2 handleOpen={handleOpen} handleRemove={handleRemove} searchToggle={searchToggle} handleToggle={handleToggle} scroll={scroll} />}
-        {/* {HeaderStyle === "three" && <Header3 handleOpen={handleOpen} handleRemove={handleRemove} searchToggle={searchToggle} handleToggle={handleToggle} scroll={scroll} />}
-        {HeaderStyle === "four" && <Header4 handleOpen={handleOpen} handleRemove={handleRemove} searchToggle={searchToggle} handleToggle={handleToggle} scroll={scroll} />}
-        {HeaderStyle === "five" && <Header5 handleOpen={handleOpen} handleRemove={handleRemove} searchToggle={searchToggle} handleToggle={handleToggle} scroll={scroll} />} */}
-
-        {/* <Sidebar /> */}
+        {!HeaderStyle && (
+          <Header1
+            handleOpen={handleOpen}
+            handleRemove={handleRemove}
+            searchToggle={searchToggle}
+            handleToggle={handleToggle}
+            scroll={scroll}
+          />
+        )}
+        {HeaderStyle === "one" && (
+          <Header1
+            handleOpen={handleOpen}
+            handleRemove={handleRemove}
+            searchToggle={searchToggle}
+            handleToggle={handleToggle}
+            scroll={scroll}
+          />
+        )}
+        {HeaderStyle === "two" && (
+          <Header2
+            handleOpen={handleOpen}
+            handleRemove={handleRemove}
+            searchToggle={searchToggle}
+            handleToggle={handleToggle}
+            scroll={scroll}
+          />
+        )}
+        {/* {HeaderStyle === "three" && <Header3 ... />}
+            {HeaderStyle === "four" && <Header4 ... />}
+            {HeaderStyle === "five" && <Header5 ... />} */}
 
         {children}
 
         <Footer />
       </div>
-      {/* <BackToTop /> */}
-
       <BackToTop />
-
       <div
         className="whatsapp-button"
         onClick={() => window.open("https://wa.me/+56996346064", "_blank")}
@@ -140,9 +184,12 @@ const Layout = ({ children, HeaderStyle }) => {
         </svg>
       </div>
 
-      <Link href="/#work-section" className="quote-button">
-        <span className="btn-title">Cotiza Acá</span>
-      </Link>
+       {/* Renderizamos el botón "Cotiza Acá" solo si NO se encuentra "cotizaciones" en la URL */}
+       {!isCotizaciones && (
+        <Link href="/cotizaciones" className="quote-button">
+          <span className="btn-title">Cotiza Acá</span>
+        </Link>
+      )}
 
       <style>{buttonStyles}</style>
     </>

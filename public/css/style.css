@@ -1462,8 +1462,8 @@ Scroll To Top style
   text-shadow: none;
 }
 ::selection {
-  background: #fff;
-  color: #fff;
+  background: #8eabc8;
+  color: #ffffff;
   text-shadow: none;
 }
 
@@ -1944,6 +1944,25 @@ textarea.form-control {
 
   /* Añadimos animación de pulsación */
   animation: pulse 2s infinite;
+}
+
+.btn-style-avancemos {
+
+  display: block;
+  margin: 0 auto;
+  position: relative;
+  font-size: 12px;
+  line-height: 25px;
+  color: #ffffff;
+  padding: 15px 40px;
+  font-weight: 600;
+  background: #f97626;
+  letter-spacing: 0.1em;
+  overflow: hidden;
+  text-transform: uppercase;
+  border: none; /* Quitamos el borde para un diseño más limpio */
+  cursor: pointer; /* Cambiamos el cursor para indicar que es clickable */
+  border-radius: 25px; /* Añadimos bordes redondeados */
 }
 
 .btn-style-four-reserva {

@@ -66,7 +66,7 @@ const Header1 = ({ handleOpen, handleRemove, searchToggle, handleToggle, scroll 
                 <NavLinks extraClassName="header1" />
               </nav>
               <div className="outer-box">
-                <Link href="/#work-section" className="btn-style-four">
+                <Link href="/cotizaciones" className="btn-style-four">
                   <span className="btn-title">Cotiza gratis tu mudanza</span>
                 </Link>
 
