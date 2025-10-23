@@ -235,7 +235,12 @@ const ReservationScreen = forwardRef((props, ref) => {
         tipoViviendaDestino: 'Casa', // Valor por defecto para tipo de vivienda de destino
     });
     const handleDateChange = (e) => {
-        setFechaMudanza(e.target.value);
+        const value = e.target.value;
+        setFechaMudanza(value);
+        setFormData(prev => ({
+            ...prev,
+            fechaMudanza: value,
+        }));
     };
 
 
@@ -647,10 +652,9 @@ const ReservationScreen = forwardRef((props, ref) => {
                                 type="date"
                                 id="fechaMudanza"
                                 name="fechaMudanza"
-                                value={fechaMudanza}
+                                value={formData.fechaMudanza}
                                 onChange={handleDateChange}
                                 placeholder="Ingresa una fecha"
-
                             />
                         </div>
                         <div className="input-group">
