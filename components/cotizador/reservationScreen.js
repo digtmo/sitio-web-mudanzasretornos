@@ -146,7 +146,7 @@ const ReservationScreen = forwardRef((props, ref) => {
 
 
         try {
-            const response = await axios.post('https://backend-econotrans-v2.digtmo.com/v1/cotizador', cotizacionData);
+            const response = await axios.post('https://econotrans-backend-production.up.railway.app/v1/cotizador', cotizacionData);
             setCotizacion(response.data);
             setShowSpinner(false);
             setShowModal(true);
@@ -157,7 +157,7 @@ const ReservationScreen = forwardRef((props, ref) => {
                 formData,
                 serviciosCotizados: response.data // Se envía el objeto completo con todos los servicios cotizados
             };
-            await axios.post(`https://backend-econotrans-v2.digtmo.com/v1/actualizarservicioscotizados/${reservaId}`, updateData);
+            await axios.post(`https://econotrans-backend-production.up.railway.app/v1/actualizarservicioscotizados/${reservaId}`, updateData);
             /*   setShowModal(true); */
 
 
@@ -345,7 +345,7 @@ const ReservationScreen = forwardRef((props, ref) => {
             const amount = pagoWebPay;
             setShowSpinner(true);
             try {
-                const response = await axios.post('https://backend-econotrans-v2.digtmo.com/webpay/transaction', { amount, dataToSend });
+                const response = await axios.post('https://econotrans-backend-production.up.railway.app/webpay/transaction', { amount, dataToSend });
                 // Aquí rediriges al usuario a la URL de Webpay usando el token
                 window.location.href = `${response.data.url}?token_ws=${response.data.token}`;
 
@@ -401,7 +401,7 @@ const ReservationScreen = forwardRef((props, ref) => {
         setIsLoading(true);
 
         try {
-            const response = await axios.post('https://backend-econotrans-v2.digtmo.com/v1/reservasc', transferData, {
+            const response = await axios.post('https://econotrans-backend-production.up.railway.app/v1/reservasc', transferData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -522,7 +522,7 @@ const ReservationScreen = forwardRef((props, ref) => {
         try {
             // Envías los datos del formulario con valores iniciales para volumen y artículos (por ejemplo, 0 o null)
             const response = await axios.post(
-                'https://backend-econotrans-v2.digtmo.com/v1/cotizadorsinvolumen',
+                'https://econotrans-backend-production.up.railway.app/v1/cotizadorsinvolumen',
                 { ...formData, totalVolume: 0, articles: [] }
             );
             // Guarda el ID devuelto por el backend para poder actualizar después

@@ -36,7 +36,7 @@ export default function CotizarNew({
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const res = await fetch("https://backend-econotrans-v2.digtmo.com/articulos");
+        const res = await fetch("https://econotrans-backend-production.up.railway.app/articulos");
         const data = await res.json();
         const categoriesFromApi = Object.keys(data).map((categoryName) => ({
           name: categoryName,

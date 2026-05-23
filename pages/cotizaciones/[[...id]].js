@@ -353,7 +353,7 @@ const CotizacionesPage = ({ cotizacion, id }) => {
 
       try {
         const response = await axios.post(
-          'https://backend-econotrans-v2.digtmo.com/webpay/transaction',
+          'https://econotrans-backend-production.up.railway.app/webpay/transaction',
           { amount, dataToSend: adaptedDataToSend }
         );
         // Redirige a Webpay utilizando el token recibido
@@ -406,7 +406,7 @@ const CotizacionesPage = ({ cotizacion, id }) => {
 
     try {
       const response = await axios.post(
-        'https://backend-econotrans-v2.digtmo.com/v1/reservasc',
+        'https://econotrans-backend-production.up.railway.app/v1/reservasc',
         transferData,
         {
           headers: { 'Content-Type': 'multipart/form-data' },
@@ -458,7 +458,7 @@ const CotizacionesPage = ({ cotizacion, id }) => {
 
   const fetchReserva = async (id, setApiReserva) => {
     try {
-      const response = await fetch(`https://backend-econotrans-v2.digtmo.com/v1/reservasidcotizacion/${id}`);
+      const response = await fetch(`https://econotrans-backend-production.up.railway.app/v1/reservasidcotizacion/${id}`);
       if (!response.ok) {
         throw new Error('Error al obtener la reserva');
       }
@@ -1003,7 +1003,7 @@ export async function getServerSideProps({ params }) {
   }
 
   try {
-    const res = await fetch(`https://backend-econotrans-v2.digtmo.com/v1/visualizacioncotizacion/${id}`);
+    const res = await fetch(`https://econotrans-backend-production.up.railway.app/v1/visualizacioncotizacion/${id}`);
     if (!res.ok) {
       return {
         props: { cotizacion: null, id },
